@@ -1,10 +1,12 @@
 ---
 # revealjs only auto-emits a title slide when `title` is set (template $if(title)$).
+public: true
 pagetitle: "Causal mapping is not systems dynamics"
 author: "Steve Powell, Causal Map Ltd"
 date: "21 May 2026"
 format:
   revealjs:
+    embed-resources: true
     theme: simple
     slide-number: true
     transition-speed: slow

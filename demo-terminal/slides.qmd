@@ -1,7 +1,9 @@
 ---
+public: true
 pagetitle: "Demo: Terminal"
 format:
   revealjs:
+    embed-resources: true
     theme: black
     slide-number: false
     transition: none

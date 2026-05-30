@@ -4,6 +4,7 @@ format:
   revealjs:
     theme: white
     slide-number: false
+    transition: none
     width: 1280
     height: 720
     margin: 0
@@ -22,7 +23,6 @@ format:
 ::: {.kicker}
 04-06-2026
 :::
-
 
 ::: {.cover-title}
 How to build a real-life theory of change from your interviews using AI: a Causal Map 4 training session

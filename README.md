@@ -55,11 +55,6 @@ Or use the existing batch files:
 .\cm-features\preview-features.bat
 ```
 
-Amsterdam also has a render script:
-
-```powershell
-.\Amsterdam-UMC\render.bat
-```
 
 ## Local Web App
 
@@ -143,6 +138,45 @@ The app only toggles this class. It does not comment out slides or store sidecar
 
 Click **Build static HTML** in the deck rail to run `quarto render` once. Use this when you want a publishable HTML file alongside the `.qmd`.
 
+## Publish to Netlify
+
+The decks are hosted read-only on Netlify as static files. Netlify has no Quarto, so we render locally and publish the rendered HTML rather than rebuilding on Netlify.
+
+**Mark a deck public.** Add `public: true` to a deck's front matter and give it `embed-resources: true` so it renders to a single self-contained file:
+
+```yaml
+---
+public: true
+format:
+  revealjs:
+    embed-resources: true
+---
+```
+
+Decks without `public: true` are left out of the published site, so demos and works in progress stay private.
+
+**Build the site.** From the repo root:
+
+```powershell
+.\build-site.ps1
+```
+
+The script reads every deck's front matter, renders the public ones, and writes them into `_site/`:
+
+- `_site/<deck>/index.html` for each public deck (one self-contained file)
+- `_site/index.html`, a landing page listing the decks, with theme demos in their own group
+
+It wipes and rebuilds `_site/` each run, so the folder always matches the current `public` flags.
+
+**Deploy.** Commit `_site/` and push. In Netlify, connect this GitHub repo with:
+
+- Build command: empty
+- Publish directory: `_site`
+
+Every push redeploys. Read-only is automatic; static hosting has no edit path. For a private link, switch on Netlify's site password protection.
+
 ## Git/File Sync
 
-When this folder is initialised as a git repo, commit the source files you want to sync. Generated HTML/PDF can either be committed for static hosting or regenerated locally; choose one policy and keep it consistent.
+Source `.qmd`, CSS, images, and the generated `_site/` are committed. In-deck renders (`slides.html`, `features-slides.html`) stay ignored; the published copies live only in `_site/`. Run `.\build-site.ps1` and commit before pushing so the live site matches the source.
+
+Quarto output is deterministic, so rebuilding a deck whose source is unchanged produces the same file and adds nothing to git history. Only decks you actually edit write new blobs. `.gitattributes` marks `_site/` as generated so git and GitHub treat the inlined-base64 files as binary rather than rendering multi-MB diffs.

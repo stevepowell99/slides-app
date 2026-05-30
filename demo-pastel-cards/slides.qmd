@@ -1,7 +1,9 @@
 ---
+public: true
 pagetitle: "Demo: Pastel cards"
 format:
   revealjs:
+    embed-resources: true
     theme: white
     slide-number: c/t
     transition-speed: slow

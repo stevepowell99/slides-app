@@ -1,548 +1,129 @@
 ---
-title: "From documents to a conclusion you can defend"
-subtitle: "A nine-step workflow for AI-assisted causal coding"
+pagetitle: "Causal Map / gLocal template"
 format:
   revealjs:
-    embed-resources: true
+    theme: white
+    slide-number: false
+    width: 1280
+    height: 720
+    margin: 0
+    auto-stretch: false
     include-in-header:
       - ../_shared/preview-bridge.html
     css:
       - ../_shared/styles.css
-    theme: default
-    slide-number: true
-    progress: true
+      - cm-glocal.css
 ---
 
+## Cover {.cover .no-title background-color="#0E3D5F"}
 
+![](assets/cm-logo-white.png){.brand-cm}
 
-## You have a stack of documents
-
-::: {.lead}
-Interviews. Reports. Open-ended survey answers. Hundreds of pages of people telling you what changed and why.
-:::
-
-Somewhere in there is the answer to your evaluation question.
-
-::: {.fragment .panel .panel-teal}
-How do you get it out, and get it out in a way you can stand behind?
-:::
-
-## Two tempting shortcuts, both bad
-
-::: {.columns}
-::: {.column width="50%"}
-**Hand it to the black box**
-
-"ChatGPT, what does this say?"
-
-Fast, fluent, and you have no idea what it leaned on. You cannot show your working, so you cannot defend the answer.
-:::
-::: {.column width="50%"}
-**Read it all yourself**
-
-Thorough, but it does not scale. Three hundred transcripts later, the patterns are still only in your head, and nobody can check them.
-:::
-:::
-
-::: {.fragment .lead .accent}
-There is a third way.
-:::
-
-## The promise
-
-::: {.lead}
-One workflow from raw text to a defensible conclusion, using AI as a clerk and keeping the judgement yours.
-:::
-
-Nine steps. Built for AI coding at scale, and it works just as well by hand.
-
-# First, the big idea
-
-## Causal mapping is an evidence broker
-
-::: {.lead}
-It does not compete with the evaluation methods you already know.
-:::
-
-It is the step that finds the causal claims, organises them, and hands them to contribution analysis, process tracing, Outcome Harvesting, QuIP, or your own judgement.
-
-::: {.fragment .panel .panel-teal}
-Stories in, organised evidence out. The evaluative call stays with you.
-:::
-
-## What a coded claim is
-
-::: {.lead}
-You read the text and mark each causal claim as a link from one factor to another.
-:::
-
-> "The training gave me confidence, and that is why I started the business."
-
-::: {.fragment .panel .panel-teal}
-becomes **training → confidence → started a business**, with the verbatim quote and the source kept on every link.
-:::
-
-## We code what people said, not what is true
-
-::: {.panel .panel-teal}
-A coded link means: *there is evidence that this source claims X influenced Y.*
-:::
-
-::: {.fragment}
-Not that X really did influence Y. Twenty people saying so is not proof. It is evidence you can now weigh. Crossing from claims to conclusions is your job, and the back half of this workflow is about doing it well.
-:::
-
-## Keep the coding minimalist
-
-::: {.lead}
-We deliberately do not code strength, polarity, or hidden meaning.
-:::
-
-People say "X made Y happen". They rarely say how strongly, or whether it was linear, or what the counterfactual was. So we do not invent it.
-
-::: {.fragment .note}
-Minimalist coding is fast, automatable, and stays close to what people actually said. That is exactly why AI can do the heavy lifting.
-:::
-
-## AI as a clerk, not an oracle
-
-::: {.columns}
-::: {.column width="50%"}
-**The clerk's job**
-
-Find every causal claim. Attach a quote. Tireless, exhaustive, cheap.
-:::
-::: {.column width="50%"}
-**Your job**
-
-Decide the question, check the work, judge what it all means.
-:::
-:::
-
-::: {.fragment .panel .panel-teal}
-The minimalist task is simple enough to hand over. The judgement is not, so we keep it.
-:::
-
-# How the workflow is built
-
-## Three acts
-
-::: {.columns}
-::: {.column width="33%"}
-**Plan**
-
-Steps 1 to 2. Decide what you want to answer and gather data that can answer it.
-:::
-::: {.column width="33%"}
-**Code**
-
-Steps 3 to 5. Turn the text into a checked table of claims, each with a quote.
-:::
-::: {.column width="33%"}
-**Query**
-
-Steps 6 to 9. Weigh the evidence and answer the question.
-:::
-:::
-
-## Capture cheaply, then judge
-
-::: {.lead}
-A few wide, cheap passes to capture the evidence. Then steadily narrower judgement.
-:::
-
-::: {.fragment .stat}
-1000 claims → 30 bundles → 25 assessed links → 1 conclusion
-:::
-
-
-::: {.fragment}
-Coding is broad and cheap on purpose. The value is added later, spending that volume down into something you can vouch for.
-:::
-
-## The nine steps
-
-::: {.columns}
-::: {.column width="50%"}
-**Plan**
-
-1. Overall planning
-2. Data gathering
-
-**Code**
-
-3. Manage the codebook
-4. Code the claims
-5. Check and enrich the links
-:::
-::: {.column width="50%"}
-**Query**
-
-6. From claims to bundles
-7. From bundles to pathways
-8. Judge value and contribution
-9. Holistic judgement
-:::
-:::
-
-::: {.caption}
-Not a strict sequence. You revisit the early ones. Only the last is strictly required.
-:::
-
-# Plan
-
-## Step 1: Start from the question
-
-::: {.lead}
-Before you touch a codebook, write down what you want to be able to say at the end, and to whom.
-:::
-
-Every later choice, the data, the labels, the columns, the queries, follows from that one sentence.
-
-::: {.fragment .note}
-Tip: sketch the map or table that would answer your question. That sketch is your target.
-:::
-
-## Be realistic about what it can answer
-
-::: {.columns}
-::: {.column width="50%"}
-**Good at**
-
-- Which factors matter most
-- What drives or follows from a factor
-- How groups differ
-- Whether evidence fits a theory of change
-- The overall structure of the system
-:::
-::: {.column width="50%"}
-**Not for**
-
-- Effect sizes
-- Proving X causes Y on its own
-:::
-:::
-
-::: {.fragment}
-Pick questions the method can serve, and only as many as the evaluation needs.
-:::
-
-## Step 2: Gather data that can answer it
-
-::: {.lead}
-The question decides the data.
-:::
-
-Narrative material works best. Ask people what changed and why, and you get causal claims to code.
-
-::: {.fragment .panel .panel-teal}
-Want to compare women and men, or staff and clients, or early and late? Those groups must be in the data and recorded in the source metadata. You cannot compare what you did not capture.
-:::
-
-# Code
-
-## Step 3: Manage the codebook
-
-::: {.lead}
-How much freedom does the coder get to invent labels?
-:::
-
-::: {.columns}
-::: {.column width="55%"}
-- **Forced**: only your labels
-- **Mostly fixed**: your labels, flag new ones for review
-- **Hierarchical**: fix the top level, free the detail
-- **Free**: invent everything
-:::
-::: {.column width="45%"}
-::: {.note}
-Loose finds more but leaves more to tidy. Tight is cleaner but misses links. Most projects start loose and tighten later by recoding.
-:::
-:::
-:::
-
-## Four tensions behind every coding choice
-
-::: {.lead}
-The settings look like separate knobs. They all pull on the same four tensions.
-:::
-
-- **Precision and recall**: are the links right, and did you catch them all?
-- **Freedom and control**: how much rope you give the model
-- **Capture now, judge later**: grab it cheaply, commit late
-- **Cost and time**: how much you spend tuning the rest
-
-::: {.fragment .accent}
-Turn one knob and the others move.
-:::
-
-## Step 4: Code the claims
-
-::: {.lead}
-You write an instruction for the AI, like a chatbot prompt, and paste it in.
-:::
-
-::: {.fragment .note}
-In a hurry, or one short text? Press one-click and accept the defaults. Often that is enough.
-:::
-
-::: {.fragment .panel .panel-teal}
-The golden rule: test on a small, varied sample, work out exactly why the output is wrong or thin, fix the instruction, run again. Then scale up.
-:::
-
-## Holistic or claim by claim?
-
-::: {.columns}
-::: {.column width="50%"}
-**Holistic**
-
-One connected diagram per chunk. A more joined-up story. Best for a single short text. The model has more freedom.
-:::
-::: {.column width="50%"}
-**Claim by claim**
-
-Every link separately. Fuller coverage. Best for many texts. Links join up less, so you recode later.
-:::
-:::
-
-## The one rule you never break
-
-::: {.stat}
-Every link needs a quote.
-:::
-
-::: {.fragment .panel .panel-teal}
-Without a verbatim quote behind each link, you cannot show your working, and you cannot defend the conclusion. Ask for it explicitly, every time.
-:::
-
-## Step 5: Check and enrich the links
-
-::: {.lead}
-However careful the coding, some links will be wrong. Check them before you analyse.
-:::
-
-::: {.columns}
-::: {.column width="55%"}
-- Tag the doubtful or surprising ones, to filter later
-- Add a **conviction** column: how sure the source sounds
-- Score **sources** too: reliability, role
-:::
-::: {.column width="45%"}
-::: {.note}
-Most claims are unmarked, so most are neutral. Neutral means "not mentioned", not "medium". Do not read these as scores.
-:::
-:::
-:::
-
-# Query
-
-## Your links are a knowledge graph
-
-::: {.lead}
-Not a static report. A model you can query, over and over, to answer different questions.
-:::
-
-It is a knowledge graph with one kind of relation: "influences". Because every link is causal, a lot of evaluation questions can be answered almost out of the box.
-
-::: {.fragment .accent}
-Stories in. A queryable model out.
-:::
-
-## A filter is a question, and filters chain
-
-::: {.lead}
-You query the graph with filters. Each filter is a question. Stack them and you answer a bigger one.
-:::
-
-::: {.fragment .stat}
-Links → women only → trace training to income → zoom out → bundle → map
-:::
-
-::: {.fragment .panel .panel-teal}
-The same data gives very different maps with no contradiction. Each map is just the result of a different chain of filters. Order usually matters.
+::: {.kicker}
+04-06-2026
 :::
 
-## The general questions, answered off the links
-
-::: {.lead}
-The moment coding is done, these answer themselves.
-:::
-
-::: {.columns}
-::: {.column width="50%"}
-- Which factors come up **most often**?
-- Which are the main **drivers**?
-- Which are the main **outcomes**?
-- What **leads to** a factor you care about?
-- What **follows from** it?
-:::
-::: {.column width="50%"}
-- How do **groups differ**, women and men, arm A and arm B?
-- Are there **hidden subgroups**?
-- What is **surprising or emerging**?
-- What is the **overall structure**, and are there **feedback loops**?
-:::
-:::
-
-## Two everyday examples
-
-::: {.columns}
-::: {.column width="50%"}
-::: {.panel .panel-teal}
-**"What did the cash transfer lead to?"**
-
-Filter to that factor, look downstream. Out comes the map of every reported consequence, with counts.
-:::
-:::
-::: {.column width="50%"}
-::: {.panel .panel-teal}
-**"Do women and men tell different stories?"**
-
-Split by group on the same map. The links each group stresses light up differently.
-:::
-:::
-:::
 
-::: {.fragment .note}
-These quick wins also sharpen your question before the harder work. The next four steps are for the questions that need a defensible answer.
+::: {.cover-title}
+How to build a real-life theory of change from your interviews using AI: a Causal Map 4 training session
 :::
 
-## Step 6: From claims to bundles
+## The team {.content background-color="#ffffff"}
 
-::: {.lead}
-A bundle is all the claims that say the same X influences Y, from different sources or different parts of one source.
-:::
+![](assets/qualia-logo.png){.brand-qualia}
 
-::: {.fragment .panel .panel-teal}
-Whatever else you do, weigh each bundle as a whole. How many sources? How convincing? Do they agree or pull apart?
+::: {.body}
+- Steve Powell, Co-founder and Director, Causal Map Ltd
+- Gabriele Caldas Cabral, Outreach Coordinator, Causal Map Ltd
 :::
 
-## Recording the verdict: assessed links
+## Overview {.content background-color="#ffffff"}
 
-You can weigh bundles by eye, or record the judgement formally.
+![](assets/qualia-logo.png){.brand-qualia}
 
-::: {.panel .panel-teal}
-Collapse a bundle into a single **assessed link** that carries your quality score. The raw claims are not deleted; a switch shows either view, never both at once. Thin bundles earn no assessed link.
-:::
-
-::: {.fragment}
-Either way the move is the same: from a mass of raw claims to a smaller set you are willing to vouch for. The app makes you write the criteria down first, on purpose.
-:::
+::: {.body}
+- What is QualiaInterviews?
+- Servers inside and outside the EU
+- Being interviewed by Qualia
+- Why AI-led interviews?
+- QualiaInterviews demonstration
+- Discussion
+- Questions and answers
 
-## Step 7: From bundles to pathways
 
-::: {.lead}
-Now the indirect questions. How does an intervention reach an outcome, two or three steps down the chain?
 :::
 
-This is where causal mapping earns its name, and where the biggest trap lives.
+## Why AI-led interviews? {.section .no-title background-color="#0E3D5F"}
 
-## The transitivity trap
-
-::: {.columns}
-::: {.column width="55%"}
-A pig farmer says:
-
-> the cash grant gave me **more cash**
-
-A wheat farmer says:
-
-> **more cash** let me buy **more seed**
-:::
-::: {.column width="45%"}
-::: {.fragment .panel .panel-teal}
-So cash grants lead to more seed?
-
-**No.** The first step is true only for pig farmers, the second only for wheat farmers. Two people, two stories, stitched into one that nobody told.
-:::
+::: {.section-title}
+Why AI-led interviews?
 :::
-:::
 
-## Source tracing keeps you safe
-
-::: {.lead}
-Path tracing shows every link on a route between two factors, across all sources. Easy to misread.
-:::
+![](assets/qualia-logo.png){.brand-qualia}
 
-::: {.fragment .panel .panel-teal}
-Source tracing keeps only the sources whose own account runs all the way through. Every link is then part of one complete story told by one person. That is the safe move.
-:::
+## Servers inside and outside the EU {.content background-color="#ffffff"}
 
-## Step 8: Judge value and contribution
+![](assets/qualia-logo.png){.brand-qualia}
 
-::: {.lead}
-How much did it matter, and compared to what?
+::: {.body}
+- **EU-only mode** [YES]{.chip-yes}: data and processing stay entirely inside the EU
+- **Session persistence:** the toggle setting holds between sessions
+- **Real time:** the page reloads to reconnect to the right services
+- **Global mode** [NO]{.chip-no}: flexible storage on the wider base in the US
 :::
-
-Compare the influence you care about against the rival explanations, on the same map, not in isolation. Count the sources whose narratives actually run from your driver to your outcome.
-
-## Step 9: Holistic judgement
 
-::: {.lead}
-Finally, step back and draw the conclusion.
+::: {.callout}
+Important to know: the two environments are fully separate. No data, interviews or credits transfer between modes.
 :::
 
-Behind a single tidy map there may still be hundreds of quotes. Does the claim hold up? Do all the links really belong to the same context?
 
-::: {.fragment .panel .panel-teal}
-The AI can draft a **vignette**: a source-by-source commentary on the pathways, judging how coherent each account is. It does only what a patient reader could. Treat it as a first draft and edit it.
-:::
+## Servers inside and outside the EU {.content background-color="#ffffff"}
 
-## Close the loop
+![](assets/qualia-logo.png){.brand-qualia}
 
-::: {.stat}
-Does the evidence answer your Step 1 question?
+::: {.body}
+- **EU-only mode** [YES]{.chip-yes}: data and processing stay entirely inside the EU
+- **Session persistence:** the toggle setting holds between sessions
+- **Real time:** the page reloads to reconnect to the right services
+- **Global mode** [NO]{.chip-no}: flexible storage on the wider base in the US
 :::
 
-::: {.fragment}
-If yes, you have a conclusion with every step on show, from quote to claim to bundle to pathway to judgement.
+::: {.callout}
+Important to know: the two environments are fully separate. No data, interviews or credits transfer between modes.
 :::
 
-# So what
+## Case studies {.content background-color="#ffffff"}
 
-## The whole thing in one line
+![](assets/qualia-logo.png){.brand-qualia}
 
-::: {.lead}
-Code "X influenced Y, with a quote". Capture cheaply. Then judge, in the open, until you have something you can defend.
+::: {.body}
+- **VIB, Brussels:** 100 HR interviews on career trajectories
+- **Sudan:** 60 development professionals for a programme evaluation
+- **Gender gap in STEM, Chile:** automated interviews with 32 participants
+- **UK postdoc feedback:** mid-career drivers and obstacles to learning
+- **Climate adaptation, Austria:** 38 harvested outcome statements
 :::
 
-::: {.fragment .panel .panel-teal}
-None of this is statistical causal inference. It is a disciplined way to assemble evidence, weigh it transparently, and reach conclusions you can stand behind.
-:::
+## Interview about XXX {.content background-color="#ffffff"}
 
-## Where it fits
+![](assets/qualia-logo.png){.brand-qualia}
 
-::: {.lead}
-Causal mapping is the evidence broker. It feeds the methods you already trust.
-:::
+::: {.body}
+INTERVIEW LINK + QR CODE
 
-::: {.columns}
-::: {.column width="50%"}
-- Contribution analysis
-- Process tracing
-- Outcome Harvesting
+![](../_shared/img/paste-1780037747474.png){width="20%"}
 :::
-::: {.column width="50%"}
-- QuIP
-- Realist evaluation
-- Most Significant Change
-:::
-:::
 
-::: {.fragment}
-Most real evaluations combine several. Pick the methods to fit the question.
-:::
+## Obrigada! {.closing .no-title background-color="#0E3D5F"}
 
-## We use this every day
+::: {.gei-logo}
+![](assets/gei-mark.png)
 
-::: {.lead}
-This is how we work at Causal Map Ltd, and it keeps evolving.
+::: {}
+global<br><b>evaluation</b><br>initiative
 :::
-
-::: {.fragment .panel .panel-teal}
-If you want to go from a stack of documents to a conclusion you can defend, come and try it with us.
 :::
 
-::: {.caption}
-Companion working paper: "A workflow for AI-assisted causal coding". App: app.causalmap.app
+::: {.closing-title}
+Obrigada!
 :::

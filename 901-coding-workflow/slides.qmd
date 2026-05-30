@@ -1,10 +1,8 @@
 ---
 public: true
-title: "From documents to a conclusion you can defend"
-subtitle: "A nine-step workflow for AI-assisted causal coding"
+pagetitle: "A nine-step workflow for AI-assisted causal coding"
 format:
   revealjs:
-    embed-resources: true
     include-in-header:
       - ../_shared/preview-bridge.html
     css:
@@ -14,17 +12,27 @@ format:
     progress: true
 ---
 
+# {.center .title-page background-color="#1F1F36"}
+
+::: {.headline}
+A nine-step workflow for [AI-assisted causal coding]{.teal}
+:::
+
+::: {.subhead}
+From documents to a conclusion you can defend
+:::
+
 ## You have a stack of documents
 
 ::: {.lead}
 Interviews. Reports. Open-ended survey answers. Hundreds of pages of people telling you what changed and why.
 :::
 
-Somewhere in there is the answer to your evaluation question.
+Somewhere in there is the answer to your evaluation or research questions.
 
 
 ::: {.fragment .panel .panel-teal}
-How do you get it out, and get it out in a way you can stand behind?
+How do you get the answers, in a rigorous way?
 :::
 
 ## Two tempting shortcuts, both bad
@@ -40,7 +48,8 @@ Fast, fluent, and you have no idea what it leaned on. You cannot show your worki
 ::: {.column width="50%"}
 **Read it all yourself**
 
-Thorough, but it does not scale. Three hundred transcripts later, the patterns are still only in your head, and nobody can check them.
+Thorough, but it [does not scale]{.emph-blue}. Three hundred transcripts? How to make sure that your synthesis really reflects what they all say, without jumping to early conclusions? How can you synthesise in a way which answers the [causal]{.accent} questions in research and evaluation?
+
 :::
 :::
 
@@ -48,13 +57,16 @@ Thorough, but it does not scale. Three hundred transcripts later, the patterns a
 There is a third way.
 :::
 
+
 ## The promise
 
 ::: {.lead}
-One workflow from raw text to a defensible conclusion, using AI as a clerk and keeping the judgement yours.
+One workflow from raw text to a defensible conclusion, using AI as a clerk and making the judgements yourself.
 :::
 
 Nine steps. Built for AI coding at scale, and it works just as well by hand.
+
+Human first, AI next.
 
 # First, the big idea
 
@@ -63,6 +75,8 @@ Nine steps. Built for AI coding at scale, and it works just as well by hand.
 ::: {.lead}
 It does not compete with the evaluation methods you already know.
 :::
+
+It has a [50-year tradition](garden.causalmap.app).
 
 It is the step that finds the causal claims, organises them, and hands them to contribution analysis, process tracing, Outcome Harvesting, QuIP, or your own judgement.
 

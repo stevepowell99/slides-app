@@ -3,7 +3,6 @@ public: true
 pagetitle: "Demo: Moonlight"
 format:
   revealjs:
-    embed-resources: true
     theme: black
     slide-number: c/t
     transition: slide

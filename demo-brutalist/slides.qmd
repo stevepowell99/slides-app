@@ -3,7 +3,6 @@ public: true
 pagetitle: "Demo: Brutalist"
 format:
   revealjs:
-    embed-resources: true
     theme: white
     slide-number: false
     transition: none

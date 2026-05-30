@@ -3,7 +3,6 @@ public: true
 pagetitle: "Demo: Editorial"
 format:
   revealjs:
-    embed-resources: true
     theme: serif
     slide-number: true
     transition-speed: slow

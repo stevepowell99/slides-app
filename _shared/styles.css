@@ -1,37 +1,65 @@
 /* Shared Causal Map RevealJS slide styles */
 
-/* Section breadcrumb: faint current-section label, bottom-centre. Populated by
-   the breadcrumb script in preview-bridge.html. Centred to clear the menu
-   hamburger (bottom-left), the slide number (bottom-right) and the progress
-   bar (bottom edge). Neutral grey reads on both light and dark themes. Opt out
-   per deck with `window.SLIDE_BREADCRUMB=false`. */
+/* Section breadcrumb: current-section label in the bottom-right, sitting just
+   left of the slide number so the two read as one unit. Populated by the
+   breadcrumb script in preview-bridge.html. Both wear a semi-opaque white pill
+   so they stay legible over any slide. Opt out per deck with
+   `window.SLIDE_BREADCRUMB=false`. */
 .reveal .slide-breadcrumb {
   position: fixed;
-  bottom: 0.5em;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 30;
-  font-size: 0.5em;
+  bottom: 8px;
+  right: 6.8em;
+  left: auto;
+  transform: none;
+  z-index: 31;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  text-align: center;
-  color: rgba(128, 128, 128, 0.75);
+  text-align: right;
+  color: #1b1b3a;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 3px 7px;
+  border-radius: 4px;
   pointer-events: none;
-  max-width: 50vw;
+  max-width: 36vw;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .reveal .slide-breadcrumb:empty { display: none; }
 
+/* Match the slide number to the breadcrumb pill. !important overrides the
+   Quarto reveal theme, which otherwise forces a transparent background. */
+.reveal .slide-number {
+  bottom: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.7) !important;
+  color: #1b1b3a !important;
+  padding: 3px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
 /* Hide the slide heading without removing the title from outlines / nav.
    Apply with: `## My title {.no-title}` */
 .reveal section.no-title > :is(h1, h2, h3):first-of-type { display: none; }
 
 :root {
-  --bg: #1b1b3a;
-  --teal: #5fd4d0;
-  --teal-dark: #2a8a86;
+  /* Causal Map corporate palette. The bright tones (blue-bright, yellow, pink,
+     mint) are intended for highlight fills; the dark blue is the deck/title
+     background. The darker accents below keep text legible on white, which the
+     bright corporate tones cannot do. */
+  --cm-dark: #1F1F36;        /* dark blue */
+  --cm-blue: #6DC4C8;        /* light blue, from the logo */
+  --cm-blue-bright: #76F7FF; /* light blue, for highlights */
+  --cm-yellow: #F7ED73;      /* light yellow */
+  --cm-pink: #FF8FB8;        /* pink */
+  --cm-mint: #00FFAF;        /* mint green */
+
+  /* Semantic aliases used across the decks */
+  --bg: var(--cm-dark);
+  --teal: var(--cm-blue);
+  --teal-dark: #2a8a86;      /* darkened logo blue, for text on light */
   --muted: #e8edf2;
   --grey-bg: #f4f6f9;
   --blue: #2b6cb0;
@@ -106,6 +134,33 @@
 .reveal ul li, .reveal ol li {
   margin: 0.15em 0;
 }
+
+/* Basic reusable styles on the corporate palette. These are deck-agnostic, so
+   any deck that includes this stylesheet can use them. */
+
+/* Lead paragraph: a larger intro line. Wrap with `::: {.lead}`. */
+.lead, .reveal .lead p {
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+.lead {
+  color: var(--ink);
+  margin: 0.2em 0 0.5em;
+}
+
+/* Inline highlights: `[text]{.hl-yellow}`. box-decoration-break keeps the fill
+   tidy when a highlight wraps across lines. */
+.hl-blue, .hl-yellow, .hl-pink, .hl-green {
+  padding: 0 0.18em;
+  border-radius: 3px;
+  color: var(--ink);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.hl-blue   { background: var(--cm-blue-bright); }
+.hl-yellow { background: var(--cm-yellow); }
+.hl-pink   { background: var(--cm-pink); }
+.hl-green  { background: var(--cm-mint); }
 
 /* Accent text */
 .accent {

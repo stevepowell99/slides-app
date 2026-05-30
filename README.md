@@ -4,6 +4,20 @@ A workspace for building [Quarto](https://quarto.org) RevealJS slide decks, with
 
 The app gives you a three-pane editor (deck list, per-slide editor, live preview) with drag-to-reorder, rename, hide/show, and two-way navigation between the slide list and the embedded preview.
 
+## Features
+
+- **Build consistent decks.** Shared styles and project-wide RevealJS defaults keep every deck looking the same, and any deck can override them.
+- **Reuse slides and images across decks.** Pick a slide from another deck and either keep its original look or adapt it to the current deck's styles. Reuse any image from any deck through a picker.
+- **Write in plain text.** Each deck is Markdown, split into slides by headings, so any editor works and nothing is locked in a database.
+- **Edit with slash commands.** Type `/` for columns, spans, fenced divs, images, fragments, and speaker notes, with tab-through placeholders.
+- **Edit in a capable editor.** CodeMirror brings find and replace, multiple cursors, move and copy lines, class autocomplete drawn from the deck's own CSS, and column-block tinting so the structure is visible in plain text.
+- **Preview live with reveal.js.** Speaker notes, two-dimensional slide layout, incremental reveal, nested rows and columns for any layout, a section breadcrumb, and a progress bar.
+- **Navigate both ways.** Selecting a slide moves the preview; moving in the preview selects the slide.
+- **Paste images straight into the editor.** They save to a shared folder and insert at the cursor, so copied slides keep working in other decks.
+- **Let your AI write the slides.** A deck is just text, so an assistant can draft a whole deck for you and you refine it here. Every deck is a folder of text files on your computer.
+- **Render to HTML or PDF.** Produce a single self-contained HTML file, or a PDF, from any deck, and publish public decks read-only to Netlify.
+- **Start from a theme.** Several demo decks (brutalist, editorial, moonlight, pastel cards, terminal) show distinct looks you can clone as a starting point.
+
 ## Quick start
 
 Run the app:
@@ -14,7 +28,7 @@ npm install
 npm run dev
 ```
 
-Open the printed local URL, pick a deck on the left, and edit. Press `Ctrl+Enter` or **Render** to update the preview.
+Open the printed local URL, pick a deck on the left, and edit. Press `Ctrl+Enter` or `Ctrl+S` (or click **Save**) to update the preview.
 
 Or work in Quarto directly, from any deck folder:
 
@@ -25,6 +39,24 @@ quarto preview slides.qmd
 Requirements: [Quarto](https://quarto.org/docs/get-started/) and [Node.js](https://nodejs.org). Developed on Windows with PowerShell; the app runs anywhere Node and Quarto do.
 
 The rest of this README covers the details: deck layout, the app's editing model, deck front matter, and building static HTML.
+
+## Features in detail
+
+**Consistent decks, with room to differ.** `_quarto.yml` sets project-wide RevealJS defaults (transition, progress bar) and `_shared/styles.css` holds the styles every deck shares, including the section breadcrumb and the title-page layout. A deck inherits all of this and overrides only what it needs in its own front matter or CSS, so a set of decks looks like a set rather than a pile.
+
+**Reuse slides and images.** The slide gallery lists every slide in every deck. Pick one and choose how its styles travel: keep its original look (the source deck's CSS rules come across, overriding the target where they clash) or adapt it (only missing rules used by that slide are added, so it takes on the target deck's styles). CSS variables the copied rules depend on come across too. A separate image gallery lets you drop any image from any deck into the slide you are editing.
+
+**Plain-text source.** A deck is one `.qmd` file plus its CSS and images in a folder. Slides are separated by Markdown headings: `#` for title or section slides, `##` for normal slides. There is no database and no proprietary format, so you can edit in this app, in Quarto directly, in any text editor, or have an AI assistant generate a deck and then refine it here.
+
+**Slash commands and class autocomplete.** In the body editor, type `/` at the start of a line to insert Quarto structures: `/columns`, `/column`, `/span`, `/div`, `/image`, `/columns3`, `/fragment`, `/notes`. `Tab` jumps between the placeholders. Select text and press `/` to wrap it in a styled span with the class picker already open. Type `.` inside an attribute block to choose from the classes the active deck's CSS actually defines, each tagged shared or deck.
+
+**Live reveal.js preview.** The right pane embeds `quarto preview`, so you get the real reveal.js deck: press `S` for the speaker view with notes, lay slides out in two dimensions (across with `#`, down with `##` under a section, or with nested column blocks), reveal content one step at a time with fragments, and nest rows and columns for any layout. A faint breadcrumb shows the current section and a progress bar tracks position.
+
+**Two-way navigation.** The slide list, body editor, and preview stay in step. Selecting a slide jumps the preview to it; arrow keys or the slide menu inside the preview select the matching row. The rendered deck is the source of truth for where each slide sits, so the three panes never drift apart.
+
+**Paste images directly.** Paste an image from the clipboard into the editor and it saves to `_shared/img/` and inserts a reference at the cursor. Because the folder is shared, a slide you copy to another deck keeps its image.
+
+**Render to HTML and PDF.** Build a single self-contained HTML file for any deck (good for email), or a PDF. Mark a deck `public: true` and `build-site.ps1` renders it into `_site/` for read-only hosting on Netlify.
 
 ## Deck Layout
 
@@ -80,12 +112,23 @@ The slide list supports:
 - Double-click to rename (preserves heading attributes such as `{.hidden-slide}`)
 - Right-click for hide/show/copy/paste/delete
 
-Slide navigation is bidirectional. A small bridge script (`_shared/preview-bridge.html`, injected via `include-in-header`) exchanges `postMessage` events with the parent:
+Slide navigation is bidirectional, and the rendered deck is the source of truth for where each slide sits. A small bridge script (`_shared/preview-bridge.html`, injected via `include-in-header`) exchanges `postMessage` events with the parent:
 
+- On load (and after every render) the bridge walks Reveal's own slide collection and posts the real ordered list, each entry with its `(h, v)` and heading text. The app pairs its parsed headings to that list by order, so it never has to reproduce Quarto's layout (auto title slides, merged headings, `slide-level`) and the three panes cannot drift apart.
 - Selecting a slide in the rail sends `{type:'goto', h, v}` to the iframe, which calls `Reveal.slide(h, v)`. No reload.
 - Navigating inside the iframe (arrow keys, slide menu, links) posts a `slidechanged` event back, and the rail and body editor follow.
 
-Editing does not touch disk. The body is spliced into an in-memory copy of the `.qmd` and the slide list re-parses locally, so typing never reloads the preview. To render, press `Ctrl+Enter` or click **Render**: the in-memory `.qmd` is written to disk, Quarto's file watcher reloads the iframe, and the bridge re-attaches and re-sends the current slide. Switching deck renders the deck you are leaving so edits persist; the slide actions (new, delete, move, paste, rename) also write and render.
+A heading the deck does not render (one Quarto merges away, or a hidden slide) simply gets no `(h, v)` and is left unnavigable rather than shifting every slide after it. Initial selection follows whatever the preview shows first, so the rail and the title slide always agree on load.
+
+Editing does not touch disk. The body is spliced into an in-memory copy of the `.qmd` and the slide list re-parses locally, so typing never reloads the preview. To render, press `Ctrl+Enter` (or `Ctrl+S`) or click **Save**: the in-memory `.qmd` is written to disk, Quarto's file watcher reloads the iframe, and the bridge re-attaches and re-sends the current slide. Switching deck renders the deck you are leaving so edits persist; the slide actions (new, delete, move, paste, rename) also write and render.
+
+The body editor (CodeMirror) has two completion helpers, both quiet during ordinary prose:
+
+- Type `/` at the start of a line for slash commands that insert Quarto structures: `/columns`, `/column`, `/span`, `/div`, `/image`, `/columns3`, `/fragment`, `/notes` (everyday ones first). `Tab` jumps between the `${...}` placeholders. `/image` opens the picture gallery (the same as the Image button) and inserts the chosen image at the cursor.
+- Select some text and press `/` to wrap it in a styled span: it becomes `[selection]{.}` with the class picker already open, so you just choose a style.
+- Type `.` inside a Pandoc attribute block (`::: {.`, `[text]{.`, `## Title {.`) to pick from the classes the active deck's CSS actually defines, tagged `shared` or `deck`. The list comes from `GET /api/decks/:deck/classes`, which parses every CSS file the deck includes (its own plus `../_shared/styles.css`), so a class only appears where it will actually work.
+
+Lines inside a `:::: {.columns}` block are tinted so the structure is visible in plain text: the two columns get alternating tints and the container gets a left bar. It is a scanning aid only; the real side-by-side layout is in the preview.
 
 The `.qmd` file on disk is the source of truth once rendered. Because edits live in memory until you render, closing the tab with unsaved edits prompts first. The per-slide editor only edits the body of one slide at a time.
 
@@ -96,14 +139,29 @@ For the embedded preview to find shared CSS and the bridge script, each deck's `
 ```yaml
 format:
   revealjs:
-    embed-resources: true
     include-in-header:
       - ../_shared/preview-bridge.html
     css:
       - ../_shared/styles.css
 ```
 
-`embed-resources: true` is required because `quarto preview` serves only the deck folder; assets at `../_shared/` cannot be fetched at runtime and have to be inlined at render time. New decks created from the app already include these settings.
+Decks do not set `embed-resources`. `quarto preview` runs in project mode from the repo root (see `_quarto.yml`, which exposes `_shared/**` and `fontawesome/**` as project resources), so `../_shared/` and `../fontawesome/` resolve at runtime without inlining. Leaving assets external keeps each render small, so saving reloads the preview quickly. Embedding happens only at publish time (see Publish to Netlify). New decks created from the app already include these settings.
+
+Do not set a `title:` (or `subtitle:`) in front matter. Quarto turns those into an auto-generated title slide that has no source heading, so it cannot be selected or edited in the slide list, and the rail has nothing to highlight when the preview lands on it. Instead make the title slide a real heading, which gives every deck the same editable first row:
+
+```markdown
+# {.center .title-page background-color="#1F1F36"}
+
+::: {.headline}
+Your title, with an [accent]{.teal}
+:::
+
+::: {.subhead}
+Your subtitle
+:::
+```
+
+`.title-page` and its `.headline` / `.subhead` / `.eyebrow` / `.byline` / `.urls` children are styled in `_shared/styles.css` for a dark background, so keep the `background-color`. Use `pagetitle:` if you still want a browser-tab title (it does not create a slide). See `Amsterdam-UMC` and `901-coding-workflow` for the pattern.
 
 ## Shared Defaults
 
@@ -136,24 +194,21 @@ The app only toggles this class. It does not comment out slides or store sidecar
 
 ## Build Static HTML
 
-Click **Build static HTML** in the deck rail to run `quarto render` once. Use this when you want a publishable HTML file alongside the `.qmd`.
+Click **Build static HTML** in the deck rail to run `quarto render --embed-resources` once. Use this when you want a single self-contained HTML file alongside the `.qmd`, for example to email a deck.
 
 ## Publish to Netlify
 
 The decks are hosted read-only on Netlify as static files. Netlify has no Quarto, so we render locally and publish the rendered HTML rather than rebuilding on Netlify.
 
-**Mark a deck public.** Add `public: true` to a deck's front matter and give it `embed-resources: true` so it renders to a single self-contained file:
+**Mark a deck public.** Add `public: true` to a deck's front matter:
 
 ```yaml
 ---
 public: true
-format:
-  revealjs:
-    embed-resources: true
 ---
 ```
 
-Decks without `public: true` are left out of the published site, so demos and works in progress stay private.
+`build-site.ps1` renders public decks with `--embed-resources`, so each one becomes a single self-contained file at build time. Decks no longer set `embed-resources` themselves (that flag slowed the live preview). Decks without `public: true` are left out of the published site, so demos and works in progress stay private.
 
 **Build the site.** From the repo root:
 
@@ -177,6 +232,16 @@ Every push redeploys. Read-only is automatic; static hosting has no edit path. F
 
 ## Git/File Sync
 
-Source `.qmd`, CSS, images, and the generated `_site/` are committed. In-deck renders (`slides.html`, `features-slides.html`) stay ignored; the published copies live only in `_site/`. Run `.\build-site.ps1` and commit before pushing so the live site matches the source.
+Source `.qmd`, CSS, images, and the generated `_site/` are committed. In-deck renders (`slides.html`, `features-slides.html`) stay ignored; the published copies live only in `_site/`. Because Netlify serves the committed `_site/`, it has to be rebuilt before each push that changes a deck.
+
+A tracked `pre-commit` hook (in `hooks/`) does this automatically: when a commit touches a `.qmd`, `_shared/`, `fontawesome/`, or `build-site.ps1`, it runs `build-site.ps1` and stages `_site/` into the same commit. Commits that touch no slide sources skip the build. Bypass with `git commit --no-verify`.
+
+The hook is tracked, but git only runs it once you point this clone at it (a one-time, per-clone step that cannot be committed):
+
+```powershell
+git config core.hooksPath hooks
+```
+
+It needs PowerShell 7 (`pwsh`) on PATH. If `pwsh` is missing the hook aborts the commit and tells you to run `build-site.ps1` yourself.
 
 Quarto output is deterministic, so rebuilding a deck whose source is unchanged produces the same file and adds nothing to git history. Only decks you actually edit write new blobs. `.gitattributes` marks `_site/` as generated so git and GitHub treat the inlined-base64 files as binary rather than rendering multi-MB diffs.

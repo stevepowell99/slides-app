@@ -38,25 +38,43 @@ foreach ($dir in Get-ChildItem -Path $root -Directory) {
         Qmd     = $qmd.FullName
         Html    = Join-Path $dir.FullName ($qmd.BaseName + '.html')
         Title   = $title
+        Rel     = "$($dir.Name)/$($qmd.Name)"
         IsDemo  = $dir.Name -match '^demo-'
     }
 }
 
 if ($decks.Count -eq 0) { throw "No decks with 'public: true' found." }
 
+# Small fixed Home link, injected only into the published copies (not the
+# in-deck renders), pointing back to the landing page one level up.
+$homeLink = '<a href="../" class="deck-home" title="All decks">Home</a><style>.deck-home{position:fixed;top:10px;right:12px;z-index:60;font:500 12px/1 system-ui,sans-serif;color:#888;text-decoration:none;opacity:.55}.deck-home:hover{opacity:1}</style>'
+
 foreach ($d in $decks) {
     Write-Host "Rendering $($d.Slug)..."
-    & $quarto render $d.Qmd --quiet
+    # --embed-resources makes each deck a self-contained HTML. The publish step
+    # copies only index.html into _site/<deck>/ (no asset folder), so the build
+    # must embed; the deck YAML no longer sets embed-resources (kept off so the
+    # live preview reloads fast).
+    & $quarto render $d.Qmd --embed-resources --quiet
     if (-not (Test-Path $d.Html)) { throw "Render produced no HTML for $($d.Slug) (expected $($d.Html))." }
     $dest = Join-Path $siteDir $d.Slug
     New-Item -ItemType Directory -Force $dest | Out-Null
-    Copy-Item $d.Html (Join-Path $dest 'index.html') -Force
+    # Insert before the final </body> only. Inlined plugins (e.g. speaker
+    # notes) contain </body> inside JS strings, so a blanket replace would
+    # corrupt them and break Reveal.
+    $content = Get-Content $d.Html -Raw
+    $i = $content.LastIndexOf('</body>')
+    if ($i -lt 0) { throw "No </body> in $($d.Slug)." }
+    $content = $content.Substring(0, $i) + $homeLink + "`n" + $content.Substring($i)
+    Set-Content -Path (Join-Path $dest 'index.html') -Value $content -Encoding utf8
 }
 
 # Landing page.
 function Format-Links($items) {
     ($items | ForEach-Object {
-        "      <li><a href=`"./$($_.Slug)/`">$([System.Web.HttpUtility]::HtmlEncode($_.Title))</a></li>"
+        $t = [System.Web.HttpUtility]::HtmlEncode($_.Title)
+        $p = [System.Web.HttpUtility]::HtmlEncode($_.Rel)
+        "      <li><a href=`"./$($_.Slug)/`">$t</a> <span class=`"path`">$p</span></li>"
     }) -join "`n"
 }
 Add-Type -AssemblyName System.Web
@@ -88,6 +106,7 @@ $html = @"
     li { margin: 0.4rem 0; }
     a { color: #2a4eff; text-decoration: none; }
     a:hover { text-decoration: underline; }
+    .path { color: #999; font-family: ui-monospace, monospace; font-size: 0.82em; }
   </style>
 </head>
 <body>

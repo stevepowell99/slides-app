@@ -492,28 +492,50 @@ margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 
 .reveal .slide-breadcrumb {
 position: fixed;
-bottom: 0.5em;
-left: 50%;
-transform: translateX(-50%);
-z-index: 30;
-font-size: 0.5em;
+bottom: 8px;
+right: 6.8em;
+left: auto;
+transform: none;
+z-index: 31;
+font-size: 12px;
 font-weight: 600;
 letter-spacing: 0.02em;
-text-align: center;
-color: rgba(128, 128, 128, 0.75);
+text-align: right;
+color: #1b1b3a;
+background: rgba(255, 255, 255, 0.7);
+padding: 3px 7px;
+border-radius: 4px;
 pointer-events: none;
-max-width: 50vw;
+max-width: 36vw;
 overflow: hidden;
 text-overflow: ellipsis;
 white-space: nowrap;
 }
 .reveal .slide-breadcrumb:empty { display: none; }
 
+.reveal .slide-number {
+bottom: 8px;
+right: 8px;
+background: rgba(255, 255, 255, 0.7) !important;
+color: #1b1b3a !important;
+padding: 3px 7px;
+border-radius: 4px;
+font-weight: 600;
+}
+
 .reveal section.no-title > :is(h1, h2, h3):first-of-type { display: none; }
 :root {
---bg: #1b1b3a;
---teal: #5fd4d0;
---teal-dark: #2a8a86;
+
+--cm-dark: #1F1F36; 
+--cm-blue: #6DC4C8; 
+--cm-blue-bright: #76F7FF; 
+--cm-yellow: #F7ED73; 
+--cm-pink: #FF8FB8; 
+--cm-mint: #00FFAF; 
+
+--bg: var(--cm-dark);
+--teal: var(--cm-blue);
+--teal-dark: #2a8a86; 
 --muted: #e8edf2;
 --grey-bg: #f4f6f9;
 --blue: #2b6cb0;
@@ -574,6 +596,28 @@ margin: 0.3em 0 0.3em 1.2em;
 .reveal ul li, .reveal ol li {
 margin: 0.15em 0;
 }
+
+
+.lead, .reveal .lead p {
+font-size: 0.95em;
+line-height: 1.4;
+}
+.lead {
+color: var(--ink);
+margin: 0.2em 0 0.5em;
+}
+
+.hl-blue, .hl-yellow, .hl-pink, .hl-green {
+padding: 0 0.18em;
+border-radius: 3px;
+color: var(--ink);
+-webkit-box-decoration-break: clone;
+box-decoration-break: clone;
+}
+.hl-blue { background: var(--cm-blue-bright); }
+.hl-yellow { background: var(--cm-yellow); }
+.hl-pink { background: var(--cm-pink); }
+.hl-green { background: var(--cm-mint); }
 
 .accent {
 color: var(--teal-dark);
@@ -1403,8 +1447,13 @@ margin-right: 0; }
 </style>
   <script>
   // Two-way bridge between the embedded Reveal deck and the parent slide app.
-  // Outgoing: posts `ready` once and `slidechanged` on every navigation.
-  // Incoming: accepts `{type:'goto', h, v}` and calls Reveal.slide(h, v).
+  // Outgoing: posts `ready` (with the full slide list) once and `slidechanged`
+  // on every navigation. Incoming: accepts `{type:'goto', h, v}`.
+  //
+  // The rendered deck is the source of truth for slide geometry. On `ready` we
+  // walk Reveal's own slide collection and report each slide's real (h, v) and
+  // heading text, so the parent can align its parsed headings to what actually
+  // renders instead of guessing Quarto's layout.
   (function () {
     var TAG = "slide-bridge";
 
@@ -1419,6 +1468,23 @@ margin-right: 0; }
       window.parent.postMessage(payload, "*");
     }
 
+    // Every slide Reveal will actually show, in document order, with its real
+    // index and heading text. Vertical-stack wrappers are not slides, so they
+    // are excluded automatically by getSlides().
+    function slideList() {
+      if (typeof Reveal === "undefined" || !Reveal.getSlides) return [];
+      return Reveal.getSlides().map(function (el) {
+        var idx = Reveal.getIndices(el) || {};
+        var h = el.querySelector("h1, h2, h3, h4, h5, h6");
+        return {
+          id: el.id || "",
+          h: idx.h || 0,
+          v: idx.v || 0,
+          title: h ? h.textContent.trim() : ""
+        };
+      });
+    }
+
     function attach() {
       if (typeof Reveal === "undefined" || !Reveal.on || !Reveal.getIndices) {
         console.log("[slide-bridge] Reveal not ready");
@@ -1430,7 +1496,10 @@ margin-right: 0; }
         console.log("[slide-bridge] slidechanged event:", i);
         send("slidechanged");
       });
-      send("ready");
+      // Re-announce the list whenever Reveal (re)lays out, e.g. after a resize
+      // that collapses verticals; cheap and keeps the parent's map fresh.
+      Reveal.on("ready", function () { send("ready", { slides: slideList() }); });
+      send("ready", { slides: slideList() });
       return true;
     }
 
@@ -3401,4 +3470,5 @@ window.QuartoSupport = function () {
       </script>
     
 
+<a href="../" class="deck-home" title="All decks">Home</a><style>.deck-home{position:fixed;top:10px;right:12px;z-index:60;font:500 12px/1 system-ui,sans-serif;color:#888;text-decoration:none;opacity:.55}.deck-home:hover{opacity:1}</style>
 </body></html>

@@ -5,7 +5,6 @@ author: "Steve Powell, Causal Map Ltd"
 date: "21 May 2026"
 format:
   revealjs:
-    embed-resources: true
     theme: simple
     slide-number: true
     transition-speed: slow

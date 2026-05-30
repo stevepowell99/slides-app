@@ -31,18 +31,16 @@ Projects and sources
 :::
 
 :::: {.columns}
-::: {.column width="32%"}
-::: {.feature-icon-circle}
-<i class="fa-solid fa-table-columns" aria-hidden="true"></i>
+::: {.column width="20%"}
+left
 :::
+::: {.column width="20%"}
+right
 :::
-
-::: {.column width="68%"}
-::: {.feature-body}
-Add fields like [gender, location or role]{.hl-pink} to every source and edit them spreadsheet-style.
-
+::: {.column width="20%"}
+[text]{.hl-green}
 :::
-:::
+[]{.fa-ambulance}
 ::::
 
 ## [Source groups!](https://garden.causalmap.app/source-groups-sub-panel/) {.feature-slide}

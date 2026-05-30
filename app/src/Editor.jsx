@@ -4,7 +4,7 @@ import { basicSetup } from "codemirror";
 import { autocompletion, snippet, snippetCompletion, startCompletion } from "@codemirror/autocomplete";
 import { indentWithTab } from "@codemirror/commands";
 import { markdown } from "@codemirror/lang-markdown";
-import { EditorState, Prec, RangeSetBuilder } from "@codemirror/state";
+import { EditorSelection, EditorState, Prec, RangeSetBuilder } from "@codemirror/state";
 import { Decoration, EditorView, keymap, ViewPlugin } from "@codemirror/view";
 
 // Like snippetCompletion, but after expanding the snippet it opens the
@@ -180,6 +180,78 @@ const columnTint = ViewPlugin.fromClass(
   { decorations: (v) => v.decorations }
 );
 
+// Obsidian-style inline formatting. Each command toggles a marker pair around
+// every selection range: wrap a selection, toggle it back off if already
+// wrapped (markers just outside the selection, or included in it), or drop an
+// empty pair with the cursor between the markers when there is no selection.
+// `changeByRange` maps each range's new position through the other ranges'
+// edits, so this stays correct under multi-cursor.
+function toggleWrap(open, close = open) {
+  return (view) => {
+    const tr = view.state.changeByRange((range) => {
+      const { from, to } = range;
+      const selected = view.state.sliceDoc(from, to);
+      const before = view.state.sliceDoc(Math.max(0, from - open.length), from);
+      const after = view.state.sliceDoc(to, Math.min(view.state.doc.length, to + close.length));
+      // Markers sit just outside the selection: strip them.
+      if (before === open && after === close) {
+        return {
+          changes: [
+            { from: from - open.length, to: from, insert: "" },
+            { from: to, to: to + close.length, insert: "" }
+          ],
+          range: EditorSelection.range(from - open.length, to - open.length)
+        };
+      }
+      // Markers are inside the selection: strip them.
+      if (from !== to && selected.length >= open.length + close.length &&
+          selected.startsWith(open) && selected.endsWith(close)) {
+        const inner = selected.slice(open.length, selected.length - close.length);
+        return { changes: { from, to, insert: inner }, range: EditorSelection.range(from, from + inner.length) };
+      }
+      // Empty cursor: drop the pair and land between the markers.
+      if (from === to) {
+        return { changes: { from, insert: open + close }, range: EditorSelection.cursor(from + open.length) };
+      }
+      // Wrap the selection, keeping the inner text selected.
+      return {
+        changes: [{ from, insert: open }, { from: to, insert: close }],
+        range: EditorSelection.range(from + open.length, to + open.length)
+      };
+    });
+    view.dispatch(tr, { userEvent: "input", scrollIntoView: true });
+    return true;
+  };
+}
+
+// Link: wrap the selection as `[text](url)` with the cursor in the empty URL,
+// or insert `[]()` with the cursor in the text slot when nothing is selected.
+function insertLink(view) {
+  const tr = view.state.changeByRange((range) => {
+    const { from, to } = range;
+    if (from === to) {
+      return { changes: { from, insert: "[]()" }, range: EditorSelection.cursor(from + 1) };
+    }
+    const insert = `[${view.state.sliceDoc(from, to)}]()`;
+    return { changes: { from, to, insert }, range: EditorSelection.cursor(from + insert.length - 1) };
+  });
+  view.dispatch(tr, { userEvent: "input", scrollIntoView: true });
+  return true;
+}
+
+// Obsidian-like markdown formatting shortcuts. Prec.high so they beat any
+// default binding for the same key.
+const formattingKeymap = Prec.high(keymap.of([
+  { key: "Mod-b", preventDefault: true, run: toggleWrap("**") },
+  { key: "Mod-i", preventDefault: true, run: toggleWrap("*") },
+  { key: "Mod-`", preventDefault: true, run: toggleWrap("`") },
+  { key: "Mod-Shift-x", preventDefault: true, run: toggleWrap("~~") },
+  // Highlight uses the deck's own span class (yellow is the default highlighter);
+  // for the other fills use the / slash menu and pick hl-blue/pink/green.
+  { key: "Mod-Shift-h", preventDefault: true, run: toggleWrap("[", "]{.hl-yellow}") },
+  { key: "Mod-k", preventDefault: true, run: insertLink }
+]));
+
 // Uncontrolled CodeMirror: mount once with `initialValue`, stream changes via onChange.
 // Caller remounts (via `key` prop) when it wants a different document.
 // `basicSetup` brings the standard keymap (defaultKeymap, history, search,
@@ -261,6 +333,7 @@ export const Editor = forwardRef(function Editor({ initialValue = "", onChange, 
             preventDefault: true,
             run: () => { onRenderRef.current?.(); return true; }
           }])),
+          formattingKeymap,
           // Typing "/" over a selection wraps it as a styled span; with no
           // selection this returns false so "/" types through to the slash menu.
           EditorView.inputHandler.of(wrapSelectionOnSlash),

@@ -290,19 +290,69 @@ The settings look like separate knobs. They all pull on the same four tensions.
 Turn one knob and the others move.
 :::
 
+## The choices feed the tensions
+
+```{mermaid}
+flowchart LR
+    subgraph CHOICES["Your coding choices"]
+        direction TB
+        c1["Codebook strictness"]
+        c2["Chunk size"]
+        c3["Model"]
+        c4["Iterations"]
+        c5["Custom columns"]
+        c6["Context"]
+    end
+    subgraph TENSIONS["The four tensions"]
+        direction TB
+        PR["Precision vs Recall"]
+        FC["AI freedom vs your control"]
+        CN["Capture now vs judge later"]
+        CT["Cost and time"]
+    end
+    c1 -.-> FC
+    c2 -.-> PR
+    c3 -.-> PR
+    c4 -.-> CT
+    c5 -.-> PR
+    c6 -.-> PR
+    PR <==> FC
+    FC <==> CN
+    CN <==> CT
+    CT <==> PR
+    linkStyle 0,1,2,3,4,5 stroke:#999,stroke-width:1px
+    linkStyle 6,7,8,9 stroke:#1a936f,stroke-width:3px
+```
+
+::: {.caption}
+Dotted: each choice feeds the tensions. Solid green: the tensions pull on each other.
+:::
+
 ## Step 4: Code the claims
 
 ::: {.lead}
 You write an instruction for the AI, like a chatbot prompt, and paste it in.
 :::
 
-::: {.fragment .note}
-In a hurry, or one short text? Press one-click and accept the defaults. Often that is enough.
-:::
+:::: {.columns}
+::: {.column width="40%"}
+![](../_shared/img/paste-1780170402464.png){width="100%"}
 
-::: {.fragment .panel .panel-teal}
-The golden rule: test on a small, varied sample, work out exactly why the output is wrong or thin, fix the instruction, run again. Then scale up.
+::: {.fragment .note}
+In a hurry, or one short text? Press one-click and accept the defaults. 
 :::
+:::
+::: {.column width="60%" .fragment }
+
+The golden rule: 
+> test on a small, varied sample,
+> work out exactly why the output is wrong or thin,
+> fix the instruction
+> iterate
+> scale up.
+:::
+:::
+::::
 
 ## Holistic or claim by claim?
 

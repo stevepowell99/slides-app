@@ -30,17 +30,23 @@ format:
 Projects and sources
 :::
 
+
+
 :::: {.columns}
-::: {.column width="20%"}
-left
-:::
-::: {.column width="20%"}
+::::: {.column width="50%"}
+in col 
+:::::: {.rows}
+::::::: {.row height="50%" .emph-green}
+top row
+:::::::
+::::::: {.row height="50%"}
+bottom row
+:::::::
+::::::
+:::::
+::::: {.column width="50%"}
 right
-:::
-::: {.column width="20%"}
-[text]{.hl-green}
-:::
-[]{.fa-ambulance}
+:::::
 ::::
 
 ## [Source groups!](https://garden.causalmap.app/source-groups-sub-panel/) {.feature-slide}

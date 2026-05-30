@@ -47,3 +47,51 @@
   }, 80);
 })();
 </script>
+<script>
+// Section breadcrumb. Shows the title of the current `#` section slide in a
+// faint corner label so you keep your place in a larger deck. Styled by
+// `.slide-breadcrumb` in _shared/styles.css. Opt out per deck by setting
+// `window.SLIDE_BREADCRUMB = false` before Reveal initialises.
+(function () {
+  if (window.SLIDE_BREADCRUMB === false) return;
+
+  var el;
+
+  // Title of the nearest `#` (h1) section at or before the current slide.
+  // With slide-level: 2 every heading is a horizontal slide, so we scan the
+  // horizontal track backwards for the last section-divider (one with an h1).
+  function sectionTitle() {
+    var idx = Reveal.getIndices();
+    var slides = Reveal.getHorizontalSlides();
+    for (var i = idx.h; i >= 0; i--) {
+      var sec = slides[i];
+      if (!sec || sec.id === "title-slide") continue;
+      var h1 = sec.querySelector("h1");
+      if (h1 && h1.textContent.trim()) return h1.textContent.trim();
+    }
+    return "";
+  }
+
+  function update() {
+    if (!el) {
+      el = document.createElement("div");
+      el.className = "slide-breadcrumb";
+      (document.querySelector(".reveal") || document.body).appendChild(el);
+    }
+    el.textContent = sectionTitle();
+  }
+
+  function attach() {
+    if (typeof Reveal === "undefined" || !Reveal.on || !Reveal.getIndices) return false;
+    Reveal.on("slidechanged", update);
+    update();
+    return true;
+  }
+
+  var n = 0;
+  var t = setInterval(function () {
+    n += 1;
+    if (attach() || n > 100) clearInterval(t);
+  }, 80);
+})();
+</script>

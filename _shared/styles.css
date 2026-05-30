@@ -1,5 +1,26 @@
 /* Shared Causal Map RevealJS slide styles */
 
+/* Section breadcrumb: faint current-section label, bottom-left. Populated by
+   the breadcrumb script in preview-bridge.html. Sits clear of the slide number
+   (bottom-right) and progress bar (bottom edge). Neutral grey reads on both
+   light and dark themes. Opt out per deck with `window.SLIDE_BREADCRUMB=false`. */
+.reveal .slide-breadcrumb {
+  position: fixed;
+  bottom: 0.6em;
+  left: 0.8em;
+  z-index: 30;
+  font-size: 0.5em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(128, 128, 128, 0.75);
+  pointer-events: none;
+  max-width: 60vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.reveal .slide-breadcrumb:empty { display: none; }
+
 /* Hide the slide heading without removing the title from outlines / nav.
    Apply with: `## My title {.no-title}` */
 .reveal section.no-title > :is(h1, h2, h3):first-of-type { display: none; }

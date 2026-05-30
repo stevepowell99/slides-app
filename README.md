@@ -110,6 +110,25 @@ format:
 
 `embed-resources: true` is required because `quarto preview` serves only the deck folder; assets at `../_shared/` cannot be fetched at runtime and have to be inlined at render time. New decks created from the app already include these settings.
 
+## Shared Defaults
+
+`_quarto.yml` sets project-wide RevealJS defaults that any deck can override in its own front matter:
+
+- `transition: slide` and `transition-speed: slow`
+- `progress: true`
+
+To override, set the same key in a deck's `revealjs` block, for example `transition: none` or `progress: false`.
+
+## Section Breadcrumb
+
+Every deck shows a faint label in the bottom-left corner with the title of the current `#` section, so you keep your place in a larger deck. It is driven by a small script in `_shared/preview-bridge.html` and styled by `.slide-breadcrumb` in `_shared/styles.css`, so it applies to all decks automatically and updates as you navigate.
+
+Decks with no `#` section headings show nothing. To switch it off for a single deck, set this before Reveal initialises by adding to that deck's `include-in-header`:
+
+```html
+<script>window.SLIDE_BREADCRUMB = false</script>
+```
+
 ## Show/Hide Slides
 
 Hidden slides use a single source convention:

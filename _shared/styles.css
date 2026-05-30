@@ -1,20 +1,23 @@
 /* Shared Causal Map RevealJS slide styles */
 
-/* Section breadcrumb: faint current-section label, bottom-left. Populated by
-   the breadcrumb script in preview-bridge.html. Sits clear of the slide number
-   (bottom-right) and progress bar (bottom edge). Neutral grey reads on both
-   light and dark themes. Opt out per deck with `window.SLIDE_BREADCRUMB=false`. */
+/* Section breadcrumb: faint current-section label, bottom-centre. Populated by
+   the breadcrumb script in preview-bridge.html. Centred to clear the menu
+   hamburger (bottom-left), the slide number (bottom-right) and the progress
+   bar (bottom edge). Neutral grey reads on both light and dark themes. Opt out
+   per deck with `window.SLIDE_BREADCRUMB=false`. */
 .reveal .slide-breadcrumb {
   position: fixed;
-  bottom: 0.6em;
-  left: 0.8em;
+  bottom: 0.5em;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 30;
   font-size: 0.5em;
   font-weight: 600;
   letter-spacing: 0.02em;
+  text-align: center;
   color: rgba(128, 128, 128, 0.75);
   pointer-events: none;
-  max-width: 60vw;
+  max-width: 50vw;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

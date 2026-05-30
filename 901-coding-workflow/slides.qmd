@@ -21,6 +21,7 @@ Interviews. Reports. Open-ended survey answers. Hundreds of pages of people tell
 
 Somewhere in there is the answer to your evaluation question.
 
+
 ::: {.fragment .panel .panel-teal}
 How do you get it out, and get it out in a way you can stand behind?
 :::

@@ -50,6 +50,11 @@ export function App() {
   const [structureVersion, setStructureVersion] = useState(0);
 
   const sourceRef = useRef("");
+  // Which deck the in-memory `source` belongs to. render() refuses to write
+  // unless this matches activeDeck, so the brief transition window after
+  // setActiveDeck (before the load effect swaps source) can never write one
+  // deck's content into another deck's file.
+  const sourceDeckRef = useRef("");
   const lastSavedSourceRef = useRef("");
   const selectedSlideIdRef = useRef("");
   // The selected slide with line offsets valid for the CURRENT in-memory source.
@@ -89,6 +94,9 @@ export function App() {
     setCheckedSlideIds([]);
     setSlides([]);
     setSource("");
+    // Mark the in-memory source as belonging to no deck until the load resolves,
+    // so a render in this window is refused rather than writing stale content.
+    sourceDeckRef.current = "";
     setStructureVersion((v) => v + 1);
     loadSource(activeDeck).catch(showError);
   }, [activeDeck]);
@@ -124,6 +132,7 @@ export function App() {
   async function loadSource(deckId) {
     const data = await api(`/api/decks/${deckId}/source`);
     lastSavedSourceRef.current = data.source;
+    sourceDeckRef.current = deckId;
     setSource(data.source);
     setSlides(data.parsed.slides);
     setMessage(`${data.deck.title} · ${data.parsed.slides.length} slides`);
@@ -135,6 +144,9 @@ export function App() {
   // typing no longer reloads the preview on every keystroke.
   async function render(doneMessage = "Rendered") {
     if (!activeDeck) return;
+    // Never write if the in-memory source belongs to a different deck (we are
+    // mid-switch). This is the guard against cross-deck overwrites.
+    if (sourceDeckRef.current !== activeDeck) return;
     const sent = sourceRef.current;
     if (sent === lastSavedSourceRef.current) {
       setDirty(false);

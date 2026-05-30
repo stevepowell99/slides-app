@@ -3,6 +3,7 @@ public: true
 pagetitle: "A nine-step workflow for AI-assisted causal coding"
 format:
   revealjs:
+    navigation-mode: vertical
     include-in-header:
       - ../_shared/preview-bridge.html
     css:
@@ -96,7 +97,7 @@ You read the text and mark each causal claim as a link from one factor to anothe
 becomes **training → confidence → started a business**, with the verbatim quote and the source kept on every link.
 :::
 
-## We code what people said, not what is true
+## We code claims, not facts
 
 ::: {.panel .panel-teal}
 A coded link means: *there is evidence that this source claims X influenced Y.*

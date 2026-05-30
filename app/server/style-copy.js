@@ -1,6 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
+import { extractCssPaths } from "./parser.js";
+
 // Copy CSS from a source deck into a target deck after a cross-deck paste.
 //
 // Two modes:
@@ -115,6 +117,37 @@ export async function addMissingStyles(repoRoot, sourceDeck, targetDeck, rawSlid
   };
 }
 
+// List every class defined in the CSS a deck includes (its own files plus
+// shared ones like ../_shared/styles.css), so the editor can offer real styles
+// to pick from instead of the author guessing names. Returns a sorted, deduped
+// [{ name, shared }] where `shared` marks a class that comes from outside the
+// deck folder.
+export async function listDeckClasses(repoRoot, deck) {
+  const deckDir = path.join(repoRoot, deck.folder);
+  const cssPaths = await deckAllCssPaths(repoRoot, deck);
+  const seen = new Map(); // name -> shared (a local definition wins over shared)
+  for (const p of cssPaths) {
+    const css = await fs.readFile(p, "utf8").catch(() => "");
+    if (!css) continue;
+    const shared = !p.startsWith(deckDir + path.sep);
+    for (const rule of parseRules(css)) {
+      for (const m of rule.selector.matchAll(/\.([A-Za-z0-9_-]+)/g)) {
+        if (!seen.has(m[1]) || (!shared && seen.get(m[1]))) seen.set(m[1], shared);
+      }
+    }
+  }
+  return [...seen.entries()]
+    .map(([name, shared]) => ({ name, shared }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+async function deckAllCssPaths(repoRoot, deck) {
+  const qmdPath = path.join(repoRoot, deck.folder, deck.qmd);
+  const source = await fs.readFile(qmdPath, "utf8");
+  const deckDir = path.dirname(qmdPath);
+  return extractCssPaths(source).map((p) => path.resolve(deckDir, p));
+}
+
 // --- helpers ---
 
 function extractClassesUsed(rawMarkdown) {
@@ -226,38 +259,12 @@ function rewriteRootVars(cssText, varNames, sourceVars) {
 async function deckLocalCssPaths(repoRoot, deck) {
   const qmdPath = path.join(repoRoot, deck.folder, deck.qmd);
   const source = await fs.readFile(qmdPath, "utf8");
-  const paths = extractCssPathsFromFrontMatter(source);
+  const paths = extractCssPaths(source);
   const deckDir = path.dirname(qmdPath);
   return paths
     .map((p) => path.resolve(deckDir, p))
     .filter((p) => p.startsWith(deckDir + path.sep));
 }
-
-function extractCssPathsFromFrontMatter(qmdSource) {
-  const match = qmdSource.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  if (!match) return [];
-  const fm = match[1];
-  const lines = fm.split(/\r?\n/);
-  const cssLineIdx = lines.findIndex((l) => /^\s*css:/.test(l));
-  if (cssLineIdx === -1) return [];
-  const cssLine = lines[cssLineIdx];
-  const cssIndent = cssLine.match(/^(\s*)/)[1].length;
-  const inline = cssLine.replace(/^\s*css:\s*/, "").trim();
-  if (inline) return [stripQuotes(inline)];
-  const out = [];
-  for (let i = cssLineIdx + 1; i < lines.length; i++) {
-    const line = lines[i];
-    if (!line.trim()) continue;
-    const indent = line.match(/^(\s*)/)[1].length;
-    if (indent <= cssIndent) break;
-    const item = line.match(/^\s*-\s*(.*)$/);
-    if (!item) break;
-    out.push(stripQuotes(item[1].trim()));
-  }
-  return out;
-}
-
-function stripQuotes(s) { return s.replace(/^['"]|['"]$/g, ""); }
 
 async function concatFiles(paths) {
   const parts = await Promise.all(paths.map((p) => fs.readFile(p, "utf8").catch(() => "")));

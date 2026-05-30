@@ -7,8 +7,6 @@ export function parseQmd(text) {
   const headings = [];
   let inFence = false;
   let divDepth = 0;
-  let currentH = -1;
-  let currentV = 0;
   let currentGroupId = null;
 
   lines.forEach((line, index) => {
@@ -36,35 +34,17 @@ export function parseQmd(text) {
     const level = match[1].length;
     const parsedTitle = parseHeadingTitle(match[2]);
 
-    // With slide-level: 2, h1 creates sections (horizontal positions),
-    // h2 creates slides within sections (vertical positions).
-    // If h2 appears before any h1, treat it as part of implicit section 0.
-    if (level === 1) {
-      currentH += 1;
-      currentV = 0;
-      currentGroupId = null;
-    } else if (level === 2) {
-      if (currentH < 0) {
-        currentH = 0;
-      }
-      currentV += 1;
-    } else if (currentH < 0) {
-      currentH = 0;
-      currentV = 0;
-    } else {
-      currentV += 1;
-    }
-
     const slide = {
       id: `slide-${headings.length + 1}`,
       index: headings.length,
-      title: parsedTitle.title || `Slide ${headings.length + 1}`,
+      // Kept raw (may be empty for an attribute-only heading) so it can be
+      // matched against the rendered deck's heading text. Display fallbacks
+      // live in the UI, not here.
+      title: parsedTitle.title,
       level,
       headingLine: index + 1,
       startLine: index + 1,
       endLine: lines.length,
-      h: currentH,
-      v: currentV,
       attr: parsedTitle.attr,
       classes: parsedTitle.classes,
       hidden: /visibility\s*=\s*"hidden"/.test(parsedTitle.attr)
@@ -89,32 +69,11 @@ export function parseQmd(text) {
     slide.endLine = index + 1 < headings.length ? headings[index + 1].startLine - 1 : lines.length;
   });
 
-  // Compute Reveal-side indices, skipping hidden slides. Reveal removes
-  // visibility="hidden" sections from its slide collection, so the editor's
-  // positional (h, v) won't match. visibleH/V == -1 marks a slide Reveal will
-  // never show — the editor uses that to know there's no preview to drive.
-  {
-    let vH = -1;
-    let vV = 0;
-    let prevH = -1;
-    for (const slide of headings) {
-      if (slide.hidden) {
-        slide.visibleH = -1;
-        slide.visibleV = -1;
-        continue;
-      }
-      if (slide.h !== prevH) {
-        vH += 1;
-        vV = 0;
-        prevH = slide.h;
-      } else {
-        vV += 1;
-      }
-      slide.visibleH = vH;
-      slide.visibleV = vV;
-    }
-  }
-
+  // Slide geometry (which heading is which Reveal h/v) is NOT computed here.
+  // Reproducing Quarto's layout in regex drifts from the real rendered deck
+  // (merged headings, auto title slide, slide-level). Navigation now keys off
+  // the rendered deck itself: the preview bridge reports each slide's real
+  // (h, v); the app aligns these headings to that list by order.
   return {
     frontMatterEnd,
     slides: headings
@@ -334,4 +293,28 @@ function setHeadingClass(line, className, enabled) {
   const nextAttr = [...otherAttrs, ...nextClasses.map((item) => `.${item}`)].join(" ");
 
   return nextAttr ? `${body} {${nextAttr}}` : body;
+}
+
+// Paths listed under `css:` in a deck's YAML front matter, in order. Handles
+// both the inline form (`css: x.css`) and the list form (`css:` then `- a.css`).
+// Quotes are stripped. Shared by the preview-background and style-copy helpers.
+export function extractCssPaths(qmdSource) {
+  const match = qmdSource.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!match) return [];
+  const lines = match[1].split(/\r?\n/);
+  const idx = lines.findIndex((l) => /^\s*css:/.test(l));
+  if (idx === -1) return [];
+  const baseIndent = lines[idx].match(/^(\s*)/)[1].length;
+  const stripQuotes = (s) => s.replace(/^['"]|['"]$/g, "");
+  const inline = lines[idx].replace(/^\s*css:\s*/, "").trim();
+  if (inline) return [stripQuotes(inline)];
+  const out = [];
+  for (let i = idx + 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    if (lines[i].match(/^(\s*)/)[1].length <= baseIndent) break;
+    const item = lines[i].match(/^\s*-\s*(.*)$/);
+    if (!item) break;
+    out.push(stripQuotes(item[1].trim()));
+  }
+  return out;
 }

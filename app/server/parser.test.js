@@ -8,15 +8,16 @@ import { applySlideAction, parseQmd } from "./parser.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../..");
 
-test("parses Amsterdam deck headings and reveal positions", async () => {
+test("parses Amsterdam deck headings in order", async () => {
   const source = await fs.readFile(path.join(repoRoot, "Amsterdam-UMC", "slides.qmd"), "utf8");
   const parsed = parseQmd(source);
 
+  // Title slide: an attribute-only `#` heading keeps an empty title so it can
+  // be paired with the rendered deck's (also empty) title-slide heading.
   assert.equal(parsed.slides[0].level, 1);
-  assert.equal(parsed.slides[0].h, 0);
+  assert.equal(parsed.slides[0].title, "");
   assert.equal(parsed.slides[1].level, 2);
-  assert.equal(parsed.slides[1].h, 0);
-  assert.equal(parsed.slides[1].v, 1);
+  assert.equal(parsed.slides[1].title, "Causal mapping and the Causal Map app");
 });
 
 test("parses feature deck section groups", async () => {
@@ -92,20 +93,6 @@ test("toggles no-title on a heading and exposes noTitle flag", () => {
   assert.doesNotMatch(withTitle, /\.no-title/);
   assert.equal(parseQmd(noTitle).slides[0].noTitle, true);
   assert.match(withTitle, /\.feature-slide/);
-});
-
-test("computes Reveal visible indices that skip hidden slides", () => {
-  const source = [
-    "---", "pagetitle: Test", "---", "",
-    "## A", "", "body A",
-    "", "## B {visibility=\"hidden\"}", "", "body B",
-    "", "## C", "", "body C"
-  ].join("\n");
-  const parsed = parseQmd(source);
-  const [a, b, c] = parsed.slides;
-  assert.equal(a.visibleH, 0); assert.equal(a.visibleV, 0);
-  assert.equal(b.visibleH, -1); assert.equal(b.visibleV, -1);
-  assert.equal(c.visibleH, 0); assert.equal(c.visibleV, 1);
 });
 
 test("show normalises away the legacy .hidden-slide class", () => {

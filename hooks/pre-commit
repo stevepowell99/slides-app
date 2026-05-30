@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Keep the committed _site/ (which Netlify serves) in step with the slide
+# sources. If this commit touches a .qmd, _shared/, fontawesome/, or
+# build-site.ps1, rebuild _site/ and stage it into the same commit. Commits that
+# don't touch slide sources skip the build entirely. Bypass with:
+#   git commit --no-verify
+set -euo pipefail
+
+root="$(git rev-parse --show-toplevel)"
+cd "$root"
+
+staged="$(git diff --cached --name-only --diff-filter=ACMR)"
+
+if ! printf '%s\n' "$staged" | grep -Eq '(\.qmd$|^_shared/|^fontawesome/|^build-site\.ps1$)'; then
+  exit 0
+fi
+
+pwsh_bin="$(command -v pwsh || true)"
+if [ -z "$pwsh_bin" ]; then
+  echo "pre-commit: pwsh (PowerShell 7) not found on PATH; cannot rebuild _site/." >&2
+  echo "pre-commit: run build-site.ps1 yourself, or commit with --no-verify to skip." >&2
+  exit 1
+fi
+
+echo "pre-commit: slide sources changed, rebuilding _site/ ..."
+"$pwsh_bin" -NoProfile -File build-site.ps1
+
+git add -A _site
+echo "pre-commit: _site/ rebuilt and staged."

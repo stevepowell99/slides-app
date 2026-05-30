@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { extractSlideBlocks, parseQmd } from "./parser.js";
+import { extractCssPaths, extractSlideBlocks, parseQmd } from "./parser.js";
 
 const IGNORED_DIRS = new Set(["app", "_shared", "fontawesome", "features-slides_files"]);
 
@@ -92,26 +92,6 @@ async function compiledThemeCss(deckDir, qmd) {
   return "";
 }
 
-function extractCssPaths(qmdSource) {
-  const match = qmdSource.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  if (!match) return [];
-  const lines = match[1].split(/\r?\n/);
-  const idx = lines.findIndex((l) => /^\s*css:/.test(l));
-  if (idx === -1) return [];
-  const baseIndent = lines[idx].match(/^(\s*)/)[1].length;
-  const inline = lines[idx].replace(/^\s*css:\s*/, "").trim();
-  if (inline) return [inline.replace(/^['"]|['"]$/g, "")];
-  const out = [];
-  for (let i = idx + 1; i < lines.length; i++) {
-    if (!lines[i].trim()) continue;
-    if (lines[i].match(/^(\s*)/)[1].length <= baseIndent) break;
-    const item = lines[i].match(/^\s*-\s*(.*)$/);
-    if (!item) break;
-    out.push(item[1].trim().replace(/^['"]|['"]$/g, ""));
-  }
-  return out;
-}
-
 // The deck's effective slide background, used when a slide sets no per-slide
 // background-color. Scans the combined CSS (compiled theme + deck overrides)
 // for `.reveal` / `.reveal-viewport` background, resolving `var(--x)` against
@@ -148,34 +128,39 @@ function deckBackground(cssText) {
   return bg;
 }
 
+// Build a deck descriptor from a single folder, or null if it is not a deck
+// (no .qmd, ignored, or an id that tries to escape the repo root). Reading just
+// the one folder keeps getDeck O(1); it used to scan every deck on every call.
+async function describeDeck(repoRoot, name) {
+  if (IGNORED_DIRS.has(name) || name !== path.basename(name)) return null;
+  const deckDir = path.join(repoRoot, name);
+  let files;
+  try { files = await fs.readdir(deckDir); }
+  catch { return null; }
+  const qmd = files.find((file) => file.toLowerCase().endsWith(".qmd"));
+  if (!qmd) return null;
+
+  const source = await fs.readFile(path.join(deckDir, qmd), "utf8");
+  const metadata = parseFrontMatter(source);
+  return {
+    id: name,
+    folder: name,
+    qmd,
+    html: outputHtmlFor(qmd, files),
+    title: metadata.pagetitle || metadata.title || name,
+    date: metadata.date || "",
+    slideCount: parseQmd(source).slides.length
+  };
+}
+
 export async function listDecks(repoRoot) {
   const entries = await fs.readdir(repoRoot, { withFileTypes: true });
   const decks = [];
-
   for (const entry of entries) {
-    if (!entry.isDirectory() || IGNORED_DIRS.has(entry.name)) continue;
-
-    const deckDir = path.join(repoRoot, entry.name);
-    const files = await fs.readdir(deckDir);
-    const qmdFiles = files.filter((file) => file.toLowerCase().endsWith(".qmd"));
-    if (!qmdFiles.length) continue;
-
-    const qmd = qmdFiles[0];
-    const source = await fs.readFile(path.join(deckDir, qmd), "utf8");
-    const metadata = parseFrontMatter(source);
-    const html = outputHtmlFor(qmd, files);
-
-    decks.push({
-      id: entry.name,
-      folder: entry.name,
-      qmd,
-      html,
-      title: metadata.pagetitle || metadata.title || entry.name,
-      date: metadata.date || "",
-      slideCount: parseQmd(source).slides.length
-    });
+    if (!entry.isDirectory()) continue;
+    const deck = await describeDeck(repoRoot, entry.name);
+    if (deck) decks.push(deck);
   }
-
   return decks.sort((a, b) => a.title.localeCompare(b.title));
 }
 
@@ -213,8 +198,7 @@ export async function listAllSlides(repoRoot) {
 }
 
 export async function getDeck(repoRoot, deckId) {
-  const decks = await listDecks(repoRoot);
-  const deck = decks.find((item) => item.id === deckId);
+  const deck = await describeDeck(repoRoot, deckId);
   if (!deck) throw Object.assign(new Error("Deck not found"), { status: 404 });
   return deck;
 }

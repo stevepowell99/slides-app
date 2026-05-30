@@ -6,17 +6,27 @@ import { api } from "./api.js";
 // The deck's rendered HTML includes _shared/preview-bridge.html, which forwards
 // Reveal `ready`/`slidechanged` events to us and accepts `{type:'goto', h, v}`.
 
-export function PreviewFrame({ deckId, targetSlide, onSlideChanged, onError }) {
+export function PreviewFrame({ deckId, targetSlide, onSlideChanged, onSlides, onError }) {
   const [baseUrl, setBaseUrl] = useState("");
   const [srcUrl, setSrcUrl] = useState("");
   const [status, setStatus] = useState("idle");
   const iframeRef = useRef(null);
   const targetRef = useRef(targetSlide);
   const onSlideChangedRef = useRef(onSlideChanged);
-  const lastGotoRef = useRef({ h: -1, v: -1 });
+  const onSlidesRef = useRef(onSlides);
+  // Every goto we send, timestamped. A slidechanged that matches a recent one is
+  // our own command echoing back, not a user navigation. A single-slot guard
+  // breaks under rapid keyboard nav (several gotos in flight at once), which is
+  // what made the panes oscillate; a short-lived list absorbs the whole burst.
+  const recentGotosRef = useRef([]);
+  // The deck's actual current position, from the latest slidechanged/ready. Used
+  // to skip a goto when the selection already came from the preview, so we never
+  // shove the preview back to where the user just navigated away from.
+  const previewPosRef = useRef(null);
 
   targetRef.current = targetSlide;
   onSlideChangedRef.current = onSlideChanged;
+  onSlidesRef.current = onSlides;
 
   useEffect(() => {
     if (!deckId) return;
@@ -49,22 +59,24 @@ export function PreviewFrame({ deckId, targetSlide, onSlideChanged, onError }) {
       if (!data || data.source !== "slide-bridge") return;
 
       if (data.type === "ready") {
-        // After every iframe (re)load, push the parent's current slide back in.
+        // The rendered deck just told us exactly which slides exist and where.
+        if (data.slides) onSlidesRef.current?.(data.slides);
+        previewPosRef.current = { h: data.h, v: data.v };
+        // If the parent already has a slide selected, push it back into the
+        // freshly (re)loaded deck. Otherwise let the deck lead: report whatever
+        // it is showing so the parent selects the matching row, which is why
+        // the title slide and the rail no longer disagree on first load.
         const t = targetRef.current;
         if (t) sendGoto(t.h, t.v);
+        else onSlideChangedRef.current?.(data.h, data.v);
         return;
       }
 
       if (data.type === "slidechanged") {
-        const goto = lastGotoRef.current;
-        const matchesGoto = data.h === goto.h && data.v === goto.v;
-        if (matchesGoto) {
-          // This is the response to our goto command; ignore it.
-          lastGotoRef.current = { h: -1, v: -1 };
-          return;
-        }
-        // User navigated; report back to parent.
-        console.log(`[PreviewFrame] slidechanged ${data.h}/${data.v} → onSlideChanged`);
+        previewPosRef.current = { h: data.h, v: data.v };
+        // Our own goto echoing back: consume the matching command and ignore it.
+        if (consumeEcho(data.h, data.v)) return;
+        // A real navigation inside the deck; let the rail and editor follow.
         onSlideChangedRef.current?.(data.h, data.v);
       }
     }
@@ -75,13 +87,30 @@ export function PreviewFrame({ deckId, targetSlide, onSlideChanged, onError }) {
 
   useEffect(() => {
     if (!targetSlide) return;
+    // If the deck is already here, the selection came from the preview itself
+    // (a user navigation we just followed). Sending a goto would shove it back.
+    const p = previewPosRef.current;
+    if (p && p.h === targetSlide.h && p.v === targetSlide.v) return;
     sendGoto(targetSlide.h, targetSlide.v);
   }, [targetSlide?.h, targetSlide?.v]);
+
+  // True if (h, v) matches a goto we sent in the last moment; consumes it so a
+  // burst of identical commands is matched one-for-one against its echoes.
+  function consumeEcho(h, v) {
+    const now = Date.now();
+    const live = recentGotosRef.current.filter((g) => now - g.at < 1500);
+    const idx = live.findIndex((g) => g.h === h && g.v === v);
+    if (idx === -1) { recentGotosRef.current = live; return false; }
+    live.splice(idx, 1);
+    recentGotosRef.current = live;
+    return true;
+  }
 
   function sendGoto(h, v) {
     const win = iframeRef.current?.contentWindow;
     if (!win) return;
-    lastGotoRef.current = { h, v };
+    recentGotosRef.current.push({ h, v, at: Date.now() });
+    previewPosRef.current = { h, v };
     win.postMessage({ source: "slide-bridge", type: "goto", h, v }, "*");
   }
 

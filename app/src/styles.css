@@ -727,6 +727,18 @@ body {
   border-right: 1px solid #ddcfb8 !important;
 }
 
+/* Tint Quarto columns blocks so the structure is visible in plain text.
+   Inset box-shadow draws the left bar without shifting the text. */
+.cm-line.cm-columns-block { box-shadow: inset 3px 0 0 rgba(31, 31, 54, 0.22); }
+.cm-line.cm-col-a {
+  background: rgba(109, 196, 200, 0.14);
+  box-shadow: inset 3px 0 0 rgba(109, 196, 200, 0.7);
+}
+.cm-line.cm-col-b {
+  background: rgba(255, 143, 184, 0.14);
+  box-shadow: inset 3px 0 0 rgba(255, 143, 184, 0.8);
+}
+
 /* preview pane */
 .preview-pane {
   display: flex;

@@ -42,8 +42,13 @@ export function App() {
   const [railHidden, setRailHidden] = useState(() => localStorage.getItem(RAIL_HIDDEN_KEY) === "1");
   const [editorMode, setEditorMode] = useState("slides"); // "slides" | "whole"
   const [helpOpen, setHelpOpen] = useState(false);
+  const [deckClasses, setDeckClasses] = useState([]); // CSS classes the active deck defines
   const [galleryAfter, setGalleryAfter] = useState(null); // slideId after which to insert
   const [imageGalleryOpen, setImageGalleryOpen] = useState(false);
+  // The slides the rendered deck actually has, as reported by the preview
+  // bridge: [{ id, h, v, title }] in document order. Source of truth for
+  // navigation geometry; the parsed `slides` are aligned to this.
+  const [previewSlides, setPreviewSlides] = useState([]);
   // Bumps after any structural change (rename, slide actions, mode switch). Used
   // in the Editor's `key` so it remounts and re-extracts its initialValue from
   // the latest source. Typing alone does NOT bump it — that would steal focus.
@@ -62,6 +67,10 @@ export function App() {
   const currentSlideRef = useRef(null);
   const renderingRef = useRef(false);
   const editorRef = useRef(null);
+  // Bumped on every deck switch. A loadSource only applies its result if its
+  // token is still current, so a slow load from a deck you have left can never
+  // land its source into the deck you are now on (the cross-deck race).
+  const loadTokenRef = useRef(0);
 
   sourceRef.current = source;
   selectedSlideIdRef.current = selectedSlideId;
@@ -93,24 +102,75 @@ export function App() {
     setSelectedSlideId("");
     setCheckedSlideIds([]);
     setSlides([]);
+    setPreviewSlides([]);
     setSource("");
     // Mark the in-memory source as belonging to no deck until the load resolves,
     // so a render in this window is refused rather than writing stale content.
     sourceDeckRef.current = "";
     setStructureVersion((v) => v + 1);
-    loadSource(activeDeck).catch(showError);
+    const token = ++loadTokenRef.current;
+    loadSource(activeDeck, token).catch(showError);
   }, [activeDeck]);
 
-  // Auto-pick the first slide once slides arrive.
+  // Load the classes the active deck's CSS defines, for the editor style picker.
   useEffect(() => {
-    if (selectedSlideId || !slides.length) return;
-    setSelectedSlideId(slides[0].id);
-  }, [slides, selectedSlideId]);
+    if (!activeDeck) { setDeckClasses([]); return; }
+    api(`/api/decks/${activeDeck}/classes`).then(setDeckClasses).catch(() => setDeckClasses([]));
+  }, [activeDeck]);
 
   const selectedSlide = useMemo(
     () => slides.find((slide) => slide.id === selectedSlideId) || null,
     [slides, selectedSlideId]
   );
+
+  // Map each parsed slide id to the real (h, v) Reveal gives it. Both lists are
+  // in document order, so we walk them together and pair by heading text. A
+  // parsed heading the deck doesn't render (Quarto merged it, or it is hidden)
+  // simply gets no entry and is not navigable; it never shifts the others.
+  const navById = useMemo(() => {
+    const map = new Map();
+    let cursor = 0;
+    for (const slide of slides) {
+      let k = cursor;
+      while (k < previewSlides.length && normTitle(previewSlides[k].title) !== normTitle(slide.title)) k++;
+      if (k < previewSlides.length) {
+        map.set(slide.id, { h: previewSlides[k].h, v: previewSlides[k].v });
+        cursor = k + 1;
+      }
+    }
+    return map;
+  }, [slides, previewSlides]);
+
+  // Where the preview should sit for the current selection. Null when the
+  // selected heading has no rendered counterpart, so we never send a stale goto.
+  const targetSlide = useMemo(
+    () => (selectedSlide ? navById.get(selectedSlide.id) || null : null),
+    [selectedSlide, navById]
+  );
+
+  // Initial / corrective selection driven by the rendered deck. Keep a valid
+  // selection; otherwise select the row matching whatever the deck shows first.
+  // This is what stops the rail/editor pointing at a different slide than the
+  // preview on load.
+  useEffect(() => {
+    if (!previewSlides.length || !slides.length) return;
+    const selId = selectedSlideIdRef.current;
+    if (selId && navById.has(selId)) return;
+    const first = previewSlides[0];
+    const match = slides.find((slide) => normTitle(slide.title) === normTitle(first.title)) || slides[0];
+    if (match && match.id !== selId) setSelectedSlideId(match.id);
+  }, [previewSlides, slides, navById]);
+
+  // Fallback when the preview never reports (e.g. Quarto failed to start): still
+  // let the user edit by selecting the first slide. If the preview later loads,
+  // the effect above corrects the selection when needed.
+  useEffect(() => {
+    if (!slides.length || selectedSlideId) return;
+    const timer = setTimeout(() => {
+      if (!selectedSlideIdRef.current && slides.length) setSelectedSlideId(slides[0].id);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [slides, selectedSlideId]);
 
   // Seed the live splice offsets from the parsed slide whenever selection or the
   // parse (load / render / structural action / dirty re-parse) changes. During a
@@ -129,8 +189,11 @@ export function App() {
     setActiveDeck(items.some((deck) => deck.id === nextDeck) ? nextDeck : items[0]?.id || "");
   }
 
-  async function loadSource(deckId) {
+  async function loadSource(deckId, token) {
     const data = await api(`/api/decks/${deckId}/source`);
+    // A newer deck switch has superseded this load; drop it so we never write
+    // one deck's source under another deck's id.
+    if (token !== loadTokenRef.current) return;
     lastSavedSourceRef.current = data.source;
     sourceDeckRef.current = deckId;
     setSource(data.source);
@@ -271,6 +334,13 @@ export function App() {
       return;
     }
 
+    // Same guard render() uses: if the in-memory source belongs to a deck we are
+    // mid-switch away from, refuse rather than write its content into activeDeck.
+    if (sourceDeckRef.current !== activeDeck) {
+      setMessage("Still loading this deck; try again");
+      return;
+    }
+
     // Structural actions run server-side on the current in-memory source, so
     // pending typing is included without a separate write first.
     if (action.type === "copy") {
@@ -356,6 +426,10 @@ export function App() {
   }
 
   async function onRename(slideId, title) {
+    if (sourceDeckRef.current !== activeDeck) {
+      setMessage("Still loading this deck; try again");
+      return;
+    }
     const data = await api(`/api/decks/${activeDeck}/slides/apply`, {
       method: "POST",
       body: JSON.stringify({ type: "rename", slideId, title, source: sourceRef.current })
@@ -479,11 +553,13 @@ export function App() {
     return () => window.removeEventListener("keydown", onKey);
   }, [helpOpen]);
 
-  // Ctrl/Cmd+Enter renders from anywhere. The editor binds it too (so it wins
-  // over CodeMirror's default); render()'s in-flight guard absorbs the double.
+  // Ctrl/Cmd+Enter renders from anywhere; Ctrl/Cmd+S is an alias (and overrides
+  // the browser's save-page dialog). The editor binds Enter too (so it wins over
+  // CodeMirror's default); render()'s in-flight guard absorbs the double.
   useEffect(() => {
     const onKey = (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+      const mod = e.ctrlKey || e.metaKey;
+      if (mod && (e.key === "Enter" || e.key === "s" || e.key === "S")) {
         e.preventDefault();
         render("Rendered");
       }
@@ -583,16 +659,20 @@ export function App() {
     });
   }
 
-  // Reveal reports visibleH/V (hidden slides are skipped), so match against
-  // those when the iframe tells us its current slide.
+  // The iframe navigated (arrow keys, menu, links). Match the reported (h, v)
+  // back to a parsed slide via the same alignment map and follow it.
   const onPreviewSlideChanged = useCallback((h, v) => {
-    console.log(`[App] onPreviewSlideChanged ${h}/${v}, looking in ${slides.length} slides`);
-    const match = slides.find((slide) => slide.visibleH === h && slide.visibleV === v);
-    console.log(`[App] match found:`, match?.title || 'NONE');
-    if (!match || match.id === selectedSlideIdRef.current) return;
-    console.log(`[App] selecting slide ${match.id}`);
-    setSelectedSlideId(match.id);
-  }, [slides]);
+    for (const [id, nav] of navById) {
+      if (nav.h === h && nav.v === v) {
+        if (id !== selectedSlideIdRef.current) setSelectedSlideId(id);
+        return;
+      }
+    }
+  }, [navById]);
+
+  const onPreviewSlides = useCallback((list) => {
+    setPreviewSlides(Array.isArray(list) ? list : []);
+  }, []);
 
   // Discrete status line under the editor. Red while there are edits the preview
   // has not picked up yet; muted once saved.
@@ -730,7 +810,7 @@ export function App() {
                     title="Next slide"
                   >Next ›</button>
                 </div>
-                <span className="panel-title-text">{selectedSlide ? `Body of slide ${selectedSlide.index + 1}: ${selectedSlide.title}` : "No slide selected"}</span>
+                <span className="panel-title-text">{selectedSlide ? `Body of slide ${selectedSlide.index + 1}: ${selectedSlide.title || "(untitled)"}` : "No slide selected"}</span>
                 <button
                   type="button"
                   className="link-button icon-button"
@@ -738,7 +818,7 @@ export function App() {
                   onClick={() => setImageGalleryOpen(true)}
                   title="Insert image"
                 ><Icon name="image" /> Image</button>
-                <button type="button" className="link-button" disabled={!dirty} onClick={() => render()} title="Save and reload the preview (Ctrl+Enter)">Save</button>
+                <button type="button" className="link-button" disabled={!dirty} onClick={() => render()} title="Save and reload the preview (Ctrl+Enter or Ctrl+S)">Save</button>
               </div>
               {selectedSlide ? (
                 <Editor
@@ -748,6 +828,8 @@ export function App() {
                   onChange={onBodyChange}
                   onImagePaste={onImagePaste}
                   onRender={() => render()}
+                  onImageCommand={() => setImageGalleryOpen(true)}
+                  classes={deckClasses}
                 />
               ) : (
                 <div className="empty-state"><p>Select a slide to edit its body</p></div>
@@ -766,7 +848,7 @@ export function App() {
                 onClick={() => setImageGalleryOpen(true)}
                 title="Insert image"
               ><Icon name="image" /> Image</button>
-              <button type="button" className="link-button" disabled={!dirty} onClick={() => render()} title="Save and reload the preview (Ctrl+Enter)">Save</button>
+              <button type="button" className="link-button" disabled={!dirty} onClick={() => render()} title="Save and reload the preview (Ctrl+Enter or Ctrl+S)">Save</button>
             </div>
             {activeDeck ? (
               <Editor
@@ -776,6 +858,8 @@ export function App() {
                 onChange={onWholeFileChange}
                 onImagePaste={onImagePaste}
                 onRender={() => render()}
+                onImageCommand={() => setImageGalleryOpen(true)}
+                classes={deckClasses}
               />
             ) : (
               <div className="empty-state"><p>Select a deck</p></div>
@@ -849,7 +933,10 @@ export function App() {
                 <li><kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>↑</kbd>/<kbd>↓</kbd> copy line</li>
                 <li><kbd>Ctrl</kbd>+<kbd>/</kbd> toggle comment, <kbd>Tab</kbd> indent, <kbd>Shift</kbd>+<kbd>Tab</kbd> outdent</li>
                 <li><kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Y</kbd> undo / redo</li>
-                <li><kbd>Ctrl</kbd>+<kbd>Enter</kbd> render the deck (write to disk, reload preview)</li>
+                <li><kbd>Ctrl</kbd>+<kbd>Enter</kbd> or <kbd>Ctrl</kbd>+<kbd>S</kbd> render the deck (write to disk, reload preview)</li>
+                <li>Type <kbd>/</kbd> at the start of a line for slash commands (columns, span, div, image, fragment, notes). <kbd>Tab</kbd> jumps between the placeholders; <kbd>/image</kbd> opens the picture gallery.</li>
+                <li>Select text and press <kbd>/</kbd> to wrap it in a styled span and pick a class straight away.</li>
+                <li>Inside an attribute block, type <kbd>.</kbd> (as in <code>::: {".|"}</code> or <code>[text]{".|"}</code>) to pick from the styles this deck's CSS actually defines.</li>
               </ul>
 
               <h3>Rendering</h3>
@@ -873,10 +960,9 @@ export function App() {
         {activeDeck ? (
           <PreviewFrame
             deckId={activeDeck}
-            targetSlide={selectedSlide && selectedSlide.visibleH >= 0
-              ? { h: selectedSlide.visibleH, v: selectedSlide.visibleV }
-              : null}
+            targetSlide={targetSlide}
             onSlideChanged={onPreviewSlideChanged}
+            onSlides={onPreviewSlides}
             onError={showError}
           />
         ) : (
@@ -904,6 +990,14 @@ export function App() {
       </section>
     </main>
   );
+}
+
+// Loose heading-text key for pairing parsed slides with the rendered deck's
+// slides. Pandoc strips attributes/markup much as parseHeadingTitle does, so a
+// case- and whitespace-insensitive compare is enough; empty headings (an
+// attribute-only title slide) pair as empty on both sides.
+function normTitle(title) {
+  return (title || "").toLowerCase().replace(/\s+/g, " ").trim();
 }
 
 function extractBody(source, slide) {

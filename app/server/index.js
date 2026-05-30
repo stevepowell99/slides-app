@@ -11,7 +11,7 @@ import {
 } from "./decks.js";
 import { renderDeck, renderPdf } from "./render.js";
 import { startPreview, stopPreview, stopAll } from "./preview-process.js";
-import { addMissingStyles } from "./style-copy.js";
+import { addMissingStyles, listDeckClasses } from "./style-copy.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const appRoot = path.resolve(__dirname, "..");
@@ -38,6 +38,10 @@ app.put("/api/decks/:deck/source", asyncHandler(async (req, res) => {
   }
   res.json(await writeDeckSource(repoRoot, req.params.deck, req.body.source));
 }));
+// Classes defined in the CSS this deck includes. Feeds the editor's style picker.
+app.get("/api/decks/:deck/classes", asyncHandler(async (req, res) =>
+  res.json(await listDeckClasses(repoRoot, await getDeck(repoRoot, req.params.deck)))
+));
 app.post("/api/decks/:deck/clone", asyncHandler(async (req, res) =>
   res.status(201).json(await cloneDeck(repoRoot, req.params.deck, req.body.title || ""))
 ));

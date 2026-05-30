@@ -1,0 +1,257 @@
+/* Causal Map / gLocal Eval Week template.
+   Recreates the brand deck: BR Omny type, navy #0E3D5F, organic blob motif,
+   cyan #00ADEE / mid-blue #1C79BE / magenta #DC378C accents. */
+
+:root {
+  --navy:    #0E3D5F;
+  --blue:    #1C79BE;
+  --cyan:    #00ADEE;
+  --magenta: #DC378C;
+  --yellow:  #FFE000;
+  --white:   #FFFFFF;
+  --ink:     #111111;
+  --edge:    5.6%;   /* left text margin, matched to source deck */
+}
+
+/* BR Omny is the brand font (embedded in the source pptx, installed locally).
+   Poppins is the closest rounded-geometric fallback. */
+.reveal {
+  font-family: "BR Omny", "Poppins", "Segoe UI", Arial, sans-serif;
+  font-size: 30px;
+  color: var(--ink);
+}
+.reveal h1, .reveal h2, .reveal h3 {
+  font-family: "BR Omny Bold", "BR Omny", "Poppins", "Segoe UI", sans-serif;
+  font-weight: 700;
+}
+
+.reveal .slides { text-align: left; }
+/* Keep Reveal's own position:absolute stacking; it is the positioning context
+   for the absolutely placed blocks below. Just give a definite box. */
+.reveal .slides > section,
+.reveal .slides > section > section {
+  height: 720px;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Footer URL, bottom-left on every slide. */
+.reveal .slides > section::after {
+  content: "www.glocalevalweek.org";
+  position: absolute;
+  left: var(--edge);
+  bottom: 4.5%;
+  font-size: 17px;
+  font-weight: 400;
+  z-index: 3;
+}
+.reveal section.content::after { color: var(--navy); }
+.reveal section.cover::after,
+.reveal section.section::after,
+.reveal section.closing::after { color: var(--white); }
+
+/* ================================================================ *
+ * Blob motif (assets/blobs.png), the signature graphic.            *
+ * ================================================================ */
+/* The motif fills a full-slide layer; size and position set how far it bleeds.
+   Slide is locked to 1280x720, so pixel values are stable. */
+.reveal section.cover::before,
+.reveal section.section::before,
+.reveal section.closing::before,
+.reveal section.content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(assets/blobs.png);
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Cover: largest, heavy bleed off top, right and bottom. */
+.reveal section.cover::before {
+  background-size: 1180px auto;
+  background-position: 430px -150px;
+}
+
+/* Section dividers and closing: a bit smaller, still strong bleed. */
+.reveal section.section::before,
+.reveal section.closing::before {
+  background-size: 980px auto;
+  background-position: 540px -110px;
+}
+
+/* White content slides: motif only in the bottom-right corner, bleeding off it. */
+.reveal section.content::before {
+  background-size: 600px auto;
+  background-position: right -150px bottom -190px;
+}
+
+/* ================================================================ *
+ * COVER (title) slide                                              *
+ * ================================================================ */
+.reveal section.cover .brand-cm {
+  position: absolute;
+  top: 12.8%;
+  left: var(--edge);
+  width: 9.3%;
+  margin: 0;
+  border: 0; box-shadow: none; background: none;
+  z-index: 2;
+}
+.reveal section.cover .kicker {
+  position: absolute;
+  top: 29.8%;
+  left: var(--edge);
+  color: var(--white);
+  font-size: 28px;
+  font-weight: 400;
+  z-index: 2;
+}
+.reveal section.cover .cover-title {
+  position: absolute;
+  top: 36.6%;
+  left: var(--edge);
+  width: 38%;
+  color: var(--white);
+  font-family: "BR Omny Bold", "BR Omny", "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.08;
+  z-index: 2;
+}
+
+/* ================================================================ *
+ * CONTENT slide (white background)                                 *
+ * ================================================================ */
+.reveal section.content { background-color: var(--white); }
+.reveal section.content > h1,
+.reveal section.content > h2 {
+  position: absolute;
+  top: 10.6%;
+  left: var(--edge);
+  width: 60%;
+  margin: 0;
+  padding: 0;
+  border: 0;            /* drop the shared theme's heading underline */
+  color: var(--blue);
+  font-size: 48px;
+  line-height: 1.05;
+  z-index: 2;
+}
+/* Body content lives in a .body wrapper so it does not capture the logo's
+   image paragraph as a positioning context. */
+.reveal section.content .body {
+  position: absolute;
+  top: 25.7%;
+  left: var(--edge);
+  width: 64%;
+  color: var(--ink);
+  font-size: 30px;
+  z-index: 2;
+}
+.reveal section.content .body ul,
+.reveal section.content .body ol { margin: 0; }
+.reveal section.content .body li { margin: 0.35em 0; line-height: 1.25; }
+.reveal section.content .brand-qualia {
+  position: absolute;
+  top: 4%;
+  right: 3.5%;
+  width: 19%;
+  margin: 0;
+  border: 0; box-shadow: none; background: none;
+  z-index: 2;
+}
+
+/* Pink call-out box, as on the EU/global servers slide. */
+.reveal .callout {
+  position: absolute;
+  top: 38%;
+  right: 4%;
+  width: 26%;
+  background: var(--magenta);
+  color: var(--white);
+  border-radius: 18px;
+  padding: 0.9em 1.1em;
+  font-size: 22px;
+  line-height: 1.3;
+  z-index: 2;
+}
+.reveal .callout p, .reveal .callout li { color: var(--white); font-size: 22px; }
+
+/* Two highlight chips used inline in body text. */
+.reveal .chip-yes, .reveal .chip-no {
+  display: inline-block;
+  padding: 0.05em 0.5em;
+  border-radius: 6px;
+  font-size: 0.7em;
+  font-weight: 700;
+  vertical-align: middle;
+}
+.reveal .chip-yes { background: var(--cyan);    color: var(--white); }
+.reveal .chip-no  { background: var(--magenta); color: var(--white); }
+
+/* ================================================================ *
+ * SECTION divider (navy)                                           *
+ * ================================================================ */
+.reveal section.section .section-title {
+  position: absolute;
+  top: 46%;
+  left: var(--edge);
+  width: 40%;
+  color: var(--white);
+  font-family: "BR Omny Bold", "BR Omny", "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.08;
+  z-index: 2;
+}
+.reveal section.section .brand-qualia,
+.reveal section.closing .brand-cm {
+  position: absolute;
+  bottom: 11%;
+  left: var(--edge);
+  width: 19%;
+  margin: 0;
+  border: 0; box-shadow: none; background: none;
+  z-index: 2;
+}
+
+/* ================================================================ *
+ * CLOSING slide (navy)                                             *
+ * ================================================================ */
+.reveal section.closing .closing-title {
+  position: absolute;
+  top: 47%;
+  left: var(--edge);
+  color: var(--white);
+  font-family: "BR Omny Bold", "BR Omny", "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  z-index: 2;
+}
+.reveal section.closing .gei-logo {
+  position: absolute;
+  top: 12%;
+  left: var(--edge);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 2;
+}
+.reveal section.closing .gei-logo img {
+  width: 90px; margin: 0; border: 0; box-shadow: none; background: none;
+}
+.reveal section.closing .gei-logo span {
+  color: var(--white);
+  font-size: 26px;
+  line-height: 1.05;
+  font-weight: 400;
+}
+.reveal section.closing .gei-logo b { font-weight: 700; display: block; }
+
+/* Images in content keep no decorative borders. */
+.reveal section img { border: 0; box-shadow: none; border-radius: 0; }
+
+/* Hidden-slide convention shared across this repo's decks. */
+.reveal .slides section.hidden-slide { display: none !important; }
+.reveal section.no-title > :is(h1, h2, h3):first-of-type { display: none; }

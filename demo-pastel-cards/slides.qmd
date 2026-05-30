@@ -1,0 +1,125 @@
+---
+pagetitle: "Demo: Pastel cards"
+format:
+  revealjs:
+    theme: white
+    slide-number: c/t
+    transition-speed: slow
+    width: 1280
+    height: 720
+    include-in-header:
+      - ../_shared/preview-bridge.html
+    css:
+      - ../_shared/styles.css
+      - pastel-cards.css
+---
+
+# Pastel cards {background-color="#fdf6f0" .title-slide .no-title}
+
+::: {.kicker}
+SLOW SLIDES · ACADEMIC TONE
+:::
+
+::: {.title}
+Pastel cards
+:::
+
+::: {.subtitle}
+A soft, calm scheme for teaching, posters and reflective talks.
+:::
+
+![](../Amsterdam-UMC/img/p-and-q-separate-beliefs-combined.png){width=20%}
+
+![](../_shared/img/paste-1779817254757.png){width="20%"}
+
+::: {.dotrow style="margin-top: 2em;"}
+::: {.dot .pink}
+:::
+::: {.dot .blue}
+:::
+::: {.dot .green}
+:::
+::: {.dot .yellow}
+:::
+:::
+
+# Part one: setting the scene {background-color="#eef4ff"}
+
+## What we will cover
+
+::: {.cardrow}
+::: {.card .pink}
+**Why**
+
+The motivation, in one paragraph.
+:::
+
+::: {.card .blue}
+**What**
+
+The thing itself, with a small example.
+:::
+
+::: {.card .green}
+**How**
+
+A short walk-through.
+:::
+:::
+
+## A two-column slide
+
+::: {.splitgrid}
+::: {.card .yellow}
+**Hypothesis**
+
+Pastel palettes lower perceived information density, which helps audiences absorb dense slides.
+:::
+::: {.card .pink}
+**Caveat**
+
+Soft colours can also flatten emphasis. Reserve a single accent for the one thing you really want noticed.
+:::
+:::
+
+## An image
+
+![A calm placeholder where your image would sit.](https://placehold.co/1000x420/dbe7f8/486ea0){fig-align="center"}
+
+::: {.caption}
+Image: placeholder. Drop your own in here.
+:::
+
+## A quotation
+
+> Make it boring before you make it beautiful.
+
+::: {.attribution}
+— attributed to a workshop facilitator
+:::
+
+## A short code example
+
+```python
+palette = {
+    "pink":   "#f6d8d8",
+    "blue":   "#dbe7f8",
+    "green":  "#dbeede",
+    "yellow": "#f8eccf",
+}
+```
+
+[Inline accent on the [pink]{.hl-pink} swatch and the [blue]{.hl-blue} swatch.]{.note-inline}
+
+## Thank you {.no-title background-color="#fdf6f0"}
+
+::: {.closing}
+::: {.title}
+Thank you.
+:::
+
+::: {.subtitle}
+Questions are very welcome.
+:::
+:::
+

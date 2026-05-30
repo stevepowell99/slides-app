@@ -1,0 +1,1959 @@
+{
+  "slide_width": 12192000,
+  "slide_height": 6858000,
+  "slides": [
+    {
+      "index": 1,
+      "title": "",
+      "shapes": [
+        {
+          "name": "Speech Bubble: Rectangle 3",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 228600,
+          "top": 664026,
+          "width": 5399315,
+          "height": 4555200,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Robot, identify the most important stories in this pile of documents and summarise them!",
+                  "bold": false,
+                  "italic": false,
+                  "size": 40.0
+                }
+              ],
+              "text": "Robot, identify the most important stories in this pile of documents and summarise them!"
+            }
+          ]
+        },
+        {
+          "name": "Thought Bubble: Cloud 5",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 6096000,
+          "top": 141512,
+          "width": 6204856,
+          "height": 4876800,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Yippee, ",
+                  "bold": false,
+                  "italic": true,
+                  "size": 40.0
+                },
+                {
+                  "text": "I get to make evaluative judgements all on my own.",
+                  "bold": false,
+                  "italic": true,
+                  "size": 40.0
+                }
+              ],
+              "text": "Yippee, \u000bI get to make evaluative judgements all on my own."
+            }
+          ]
+        },
+        {
+          "name": "TextBox 6",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 729343,
+          "top": 5682341,
+          "width": 9546771,
+          "height": 1323439,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "\ud83d\udc69\ud83c\udffc\u200d\ud83e\uddb0                  \ud83e\udd16",
+                  "bold": false,
+                  "italic": false,
+                  "size": 80.0
+                }
+              ],
+              "text": "\ud83d\udc69\ud83c\udffc\u200d\ud83e\uddb0                  \ud83e\udd16"
+            }
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "index": 2,
+      "title": "",
+      "shapes": [
+        {
+          "name": "Speech Bubble: Rectangle 3",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 228600,
+          "top": 197921,
+          "width": 9546771,
+          "height": 1836727,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Robot, give me a table of the numbered paragraphs in this document, and for each one list and describe any education initiatives mentioned!",
+                  "bold": false,
+                  "italic": false,
+                  "size": 32.0
+                }
+              ],
+              "text": "Robot, give me a table of the numbered paragraphs in this document, and for each one list and describe any education initiatives mentioned!"
+            }
+          ]
+        },
+        {
+          "name": "Speech Bubble: Rectangle 5",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 4593771,
+          "top": 2520218,
+          "width": 7191829,
+          "height": 1045028,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Oh, that is SO BORING",
+                  "bold": false,
+                  "italic": true,
+                  "size": 32.0
+                }
+              ],
+              "text": "Oh, that is SO BORING"
+            }
+          ]
+        },
+        {
+          "name": "TextBox 6",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 729343,
+          "top": 4965873,
+          "width": 9546771,
+          "height": 1323439,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "\ud83d\udc69\ud83c\udffc\u200d\ud83e\uddb0                  \ud83e\udd16",
+                  "bold": false,
+                  "italic": false,
+                  "size": 80.0
+                }
+              ],
+              "text": "\ud83d\udc69\ud83c\udffc\u200d\ud83e\uddb0                  \ud83e\udd16"
+            }
+          ]
+        },
+        {
+          "name": "Speech Bubble: Rectangle 1",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 2460171,
+          "top": 4346379,
+          "width": 3200400,
+          "height": 839188,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Good.",
+                  "bold": null,
+                  "italic": null,
+                  "size": 32.0
+                }
+              ],
+              "text": "Good."
+            }
+          ]
+        },
+        {
+          "name": "TextBox 2",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": -95003,
+          "top": 6303157,
+          "width": 12536381,
+          "height": 523220,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "    If your robot is enjoying itself, you\u2019re prompting it wrong",
+                  "bold": false,
+                  "italic": false,
+                  "size": 28.0
+                }
+              ],
+              "text": "    If your robot is enjoying itself, you\u2019re prompting it wrong"
+            }
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "index": 3,
+      "title": "",
+      "shapes": [
+        {
+          "name": "TextBox 6",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 729343,
+          "top": 5682341,
+          "width": 9546771,
+          "height": 1323439,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "\ud83d\udc69\ud83c\udffc\u200d\ud83e\uddb0                  \ud83d\udc68\ud83c\udffd\u200d\ud83e\uddb1",
+                  "bold": null,
+                  "italic": null,
+                  "size": 80.0
+                }
+              ],
+              "text": "\ud83d\udc69\ud83c\udffc\u200d\ud83e\uddb0                  \ud83d\udc68\ud83c\udffd\u200d\ud83e\uddb1"
+            }
+          ]
+        },
+        {
+          "name": "Speech Bubble: Rectangle 3",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 228600,
+          "top": 199176,
+          "width": 5399315,
+          "height": 2046083,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "I had to read all these reports and write an evaluative summary. ",
+                  "bold": null,
+                  "italic": null,
+                  "size": 24.0
+                },
+                {
+                  "text": "Instead, I just asked a random person to it for me!",
+                  "bold": null,
+                  "italic": null,
+                  "size": 24.0
+                }
+              ],
+              "text": "I had to read all these reports and write an evaluative summary. \u000bInstead, I just asked a random person to it for me!"
+            }
+          ]
+        },
+        {
+          "name": "Speech Bubble: Rectangle 1",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 5502728,
+          "top": 2371944,
+          "width": 5399315,
+          "height": 1006550,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Umm \u2026 doesn\u2019t sound very rigorous?",
+                  "bold": null,
+                  "italic": null,
+                  "size": 24.0
+                }
+              ],
+              "text": "Umm \u2026 doesn\u2019t sound very rigorous?"
+            }
+          ]
+        },
+        {
+          "name": "Speech Bubble: Rectangle 2",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 2500085,
+          "top": 4238318,
+          "width": 4002315,
+          "height": 1006550,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Don\u2019t worry, it wasn\u2019t a real person, it was a robot.",
+                  "bold": null,
+                  "italic": null,
+                  "size": 24.0
+                }
+              ],
+              "text": "Don\u2019t worry, it wasn\u2019t a real person, it was a robot."
+            }
+          ]
+        },
+        {
+          "name": "Speech Bubble: Rectangle 4",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 8202385,
+          "top": 5440056,
+          "width": 3623435,
+          "height": 1039534,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Ah, that\u2019s ok then",
+                  "bold": null,
+                  "italic": null,
+                  "size": 24.0
+                }
+              ],
+              "text": "Ah, that\u2019s ok then"
+            }
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "index": 4,
+      "title": "",
+      "shapes": [
+        {
+          "name": "Title 1",
+          "type": "<MSO_SHAPE_TYPE.PLACEHOLDER: 14>",
+          "left": 415600,
+          "top": 593367,
+          "width": 11360800,
+          "height": 763500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [],
+              "text": ""
+            }
+          ]
+        },
+        {
+          "name": "Text Placeholder 2",
+          "type": "<MSO_SHAPE_TYPE.PLACEHOLDER: 14>",
+          "left": 415600,
+          "top": 1536633,
+          "width": 11360800,
+          "height": 4555200,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Break up complex, vague tasks (big black boxes) into smaller steps which can be intersubjectively verified (tiny black boxes).",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "Break up complex, vague tasks (big black boxes) into smaller steps which can be intersubjectively verified (tiny black boxes)."
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Document your methodology so that you can explain step by step, verifiably, how you reached your conclusions. ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "Document your methodology so that you can explain step by step, verifiably, how you reached your conclusions. "
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Use the AI to speed up many simple tasks which you *",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "could",
+                  "bold": null,
+                  "italic": true,
+                  "size": null
+                },
+                {
+                  "text": "* have done yourself if you had the time. ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "Use the AI to speed up many simple tasks which you *could* have done yourself if you had the time. "
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Break up the data into pieces for AI analysis. Ideally run each piece as a separate prompt. Failing that, number each section and ask for a numbered, section-by-section answer, for example in a table. | ***DON\u2019T***  Give an AI large pieces of text and expect it will pay due attention to all of it. It will *claim* to have done, and may provide references to relevant passages, but attention is *expensive* and it is always trying to reduce that expense. If you let it, it will always try to skim read and jump to conclusions. || ***DO***  Use explicit, manual methods (Excel?!) to synthesise the results of the multiple separate tasks you gave the AI. | ***DON\u2019T*** Ask an AI to do maths for you, like adding up the number of positive or negative findings on a rubric. AIs are still terrible at ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "maths.Even",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": " worse, DON\u2019T  ask an AI to do *implicit* counting and comparison like \u201care there more  positive or negative mentions of X in this report?\u201d |",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "Break up the data into pieces for AI analysis. Ideally run each piece as a separate prompt. Failing that, number each section and ask for a numbered, section-by-section answer, for example in a table. | ***DON\u2019T***  Give an AI large pieces of text and expect it will pay due attention to all of it. It will *claim* to have done, and may provide references to relevant passages, but attention is *expensive* and it is always trying to reduce that expense. If you let it, it will always try to skim read and jump to conclusions. || ***DO***  Use explicit, manual methods (Excel?!) to synthesise the results of the multiple separate tasks you gave the AI. | ***DON\u2019T*** Ask an AI to do maths for you, like adding up the number of positive or negative findings on a rubric. AIs are still terrible at maths.Even worse, DON\u2019T  ask an AI to do *implicit* counting and comparison like \u201care there more  positive or negative mentions of X in this report?\u201d |"
+            }
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "index": 5,
+      "title": "AI-led interviews??",
+      "shapes": [
+        {
+          "name": "Google Shape;137;g3398819d769_2_6",
+          "type": "<MSO_SHAPE_TYPE.PLACEHOLDER: 14>",
+          "left": 831850,
+          "top": 1709738,
+          "width": 10515600,
+          "height": 2852700,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "AI-led interviews??",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "AI-led interviews??"
+            }
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "index": 6,
+      "title": "DO: When to use AI interviewing",
+      "shapes": [
+        {
+          "name": "Google Shape;153;p14",
+          "type": "<MSO_SHAPE_TYPE.PLACEHOLDER: 14>",
+          "left": 838200,
+          "top": 499925,
+          "width": 10515600,
+          "height": 1325700,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "DO: When to use AI interviewing",
+                  "bold": true,
+                  "italic": null,
+                  "size": 42.0
+                }
+              ],
+              "text": "DO: When to use AI interviewing"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;154;p14",
+          "type": "<MSO_SHAPE_TYPE.PLACEHOLDER: 14>",
+          "left": 838200,
+          "top": 1825625,
+          "width": 10515600,
+          "height": 4869600,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Situations where you ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "don\u2019t know exactly what to ask",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "Situations where you don\u2019t know exactly what to ask"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Less structured, explorative ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "conversations",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "Less structured, explorative conversations"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "When your respondents may use ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "different languages",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "When your respondents may use different languages"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "When you can ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "scale up",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": " from H2H to AI interviewing",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": " ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "When you can scale up from H2H to AI interviewing "
+            },
+            {
+              "level": 0,
+              "runs": [],
+              "text": ""
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "DON\u2019T: When not to use AI interviewing",
+                  "bold": true,
+                  "italic": null,
+                  "size": 54.0
+                }
+              ],
+              "text": "DON\u2019T: When not to use AI interviewing"
+            },
+            {
+              "level": 0,
+              "runs": [],
+              "text": ""
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "When you ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "could have used a questionnaire",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "When you could have used a questionnaire"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "When you have a ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "lot of specific questions ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "to ask",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "When you have a lot of specific questions to ask"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "When you are dealing with ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "sensitive ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "information or with vulnerable populations",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "When you are dealing with sensitive information or with vulnerable populations"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "When you really need the ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": "human-to-human",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": " interaction",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "When you really need the human-to-human interaction"
+            }
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "index": 7,
+      "title": "",
+      "shapes": [
+        {
+          "name": "Google Shape;142;p29",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 148925,
+          "top": 2859425,
+          "width": 1319100,
+          "height": 446400,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Quality",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                }
+              ],
+              "text": "Quality"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;143;p29",
+          "type": "<MSO_SHAPE_TYPE.LINE: 9>",
+          "left": 1574425,
+          "top": 1251375,
+          "width": 0,
+          "height": 4503300
+        },
+        {
+          "name": "Google Shape;144;p29",
+          "type": "<MSO_SHAPE_TYPE.LINE: 9>",
+          "left": 1726825,
+          "top": 5907075,
+          "width": 8294100,
+          "height": 0
+        },
+        {
+          "name": "Google Shape;145;p29",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 4822575,
+          "top": 6042400,
+          "width": 3829800,
+          "height": 477000,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Quantity",
+                  "bold": false,
+                  "italic": false,
+                  "size": 19.0
+                }
+              ],
+              "text": "Quantity"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;146;p29",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 1865200,
+          "top": 563300,
+          "width": 1879500,
+          "height": 1567500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Face to face ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 21.0
+                },
+                {
+                  "text": "Interviews ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 21.0
+                }
+              ],
+              "text": "Face to face \u000bInterviews "
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;147;p29",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 8092025,
+          "top": 3683800,
+          "width": 2439900,
+          "height": 1567500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Structured questionnaires",
+                  "bold": false,
+                  "italic": false,
+                  "size": 21.0
+                }
+              ],
+              "text": "Structured questionnaires"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;148;p29",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 3487825,
+          "top": 1644925,
+          "width": 4902600,
+          "height": 2518500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Conversational AI interviewing?",
+                  "bold": false,
+                  "italic": false,
+                  "size": 22.0
+                }
+              ],
+              "text": "Conversational AI interviewing?"
+            }
+          ]
+        }
+      ],
+      "notes": "Bigger because so many possibilities"
+    },
+    {
+      "index": 8,
+      "title": "",
+      "shapes": [
+        {
+          "name": "Google Shape;101;p3",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 0,
+          "top": 0,
+          "width": 12192000,
+          "height": 355600,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [],
+              "text": ""
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;102;p3",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 401769,
+          "top": 593634,
+          "width": 9719384,
+          "height": 769401,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "What\u2019s ",
+                  "bold": true,
+                  "italic": false,
+                  "size": 44.0
+                },
+                {
+                  "text": "QualiaInterviews.com",
+                  "bold": true,
+                  "italic": false,
+                  "size": 44.0
+                },
+                {
+                  "text": "? ",
+                  "bold": true,
+                  "italic": false,
+                  "size": 44.0
+                }
+              ],
+              "text": "What\u2019s QualiaInterviews.com? "
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;103;p3",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 401769,
+          "top": 1476825,
+          "width": 11586300,
+          "height": 1154400,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "A platform for ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 23.0
+                },
+                {
+                  "text": "designing",
+                  "bold": true,
+                  "italic": false,
+                  "size": 23.0
+                },
+                {
+                  "text": " ",
+                  "bold": true,
+                  "italic": false,
+                  "size": 23.0
+                },
+                {
+                  "text": "and ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 23.0
+                },
+                {
+                  "text": "delivering",
+                  "bold": true,
+                  "italic": false,
+                  "size": 23.0
+                },
+                {
+                  "text": " AI-led online interviews. ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 23.0
+                }
+              ],
+              "text": "A platform for designing and delivering AI-led online interviews. "
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "\u201cSurveyMonkey, but for stories\u201d",
+                  "bold": false,
+                  "italic": false,
+                  "size": 23.0
+                }
+              ],
+              "text": "\u201cSurveyMonkey, but for stories\u201d"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "You get \u00a350 in credits on signing up. After, one interview costs \u00a31-2. No subscription.",
+                  "bold": false,
+                  "italic": false,
+                  "size": 23.0
+                }
+              ],
+              "text": "You get \u00a350 in credits on signing up. After, one interview costs \u00a31-2. No subscription."
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;104;p3",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 401777,
+          "top": 2936025,
+          "width": 7577700,
+          "height": 3877200,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "What you can do with Qualia?",
+                  "bold": true,
+                  "italic": null,
+                  "size": 21.0
+                }
+              ],
+              "text": "What you can do with Qualia?"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Automate ",
+                  "bold": true,
+                  "italic": null,
+                  "size": 21.0
+                },
+                {
+                  "text": "test",
+                  "bold": true,
+                  "italic": false,
+                  "size": 21.0
+                },
+                {
+                  "text": " your interview ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 21.0
+                }
+              ],
+              "text": "Automate test your interview "
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Get a nice top-line analysis of your interviews ",
+                  "bold": null,
+                  "italic": null,
+                  "size": 21.0
+                }
+              ],
+              "text": "Get a nice top-line analysis of your interviews "
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "What you ",
+                  "bold": true,
+                  "italic": null,
+                  "size": 21.0
+                },
+                {
+                  "text": "can\u2019t",
+                  "bold": true,
+                  "italic": true,
+                  "size": 21.0
+                },
+                {
+                  "text": " do with Qualia?",
+                  "bold": true,
+                  "italic": null,
+                  "size": 21.0
+                }
+              ],
+              "text": "What you can\u2019t do with Qualia?"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Get a general AI helper ",
+                  "bold": null,
+                  "italic": null,
+                  "size": 21.0
+                }
+              ],
+              "text": "Get a general AI helper "
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Analyse random texts or reports",
+                  "bold": null,
+                  "italic": null,
+                  "size": 21.0
+                }
+              ],
+              "text": "Analyse random texts or reports"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Alternatives:",
+                  "bold": true,
+                  "italic": false,
+                  "size": 21.0
+                }
+              ],
+              "text": "Alternatives:"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Ailyze.com",
+                  "bold": true,
+                  "italic": false,
+                  "size": 21.0
+                }
+              ],
+              "text": "Ailyze.com"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Yas",
+                  "bold": true,
+                  "italic": false,
+                  "size": 21.0
+                },
+                {
+                  "text": "na.a",
+                  "bold": true,
+                  "italic": null,
+                  "size": 21.0
+                },
+                {
+                  "text": "i",
+                  "bold": true,
+                  "italic": false,
+                  "size": 21.0
+                }
+              ],
+              "text": "Yasna.ai"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Focaldata ",
+                  "bold": true,
+                  "italic": null,
+                  "size": 21.0
+                }
+              ],
+              "text": "Focaldata "
+            },
+            {
+              "level": 0,
+              "runs": [],
+              "text": ""
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;105;p3",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 11226250,
+          "top": 408600,
+          "width": 894600,
+          "height": 355500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "16 min",
+                  "bold": false,
+                  "italic": false,
+                  "size": 14.0
+                }
+              ],
+              "text": "16 min"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;106;p3",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 8109123,
+          "top": 3809775,
+          "width": 3598800,
+          "height": 1477500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "We are also the developers of Causal Map 3, an app to do in-depth causal analysis of your data, but today our focus is on QualiaInterviews",
+                  "bold": null,
+                  "italic": null,
+                  "size": 18.0
+                }
+              ],
+              "text": "We are also the developers of Causal Map 3, an app to do in-depth causal analysis of your data, but today our focus is on QualiaInterviews"
+            }
+          ]
+        }
+      ],
+      "notes": "What you can\u2019t do: \u000b- Comprehensive analysis "
+    },
+    {
+      "index": 9,
+      "title": "",
+      "shapes": [
+        {
+          "name": "Google Shape;117;p2",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 422787,
+          "top": 593634,
+          "width": 11041500,
+          "height": 769500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Let\u2019s get interviewed!",
+                  "bold": true,
+                  "italic": false,
+                  "size": 44.0
+                }
+              ],
+              "text": "Let\u2019s get interviewed!"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;118;p2",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 422775,
+          "top": 3309200,
+          "width": 6225600,
+          "height": 769500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "https://shorturl.at/W8UmC",
+                  "bold": true,
+                  "italic": null,
+                  "size": 38.0
+                },
+                {
+                  "text": " ",
+                  "bold": true,
+                  "italic": null,
+                  "size": 38.0
+                }
+              ],
+              "text": "https://shorturl.at/W8UmC "
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;119;p2",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 0,
+          "top": -53100,
+          "width": 509100,
+          "height": 461700,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "\ud83d\udd38",
+                  "bold": false,
+                  "italic": false,
+                  "size": 18.0
+                }
+              ],
+              "text": "\ud83d\udd38"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;120;p2",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 11390250,
+          "top": 6309350,
+          "width": 611100,
+          "height": 447300,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [],
+              "text": ""
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;121;p2",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 509100,
+          "top": 5761250,
+          "width": 6119700,
+          "height": 523200,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "https://chat.qualiainterviews.com/?interview=careers-m-e-academy&audio=true",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                },
+                {
+                  "text": " ",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "https://chat.qualiainterviews.com/?interview=careers-m-e-academy&audio=true "
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;122;p2",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 0,
+          "top": -53100,
+          "width": 509100,
+          "height": 461700,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "\ud83d\udd38",
+                  "bold": false,
+                  "italic": false,
+                  "size": 18.0
+                }
+              ],
+              "text": "\ud83d\udd38"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;123;p2",
+          "type": "<MSO_SHAPE_TYPE.PICTURE: 13>",
+          "left": 6978125,
+          "top": 1439316,
+          "width": 4793825,
+          "height": 4793825,
+          "is_picture": true
+        }
+      ],
+      "notes": "5 min\u000bBackground: Increasing use of chatbots for data gathering: marketing research, customer service, sales, HR, etc. \u2026 but simple chatbots can be frustrating.\n"
+    },
+    {
+      "index": 10,
+      "title": "A case study",
+      "shapes": [
+        {
+          "name": "Google Shape;375;g3398819d769_3_32",
+          "type": "<MSO_SHAPE_TYPE.PLACEHOLDER: 14>",
+          "left": 831850,
+          "top": 1709738,
+          "width": 10515600,
+          "height": 2852700,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "A case study",
+                  "bold": null,
+                  "italic": null,
+                  "size": null
+                }
+              ],
+              "text": "A case study"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;376;g3398819d769_3_32",
+          "type": "<MSO_SHAPE_TYPE.PLACEHOLDER: 14>",
+          "left": 831850,
+          "top": 4589463,
+          "width": 10515600,
+          "height": 1500300,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [],
+              "text": ""
+            }
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "index": 11,
+      "title": "",
+      "shapes": [
+        {
+          "name": "Google Shape;381;p11",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 0,
+          "top": 0,
+          "width": 12192000,
+          "height": 355600,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [],
+              "text": ""
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;382;p11",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 349849,
+          "top": 680350,
+          "width": 10534500,
+          "height": 769500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "A real-world case study using Qualia",
+                  "bold": true,
+                  "italic": false,
+                  "size": 44.0
+                }
+              ],
+              "text": "A real-world case study using Qualia"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;383;p11",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 349850,
+          "top": 1606850,
+          "width": 11842200,
+          "height": 1262100,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Background",
+                  "bold": true,
+                  "italic": false,
+                  "size": 19.0
+                }
+              ],
+              "text": "Background"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "DuocUC, a higher education institution in Chile, hired our consultancy (Causal Map Ltd) to conduct QuIP-style interviews with Qualia and analyse them using the Causal Map app. The interviews were motivated by concerns about the ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 19.0
+                },
+                {
+                  "text": "gender gaps faced by women pursuing STEM careers",
+                  "bold": true,
+                  "italic": false,
+                  "size": 19.0
+                },
+                {
+                  "text": " at the university.",
+                  "bold": false,
+                  "italic": false,
+                  "size": 19.0
+                }
+              ],
+              "text": "DuocUC, a higher education institution in Chile, hired our consultancy (Causal Map Ltd) to conduct QuIP-style interviews with Qualia and analyse them using the Causal Map app. The interviews were motivated by concerns about the gender gaps faced by women pursuing STEM careers at the university."
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;384;p11",
+          "type": "<MSO_SHAPE_TYPE.PICTURE: 13>",
+          "left": 5972550,
+          "top": 3520375,
+          "width": 5943600,
+          "height": 2730992,
+          "is_picture": true
+        },
+        {
+          "name": "Google Shape;385;p11",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 349850,
+          "top": 3251375,
+          "width": 5287200,
+          "height": 3000000,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Step 1: Setting up the interview in Qualia",
+                  "bold": true,
+                  "italic": false,
+                  "size": 19.0
+                }
+              ],
+              "text": "Step 1: Setting up the interview in Qualia"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "The instruction for the AI interviewer was similar to the ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": "instructions you could give to a human interviewer. ",
+                  "bold": true,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": "And both the interview instructions and the interviews itself were conducted in ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": "Spanish",
+                  "bold": true,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": ".",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                }
+              ],
+              "text": "The instruction for the AI interviewer was similar to the instructions you could give to a human interviewer. And both the interview instructions and the interviews itself were conducted in Spanish."
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "The AI asked questions about changes in ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": "3 domains",
+                  "bold": true,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": ": educational experiences, professional development and relationship dynamics.",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                }
+              ],
+              "text": "The AI asked questions about changes in 3 domains: educational experiences, professional development and relationship dynamics."
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "We used GPT-4o which was the best AI model to date.",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                }
+              ],
+              "text": "We used GPT-4o which was the best AI model to date."
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;386;p11",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 0,
+          "top": -53100,
+          "width": 509100,
+          "height": 461700,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "\ud83d\udd38",
+                  "bold": false,
+                  "italic": false,
+                  "size": 18.0
+                }
+              ],
+              "text": "\ud83d\udd38"
+            }
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "index": 12,
+      "title": "",
+      "shapes": [
+        {
+          "name": "Google Shape;391;g32901f6ef46_0_34",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 0,
+          "top": 0,
+          "width": 12192000,
+          "height": 355500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [],
+              "text": ""
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;392;g32901f6ef46_0_34",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 386425,
+          "top": 1469525,
+          "width": 11625300,
+          "height": 1685100,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Step 2: Collecting stories with Qualia",
+                  "bold": true,
+                  "italic": false,
+                  "size": 19.0
+                }
+              ],
+              "text": "Step 2: Collecting stories with Qualia"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "We sent the interview link to 50 people and were able to collect 32 interviews.",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                }
+              ],
+              "text": "We sent the interview link to 50 people and were able to collect 32 interviews."
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "We created special individual links to be able to track the interviews",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                }
+              ],
+              "text": "We created special individual links to be able to track the interviews"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "We downloaded the interview results from Qualia and uploaded them into Causal Map.",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                }
+              ],
+              "text": "We downloaded the interview results from Qualia and uploaded them into Causal Map."
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;393;g32901f6ef46_0_34",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 386425,
+          "top": 3145250,
+          "width": 11625300,
+          "height": 1535400,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Step 3: Analysing stories with Causal Map",
+                  "bold": true,
+                  "italic": false,
+                  "size": 19.0
+                }
+              ],
+              "text": "Step 3: Analysing stories with Causal Map"
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "We used AI (GPT-4o) to identify ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": "each and every causal link ",
+                  "bold": true,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": "in the interviews, and for each link, to label the cause and effect.",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                }
+              ],
+              "text": "We used AI (GPT-4o) to identify each and every causal link in the interviews, and for each link, to label the cause and effect."
+            },
+            {
+              "level": 0,
+              "runs": [],
+              "text": ""
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;394;g32901f6ef46_0_34",
+          "type": "<MSO_SHAPE_TYPE.PICTURE: 13>",
+          "left": 3994075,
+          "top": 4066775,
+          "width": 8197924,
+          "height": 2752751,
+          "is_picture": true
+        },
+        {
+          "name": "Google Shape;395;g32901f6ef46_0_34",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 386425,
+          "top": 4389400,
+          "width": 3808800,
+          "height": 2406300,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "We used a",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": " \u201cradical zero-shot\u201d approach",
+                  "bold": true,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": " in which the AI is given no codebook and is simply told to invent its own codes (in Spanish). We gave the AI context about the project.",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                }
+              ],
+              "text": "We used a \u201cradical zero-shot\u201d approach in which the AI is given no codebook and is simply told to invent its own codes (in Spanish). We gave the AI context about the project."
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "We found ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": "251 causal links ",
+                  "bold": true,
+                  "italic": false,
+                  "size": 17.0
+                },
+                {
+                  "text": "mentioned by the respondents",
+                  "bold": false,
+                  "italic": false,
+                  "size": 17.0
+                }
+              ],
+              "text": "We found 251 causal links mentioned by the respondents"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;396;g32901f6ef46_0_34",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 349849,
+          "top": 680350,
+          "width": 10534500,
+          "height": 769500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "A real-world case study using Qualia",
+                  "bold": true,
+                  "italic": false,
+                  "size": 44.0
+                }
+              ],
+              "text": "A real-world case study using Qualia"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;397;g32901f6ef46_0_34",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 0,
+          "top": -53100,
+          "width": 509100,
+          "height": 461700,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "\ud83d\udd38",
+                  "bold": false,
+                  "italic": false,
+                  "size": 18.0
+                }
+              ],
+              "text": "\ud83d\udd38"
+            }
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "index": 13,
+      "title": "",
+      "shapes": [
+        {
+          "name": "Google Shape;403;g329925d9904_0_210",
+          "type": "<MSO_SHAPE_TYPE.AUTO_SHAPE: 1>",
+          "left": 0,
+          "top": 0,
+          "width": 12192000,
+          "height": 355500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [],
+              "text": ""
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;404;g329925d9904_0_210",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 521775,
+          "top": 627075,
+          "width": 10943400,
+          "height": 769500,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "References",
+                  "bold": true,
+                  "italic": false,
+                  "size": 44.0
+                }
+              ],
+              "text": "References"
+            }
+          ]
+        },
+        {
+          "name": "Google Shape;405;g329925d9904_0_210",
+          "type": "<MSO_SHAPE_TYPE.TEXT_BOX: 17>",
+          "left": 521775,
+          "top": 1396575,
+          "width": 11558100,
+          "height": 4802400,
+          "paragraphs": [
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Chopra F and Haaland I (2023) Conducting Qualitative Interviews with AI.: 72.",
+                  "bold": false,
+                  "italic": false,
+                  "size": 25.0
+                }
+              ],
+              "text": "Chopra F and Haaland I (2023) Conducting Qualitative Interviews with AI.: 72."
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Jang ME and Lukasiewicz T (2023) Consistency Analysis of ChatGPT. arXiv preprint arXiv:2303.06273. Epub ahead of print 2023. DOI: ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 25.0
+                },
+                {
+                  "text": "https://doi.org/10.48550/arXiv.2303.06273",
+                  "bold": false,
+                  "italic": false,
+                  "size": 25.0
+                },
+                {
+                  "text": ".",
+                  "bold": false,
+                  "italic": false,
+                  "size": 25.0
+                }
+              ],
+              "text": "Jang ME and Lukasiewicz T (2023) Consistency Analysis of ChatGPT. arXiv preprint arXiv:2303.06273. Epub ahead of print 2023. DOI: https://doi.org/10.48550/arXiv.2303.06273."
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Ray PP (2023) ChatGPT: A comprehensive review on background, applications, key challenges, bias, ethics, limitations and future scope. Internet of Things and Cyber-Physical Systems 3.",
+                  "bold": false,
+                  "italic": false,
+                  "size": 25.0
+                }
+              ],
+              "text": "Ray PP (2023) ChatGPT: A comprehensive review on background, applications, key challenges, bias, ethics, limitations and future scope. Internet of Things and Cyber-Physical Systems 3."
+            },
+            {
+              "level": 0,
+              "runs": [
+                {
+                  "text": "Yuen M (2022) Chatbot market in 2022: Stats, trends, and companies in the growing AI chatbot industry. Insider Intelligence. ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 25.0
+                },
+                {
+                  "text": "https://www.insiderintelligence.com/insights/chatbot-market-stats-trends/",
+                  "bold": false,
+                  "italic": false,
+                  "size": 25.0
+                },
+                {
+                  "text": " ",
+                  "bold": false,
+                  "italic": false,
+                  "size": 25.0
+                }
+              ],
+              "text": "Yuen M (2022) Chatbot market in 2022: Stats, trends, and companies in the growing AI chatbot industry. Insider Intelligence. https://www.insiderintelligence.com/insights/chatbot-market-stats-trends/ "
+            }
+          ]
+        }
+      ],
+      "notes": ""
+    }
+  ]
+}

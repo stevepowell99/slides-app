@@ -1,0 +1,49 @@
+<script>
+// Two-way bridge between the embedded Reveal deck and the parent slide app.
+// Outgoing: posts `ready` once and `slidechanged` on every navigation.
+// Incoming: accepts `{type:'goto', h, v}` and calls Reveal.slide(h, v).
+(function () {
+  var TAG = "slide-bridge";
+
+  function send(type, extra) {
+    if (!window.parent || window.parent === window) {
+      console.log("[slide-bridge] no parent window");
+      return;
+    }
+    var i = (typeof Reveal !== "undefined" && Reveal.getIndices) ? Reveal.getIndices() : { h: 0, v: 0 };
+    var payload = Object.assign({ source: TAG, type: type, h: i.h || 0, v: i.v || 0 }, extra || {});
+    console.log("[slide-bridge] postMessage:", payload);
+    window.parent.postMessage(payload, "*");
+  }
+
+  function attach() {
+    if (typeof Reveal === "undefined" || !Reveal.on || !Reveal.getIndices) {
+      console.log("[slide-bridge] Reveal not ready");
+      return false;
+    }
+    console.log("[slide-bridge] attaching to Reveal");
+    Reveal.on("slidechanged", function () {
+      var i = Reveal.getIndices();
+      console.log("[slide-bridge] slidechanged event:", i);
+      send("slidechanged");
+    });
+    send("ready");
+    return true;
+  }
+
+  window.addEventListener("message", function (event) {
+    var data = event.data;
+    if (!data || data.source !== TAG || data.type !== "goto") return;
+    if (typeof Reveal === "undefined" || !Reveal.slide) return;
+    var current = Reveal.getIndices();
+    if ((current.h || 0) === (data.h || 0) && (current.v || 0) === (data.v || 0)) return;
+    Reveal.slide(data.h || 0, data.v || 0);
+  });
+
+  var attempts = 0;
+  var timer = setInterval(function () {
+    attempts += 1;
+    if (attach() || attempts > 100) clearInterval(timer);
+  }, 80);
+})();
+</script>

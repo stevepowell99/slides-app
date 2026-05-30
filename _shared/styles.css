@@ -1,0 +1,448 @@
+/* Shared Causal Map RevealJS slide styles */
+
+/* Hide the slide heading without removing the title from outlines / nav.
+   Apply with: `## My title {.no-title}` */
+.reveal section.no-title > :is(h1, h2, h3):first-of-type { display: none; }
+
+:root {
+  --bg: #1b1b3a;
+  --teal: #5fd4d0;
+  --teal-dark: #2a8a86;
+  --muted: #e8edf2;
+  --grey-bg: #f4f6f9;
+  --blue: #2b6cb0;
+  --green: #217a52;
+  --amber: #e8b84b;
+  --ink: #1a1a2e;
+}
+
+/* Override the simple theme's defaults */
+.reveal {
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: 34px;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+/* Apply a sensible default slide padding to every section level, so vertical
+   sub-slides do not let content run to the very edges. Per-deck CSS can
+   override using the same `.reveal .slides section` selector if needed. */
+.reveal .slides section {
+  padding: 1.2em 1.8em !important;
+  text-align: left;
+  /* Reveal sets the section width inline; without border-box, padding here
+     would push the section past its configured slide width. */
+  box-sizing: border-box;
+}
+
+.reveal section.center,
+.reveal section.center > * {
+  text-align: center;
+}
+
+/* Hide slides toggled off by the local app */
+.reveal .slides section.hidden-slide {
+  display: none !important;
+}
+
+/* Headings */
+.reveal h1, .reveal h2, .reveal h3 {
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  text-align: left;
+}
+
+.reveal h1 { font-size: 1.8em; }
+.reveal h2 {
+  font-size: 1.4em;
+  border-bottom: 2px solid var(--teal);
+  padding-bottom: 0.25em;
+  margin-bottom: 0.6em;
+}
+
+.reveal section.center h2 {
+  border-bottom: none;
+  text-align: center;
+}
+
+/* Body text */
+.reveal p, .reveal li, .reveal blockquote {
+  font-size: 0.7em;
+  line-height: 1.4;
+}
+
+.reveal ul, .reveal ol {
+  margin: 0.3em 0 0.3em 1.2em;
+}
+
+.reveal ul li, .reveal ol li {
+  margin: 0.15em 0;
+}
+
+/* Accent text */
+.accent {
+  color: var(--teal-dark);
+  font-weight: 700;
+}
+
+/* Coloured panels */
+.panel {
+  border-radius: 6px;
+  padding: 0.7em 0.9em;
+  margin: 0.4em 0;
+  font-size: 1em;
+  line-height: 1.35;
+}
+.panel p { margin: 0.3em 0; font-size: 0.8em; }
+.panel ul, .panel ol { margin: 0.2em 0 0.2em 0.8em; font-size: 0.8em; }
+.panel li { font-size: 0.8em; margin: 0.1em 0; }
+
+.panel-blue  { background: #eaf2fb; border-left: 4px solid var(--blue); }
+.panel-blue  > p:first-child strong:first-child,
+.panel-blue  > strong:first-child { color: var(--blue); }
+
+.panel-green { background: #e8f3ec; border-left: 4px solid var(--green); }
+.panel-green > p:first-child strong:first-child,
+.panel-green > strong:first-child { color: var(--green); }
+
+.panel-teal  { background: #e6f7f6; border-left: 4px solid var(--teal); }
+.panel-teal  > p:first-child strong:first-child,
+.panel-teal  > strong:first-child { color: var(--teal-dark); }
+
+.panel-grey  { background: var(--grey-bg); border-left: 4px solid #888; }
+.panel-grey  > p:first-child strong:first-child,
+.panel-grey  > strong:first-child { color: #555; }
+
+/* Amber note */
+.note {
+  background: #fdf6e3;
+  border-left: 4px solid var(--amber);
+  border-radius: 0 4px 4px 0;
+  padding: 0.5em 0.8em;
+  margin: 0.5em 0;
+  font-size: 0.78em;
+  line-height: 1.35;
+}
+.note p { font-size: 1em; margin: 0.2em 0; }
+
+/* Examples block (grey) */
+.examples {
+  background: var(--grey-bg);
+  border-radius: 5px;
+  padding: 0.6em 0.9em;
+  margin: 0.4em 0;
+  font-size: 0.8em;
+}
+.examples p { font-size: 1em; margin: 0.2em 0; }
+.examples > p:first-child strong { color: var(--teal-dark); display: block; margin-bottom: 0.3em; }
+
+/* Tile grid */
+.tiles ul,
+.tiles ol {
+  list-style: none;
+  padding: 0;
+  margin: 0.3em 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4em;
+}
+.tiles li {
+  background: var(--grey-bg);
+  border-radius: 4px;
+  padding: 0.5em 0.7em;
+  font-size: 0.72em;
+  line-height: 1.3;
+  margin: 0;
+}
+.tiles li strong { display: block; color: var(--ink); margin-bottom: 0.1em; font-size: 1em; }
+
+/* Quote block */
+.quote {
+  background: #e6f7f6;
+  border-left: 4px solid var(--teal);
+  border-radius: 0 4px 4px 0;
+  padding: 0.5em 0.9em;
+  margin: 0.5em 0;
+  font-style: italic;
+  font-size: 0.78em;
+  line-height: 1.35;
+}
+.quote p { margin: 0.2em 0; font-size: 1em; }
+.quote em { font-style: normal; color: var(--green); font-weight: 700; font-size: 0.9em; }
+
+/* Takeaway boxes (dark) */
+.takeaway {
+  background: var(--bg);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 1em 0.9em;
+  font-size: 0.78em;
+  line-height: 1.4;
+  height: 100%;
+}
+.takeaway p { color: var(--muted); margin: 0.3em 0; font-size: 1em; }
+.takeaway > p:first-child strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--bg);
+  font-size: 1em;
+  margin-bottom: 0.3em;
+}
+.takeaway > p:nth-child(2) strong { color: white; display: block; font-size: 1.1em; margin: 0.2em 0 0.3em; }
+
+/* Stat pills */
+.stat {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.8em;
+  margin: 0.1em 0.1em;
+}
+.stat-blue  { background: #eaf2fb; color: var(--blue); }
+.stat-green { background: #e8f3ec; color: var(--green); }
+.stat-teal  { background: #e6f7f6; color: var(--teal-dark); }
+.stat strong { font-size: 1.3em; }
+
+/* Metric blocks (AI validation numbers) */
+.metric-row {
+  display: flex;
+  gap: 0.8em;
+  margin: 0.5em 0;
+}
+.metric-row .metric { flex: 1; }
+
+.metric {
+  background: #e6f7f6;
+  border-radius: 6px;
+  padding: 0.8em 0.6em;
+  text-align: center;
+}
+.metric p { margin: 0.1em 0; }
+.metric-num {
+  display: block;
+  font-size: 1.8em;
+  font-weight: 800;
+  color: var(--teal-dark);
+  line-height: 1;
+}
+.metric-label {
+  display: block;
+  font-size: 0.55em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--teal-dark);
+  margin-top: 0.3em;
+  line-height: 1.2;
+}
+
+/* Applications slide: card grid */
+.case-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.35em;
+  margin: 0.25em 0 0.35em 0;
+}
+.case-card {
+  background: var(--grey-bg);
+  border-radius: 5px;
+  padding: 0.45em 0.55em;
+  border-left: 3px solid var(--teal-dark);
+  font-size: 0.58em;
+  line-height: 1.28;
+  text-align: left;
+}
+.case-card p { margin: 0; font-size: 1em; }
+.case-card strong {
+  display: block;
+  color: var(--ink);
+  font-size: 1.06em;
+  margin-bottom: 0.28em;
+  line-height: 1.2;
+}
+.case-card a {
+  color: var(--teal-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+.case-card a:hover {
+  text-decoration: underline;
+}
+
+/* QA grid: numbered list with teal circles */
+.qa-grid {
+  counter-reset: qa;
+}
+.reveal .qa-grid > ol {
+  list-style: none;
+  padding: 0;
+  margin: 0.4em 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 0.5em;
+}
+.qa-grid > ol > li {
+  list-style: none;
+  background: #e6f7f6;
+  border-radius: 5px;
+  padding: 0.6em 0.7em;
+  font-size: 0.65em;
+  line-height: 1.3;
+  position: relative;
+  counter-increment: qa;
+  margin: 0;
+}
+.qa-grid > ol > li::marker {
+  content: none;
+}
+.qa-grid > ol > li::before {
+  content: counter(qa);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--bg);
+  font-weight: 800;
+  font-size: 0.9em;
+  margin-bottom: 0.3em;
+}
+.qa-grid > ol > li strong { display: block; margin: 0.2em 0; color: var(--ink); font-size: 1.05em; }
+
+/* Resources slide content (dark background) */
+.resources-col {
+  color: var(--muted);
+  font-size: 0.85em;
+}
+.resources-col p { color: var(--muted); font-size: 1em; }
+.resources-col strong { color: white; }
+.resources-col a { color: var(--teal) !important; }
+
+/* Columns tighter */
+.reveal .columns { gap: 1em; align-items: flex-start; }
+.reveal .column { font-size: 1em; }
+
+/* Images: shrink to fit */
+.reveal section img {
+  max-height: 60vh;
+  margin: 0.3em 0;
+  border-radius: 4px;
+}
+
+/* Code/inline-code styling consistent */
+.reveal code {
+  font-size: 0.85em;
+  background: #f4f6f9;
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+  color: var(--ink);
+}
+
+/* Block quotes via Markdown > */
+.reveal blockquote {
+  border-left: 3px solid var(--teal);
+  background: none;
+  padding: 0.2em 0 0.2em 0.8em;
+  margin: 0.4em 0;
+  font-style: italic;
+  font-size: 0.85em;
+  box-shadow: none;
+  width: auto;
+}
+
+/* Title slide */
+.title-page { color: white; }
+
+.title-page .eyebrow {
+  color: var(--teal);
+  font-size: 0.85em;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+
+.title-page .headline {
+  color: white;
+  font-size: 1.7em;
+  font-weight: 700;
+  line-height: 1.15;
+}
+.title-page .headline .teal { color: var(--teal); }
+
+.title-page .subhead {
+  color: var(--muted);
+  font-size: 0.95em;
+  font-weight: 300;
+  margin-top: 0.6em;
+}
+
+.title-page .byline {
+  color: #cbd5e1;
+  font-size: 0.7em;
+  margin-top: 1.2em;
+}
+
+.title-page .urls {
+  color: #94a3b8;
+  font-size: 0.55em;
+  margin-top: 1em;
+}
+
+/* Inline callouts and captions */
+.arrow-blue  { color: var(--blue);  font-size: 0.75em; font-weight: 600; }
+.arrow-green { color: var(--green); font-size: 0.75em; font-weight: 600; }
+
+.caption {
+  display: block;
+  font-size: 0.6em;
+  color: #666;
+  margin-top: 0.2em;
+  line-height: 1.3;
+}
+
+.emph-blue  { color: var(--blue);  font-weight: 700; }
+.emph-green { color: var(--green); font-weight: 700; }
+
+.source-credit {
+  display: block;
+  text-align: center;
+  margin-top: 1em;
+  color: var(--teal-dark);
+  font-weight: 700;
+  font-size: 0.75em;
+}
+
+/* Center-aligned variant of any coloured panel */
+.panel-center { text-align: center; }
+
+/* Resources slide refs (non-link teal text) */
+.resources-col .ref { color: var(--teal); }
+
+/* Closing on Resources slide */
+.thank-you {
+  color: white;
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-top: 1.2em;
+  text-align: center;
+}
+
+.contact {
+  color: var(--teal);
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 0.3em;
+}

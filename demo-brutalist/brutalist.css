@@ -1,0 +1,253 @@
+/* Brutalist: blocks of colour, no curves, no shadows, no apologies. */
+
+:root {
+  --black: #000000;
+  --yellow: #ffd400;
+  --red: #ff2f00;
+  --white: #ffffff;
+}
+
+.reveal {
+  font-family: "Helvetica Neue", "Arial Black", Arial, sans-serif;
+  color: var(--black);
+  font-size: 30px;
+}
+
+.reveal .slides { text-align: left; }
+.reveal .slides > section { padding: 1.2em 1.6em !important; }
+
+/* Headings — force colours so reveal's dark/light auto-detection doesn't win. */
+.reveal h1, .reveal h2, .reveal h3 {
+  font-family: "Helvetica Neue", "Arial Black", Arial, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-align: left;
+  margin: 0 0 0.5em 0;
+}
+
+.reveal h1 { font-size: 2.8em; line-height: 0.95; color: var(--black) !important; }
+
+.reveal h2 {
+  font-size: 1.35em;
+  background: var(--black) !important;
+  color: var(--yellow) !important;
+  padding: 0.2em 0.5em;
+  display: inline-block;
+  border-bottom: 0;
+  margin-bottom: 0.6em;
+}
+
+.reveal h3 {
+  font-size: 1em;
+  background: var(--yellow);
+  color: var(--black) !important;
+  padding: 0.15em 0.5em;
+  display: block;
+  margin-bottom: 0.5em;
+  border-bottom: 0;
+  width: fit-content;
+}
+
+/* Heading-like inline label used inside .panel-* divs to avoid Pandoc turning
+   the panel into a nested <section>. Block-display via CSS. */
+.label {
+  display: block;
+  width: fit-content;
+  background: var(--yellow);
+  color: var(--black) !important;
+  padding: 0.15em 0.5em;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1em;
+  margin: 0 0 0.5em 0;
+}
+.panel-black .label  { background: var(--yellow); color: var(--black) !important; }
+.panel-yellow .label { background: var(--black);  color: var(--yellow) !important; }
+.panel-red .label    { background: var(--white);  color: var(--red) !important; }
+
+.reveal p, .reveal li {
+  font-size: 0.85em;
+  line-height: 1.3;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Default lists: thick square markers, no background. */
+.reveal ul { list-style: none; padding: 0; margin: 0.3em 0 0.6em 0; }
+.reveal li {
+  position: relative;
+  padding: 0.1em 0 0.1em 1.4em;
+  margin: 0.25em 0;
+}
+.reveal li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 0.7em;
+  height: 0.7em;
+  background: currentColor;
+}
+
+/* Card-list variant: wrap with ::: {.blocks} */
+.blocks ul { margin: 0.3em 0; }
+.blocks li {
+  background: var(--white);
+  border: 4px solid var(--black);
+  padding: 0.25em 0.5em 0.25em 0.7em;
+  margin: 0.3em 0;
+}
+.blocks li::before {
+  width: 0.4em; height: 1em; top: 0.2em; left: 0.2em; background: var(--black);
+}
+
+.reveal a { color: var(--red); text-decoration: underline; text-decoration-thickness: 3px; }
+
+.reveal blockquote {
+  background: var(--yellow);
+  border: 6px solid var(--black);
+  border-radius: 0;
+  font-size: 1.6em;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0.5em 0.6em;
+  margin: 0.4em 0;
+  color: var(--black) !important;
+  box-shadow: 12px 12px 0 var(--black);
+  width: auto;
+}
+
+.reveal code {
+  background: var(--yellow);
+  color: var(--black);
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  font-weight: 700;
+  padding: 0.05em 0.3em;
+  border: 2px solid var(--black);
+  border-radius: 0;
+}
+.reveal pre {
+  background: var(--black);
+  color: var(--yellow);
+  border: 6px solid var(--yellow);
+  border-radius: 0;
+  padding: 0.6em 0.8em;
+  font-size: 0.7em;
+  box-shadow: 10px 10px 0 var(--yellow);
+}
+.reveal pre code { background: none; border: 0; color: var(--yellow); }
+
+.reveal section img {
+  border: 6px solid var(--black);
+  border-radius: 0;
+  box-shadow: 14px 14px 0 var(--black);
+}
+
+/* Two-column panels — colours via classes, not inline styles. */
+.splitgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  margin: 0.4em 0;
+}
+
+.panel-black, .panel-yellow, .panel-red, .panel-white {
+  padding: 1.2em 1.3em;
+}
+.panel-black  { background: var(--black);  color: var(--yellow) !important; }
+.panel-yellow { background: var(--yellow); color: var(--black)  !important; }
+.panel-red    { background: var(--red);    color: var(--white)  !important; }
+.panel-white  { background: var(--white);  color: var(--black)  !important; border: 4px solid var(--black); }
+
+.panel-black h3 { background: var(--yellow); color: var(--black) !important; }
+.panel-yellow h3 { background: var(--black); color: var(--yellow) !important; }
+.panel-red h3   { background: var(--white); color: var(--red) !important; }
+
+.panel-black li, .panel-black p { color: var(--yellow) !important; }
+.panel-black li::before { background: var(--yellow); }
+.panel-yellow li, .panel-yellow p { color: var(--black) !important; }
+.panel-yellow li::before { background: var(--black); }
+.panel-red li, .panel-red p { color: var(--white) !important; }
+.panel-red li::before { background: var(--white); }
+
+/* Title slide */
+.title-slide {
+  padding: 2em 1.6em !important;
+}
+.title-slide .tagline {
+  font-size: 0.7em;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  background: var(--black);
+  color: var(--yellow) !important;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  margin-bottom: 0.6em;
+}
+.title-slide .bigtitle {
+  font-size: 4.6em;
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: var(--black) !important;
+  text-transform: uppercase;
+  margin: 0.1em 0 0.2em 0;
+}
+.title-slide .meta {
+  font-size: 0.7em;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  margin-top: 1.4em;
+  text-transform: uppercase;
+  color: var(--black) !important;
+}
+
+/* Section-only slides (just h1, e.g. # SECTION ONE) — full-bleed style */
+.reveal section > h1:only-child {
+  color: var(--yellow) !important;
+  font-size: 4.6em;
+  background: transparent;
+  padding: 0;
+  display: block;
+  text-align: left;
+  border-left: 12px solid var(--yellow);
+  padding-left: 0.3em;
+}
+
+.shout {
+  background: var(--red);
+  color: var(--white) !important;
+  padding: 0.05em 0.3em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.caption {
+  display: block;
+  text-align: center;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  margin-top: 0.4em;
+  color: var(--black) !important;
+  background: var(--yellow);
+  padding: 0.3em 0.6em;
+}
+.panel-red ~ .caption, .has-dark-background .caption { color: var(--black) !important; }
+
+.attribution {
+  font-size: 0.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 0.4em;
+  color: var(--black) !important;
+}
+
+.closing { text-align: center; margin-top: 1.4em; }
+.closing .bigtitle { font-size: 5.2em; }
+.closing .meta { letter-spacing: 0.3em; }
+
+.reveal .slides section.hidden-slide { display: none !important; }
+.reveal section.no-title > :is(h1, h2, h3):first-of-type { display: none; }

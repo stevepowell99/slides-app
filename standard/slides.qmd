@@ -1,0 +1,39 @@
+---
+pagetitle: "Standard"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    transition-speed: slow
+    incremental: false
+    width: 1280
+    height: 720
+    include-in-header:
+      - ../_shared/preview-bridge.html
+    css: ../_shared/styles.css
+---
+
+# musk {.no-title}
+
+![](../_shared/img/paste-1779807172826.png)
+
+
+# yipee {.no-title}
+
+![](../_shared/img/paste-1779806908557.png)
+
+# no fun {.no-title}
+
+![](../_shared/img/paste-1779807217375.png)
+
+<!-- a comment -->
+
+::: {.notes}
+
+This is a note. Press s to see them. 
+
+
+:::
+
+
+

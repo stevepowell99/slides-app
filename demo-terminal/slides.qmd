@@ -1,0 +1,112 @@
+---
+pagetitle: "Demo: Terminal"
+format:
+  revealjs:
+    theme: black
+    slide-number: false
+    transition: none
+    width: 1280
+    height: 720
+    highlight-style: github-dark
+    include-in-header:
+      - ../_shared/preview-bridge.html
+    css:
+      - ../_shared/styles.css
+      - terminal.css
+---
+
+# Terminal {.no-title .title-slide}
+
+::: {.prompt}
+guest@slide-deck:~$ [./present.sh]{.cmd}
+:::
+
+```{=html}
+<pre class="banner">
+████████ ███████ ██████  ███    ███ ██ ███    ██  █████  ██
+   ██    ██      ██   ██ ████  ████ ██ ████   ██ ██   ██ ██
+   ██    █████   ██████  ██ ████ ██ ██ ██ ██  ██ ███████ ██
+   ██    ██      ██   ██ ██  ██  ██ ██ ██  ██ ██ ██   ██ ██
+   ██    ███████ ██   ██ ██      ██ ██ ██   ████ ██   ██ ███████
+</pre>
+```
+
+::: {.metaline}
+[> ]{.caret}Demo deck · CRT mode · 04 of 05
+:::
+
+# /etc/sections/01
+
+## $ ls -la {.cmd-slide}
+
+```{=html}
+<pre class="terminal-block">
+<span class="user">guest@deck ~</span><span class="dollar">$</span><span class="cmd"> ls -la</span>
+drwxr-xr-x  intro.md         2k
+drwxr-xr-x  evidence.md      5k
+drwxr-xr-x  case-study.md    9k
+<span class="dim">-rw-r--r--  TODO.md          0k</span>
+</pre>
+```
+
+- Each row is one talking point
+- The cursor is the eyebrow
+- [Bright green = answer; dim grey = aside.]{.dim}
+
+## $ split-view {.cmd-slide}
+
+:::: {.columns}
+::: {.column width="50%"}
+### stdin
+- raw signals
+- noisy headers
+- partial frames
+:::
+::: {.column width="50%"}
+### stdout
+- [parsed events]{.ok}
+- [labelled batches]{.ok}
+- [ready for query]{.ok}
+:::
+::::
+
+## $ cat ./asset/diagram.png {.cmd-slide}
+
+![Schematic placeholder. Replace with your real diagram.](https://placehold.co/1000x420/001a08/00ff7a?text=%5Bdiagram%5D){fig-align="center"}
+
+::: {.caption}
+↳ image served from a placeholder. drop your own at ./asset/.
+:::
+
+## $ man wisdom {.cmd-slide}
+
+> The unix philosophy: write programs that do one thing and do it well.
+
+::: {.attribution}
+— Doug McIlroy, paraphrased
+:::
+
+## $ cat ./snippet.sh {.cmd-slide}
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+for f in *.log; do
+  grep -E 'ERROR|WARN' "$f" \
+    | awk -F'\t' '{print $1, $3}' \
+    | sort -u
+done
+```
+
+[> exit 0]{.caret}
+
+## $ shutdown -h now {.no-title}
+
+```{=html}
+<pre class="terminal-block closing">
+<span class="user">guest@deck ~</span><span class="dollar">$</span><span class="cmd"> shutdown -h now</span>
+Connection to slide-deck closed.
+
+<span class="caret">&gt;</span> Thanks for watching.
+</pre>
+```

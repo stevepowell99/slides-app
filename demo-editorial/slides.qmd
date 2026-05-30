@@ -1,0 +1,104 @@
+---
+pagetitle: "Demo: Editorial"
+format:
+  revealjs:
+    theme: serif
+    slide-number: true
+    transition-speed: slow
+    width: 1280
+    height: 720
+    include-in-header:
+      - ../_shared/preview-bridge.html
+    css:
+      - ../_shared/styles.css
+      - editorial.css
+---
+
+# Editorial {.no-title .title-slide}
+
+::: {.kicker}
+Volume IV · Spring Issue
+:::
+
+::: {.masthead}
+Editorial
+:::
+
+::: {.deck}
+A slow, print-leaning style for long-form arguments, essays and book talks.
+:::
+
+::: {.signoff}
+By the Editor · published locally
+:::
+
+## A printer's view of slides
+
+::: {.lead style="max-width: 24em;"}
+[T]{.dropcap}he page is patient. Type set on a generous measure, with air around it, gives the reader room to think. Slides can borrow that calm.
+:::
+
+## What goes in this issue
+
+- A note on typography
+- Two columns of evidence
+- A picture and its caption
+- One quotation worth keeping
+- A short passage of code
+- A closing remark
+
+[Read in sequence; each follows from the last.]{.footnote-inline}
+
+## Two columns
+
+:::: {.columns}
+::: {.column width="50%"}
+### The case for restraint
+Strip the slide. Remove the second adjective. Trust the reader to follow a clear sentence without ornament.
+:::
+::: {.column width="50%"}
+### The risk of restraint
+Stripped too far, the slide becomes a label. Without verbs and examples, the argument cannot land.
+:::
+::::
+
+## A plate
+
+![A plate, served with proper margins.](https://placehold.co/1100x460/c8b48a/2a2722){fig-align="center"}
+
+::: {.caption}
+Plate I. Provenance: placeholder. Replace with your own.
+:::
+
+## Pull quote
+
+> Good prose is like a windowpane.
+
+::: {.attribution}
+— George Orwell, *Why I Write*
+:::
+
+## A passage of code
+
+```r
+library(dplyr)
+penguins |>
+  filter(!is.na(bill_length_mm)) |>
+  group_by(species) |>
+  summarise(mean_bill = mean(bill_length_mm), n = n())
+```
+
+[A small example in R, set in the same measure as the body.]{.footnote-inline}
+
+## In closing {.no-title}
+
+::: {.closing}
+::: {.headline}
+*Finis.*
+:::
+
+::: {.sub}
+Comments and letters to the editor are welcome.
+:::
+:::
+

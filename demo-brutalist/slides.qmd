@@ -1,0 +1,98 @@
+---
+pagetitle: "Demo: Brutalist"
+format:
+  revealjs:
+    theme: white
+    slide-number: false
+    transition: none
+    width: 1280
+    height: 720
+    auto-stretch: false
+    include-in-header:
+      - ../_shared/preview-bridge.html
+    css:
+      - ../_shared/styles.css
+      - brutalist.css
+---
+
+# BRUTALIST {.no-title .title-slide background-color="#ffd400"}
+
+::: {.tagline}
+LOUD / SQUARE / HONEST
+:::
+
+::: {.bigtitle}
+BRUTALIST
+:::
+
+::: {.meta}
+DEMO 03 · POSTER MODE
+:::
+
+# SECTION ONE {background-color="#000000"}
+
+## WHY {background-color="#ffd400"}
+
+::: {.blocks}
+- BIG TEXT READS FAST
+- BLACK ON YELLOW IS UNMISSABLE
+- [NO ROUNDED CORNERS]{.shout}
+- LEAVE THE GRID VISIBLE!
+- LET THE PIXELS SHOW
+:::
+
+## SPLIT {background-color="#ffffff"}
+
+::: {.splitgrid}
+::: {.panel-black}
+[COSTS]{.label}
+
+- LEGIBILITY
+- WHITESPACE
+- POLITE
+:::
+::: {.panel-yellow}
+[BENEFITS]{.label}
+
+- ATTENTION
+- MEMORY
+- IT WORKS
+:::
+:::
+
+## POSTER {background-color="#ff2f00"}
+
+![](https://placehold.co/1100x450/000000/ffd400?text=POSTER+SLIDE){fig-align="center"}
+
+::: {.caption}
+PLACEHOLDER · SWAP FOR REAL IMAGERY
+:::
+
+## QUOTE {background-color="#ffffff"}
+
+> LESS, BUT LOUDER.
+
+::: {.attribution}
+— EVERY POSTER, EVERYWHERE
+:::
+
+## CODE {background-color="#ffffff"}
+
+```js
+// no fluff
+const shout = (s) => s.toUpperCase()
+console.log(shout('hello'))
+```
+
+[OUTPUT: HELLO]{.shout}
+
+## END {.no-title background-color="#000000"}
+
+::: {.closing}
+::: {.bigtitle style="color:#ffd400 !important;"}
+END.
+:::
+::: {.meta style="color:#ffffff !important;"}
+THANKS FOR LOOKING
+:::
+:::

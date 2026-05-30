@@ -1,0 +1,46 @@
+<script>
+// Print-PDF auto-fit: scale any slide whose content overflows the page
+// so it fits on a single PDF page. Active only in reveal.js print-pdf mode.
+(function () {
+  function isPrintPdf() {
+    return /print-pdf/gi.test(window.location.search);
+  }
+
+  function fitPdfPages() {
+    if (!isPrintPdf()) return;
+    var pages = document.querySelectorAll('.reveal .pdf-page');
+    pages.forEach(function (page) {
+      var section = page.querySelector(':scope > section');
+      if (!section) return;
+
+      section.style.removeProperty('transform');
+      section.style.removeProperty('transform-origin');
+
+      var targetH = page.clientHeight;
+      var contentH = section.scrollHeight;
+      if (contentH > targetH && contentH > 0) {
+        // 0.97 leaves a small margin so nothing kisses the page edge
+        var scale = (targetH / contentH) * 0.97;
+        section.style.setProperty('transform', 'scale(' + scale + ')', 'important');
+        section.style.setProperty('transform-origin', 'top left', 'important');
+      }
+    });
+  }
+
+  function init() {
+    if (!isPrintPdf()) return;
+    if (typeof Reveal !== 'undefined' && typeof Reveal.on === 'function') {
+      Reveal.on('pdf-ready', fitPdfPages);
+    }
+    // Belt and braces: pdf-ready may have already fired, or images may settle late
+    setTimeout(fitPdfPages, 800);
+    setTimeout(fitPdfPages, 2000);
+  }
+
+  if (document.readyState === 'complete') {
+    init();
+  } else {
+    window.addEventListener('load', init);
+  }
+})();
+</script>

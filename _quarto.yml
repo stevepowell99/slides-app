@@ -1,0 +1,11 @@
+project:
+  type: default
+  # Make _shared and fontawesome reachable from every deck via ../_shared, ../fontawesome.
+  resources:
+    - _shared/**
+    - fontawesome/**
+
+format:
+  revealjs:
+    transition: slide
+    transition-speed: slow

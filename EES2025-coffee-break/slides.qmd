@@ -1,0 +1,164 @@
+---
+pagetitle: "EES2025 coffee break"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    transition-speed: slow
+    incremental: false
+    width: 1280
+    height: 720
+    include-in-header:
+      - ../_shared/preview-bridge.html
+    css: ../_shared/styles.css
+---
+
+
+# musk {.no-title}
+
+![](../_shared/img/paste-1779807172826.png)
+
+# yipee {.no-title}
+
+![](../_shared/img/paste-1779806908557.png)
+
+# no fun {.no-title}
+
+![](../_shared/img/paste-1779807217375.png)
+
+<!-- a comment -->
+
+::: {.notes}
+
+This is a note. Press s to see them. 
+
+
+:::
+
+## DO and DON'T with AI
+
+- **Break up** complex, vague tasks (big black boxes) into smaller steps that can be intersubjectively verified (tiny black boxes).
+- **Document** your methodology so you can explain step by step, verifiably, how you reached your conclusions.
+- **Use AI** to speed up many simple tasks which you *could* have done yourself if you had the time.
+- **Break up the data** into pieces for AI analysis. Ideally run each piece as a separate prompt. Failing that, number each section and ask for a numbered, section-by-section answer, for example in a table.
+
+::: {.columns}
+
+::: {.column width="50%"}
+::: {.callout-warning}
+## DON'T
+- Give an AI large pieces of text and expect it to pay due attention to all of it. It *claims* to and may cite passages, but attention is expensive and it tries to reduce that expense. It will skim and jump to conclusions.
+- Ask an AI to do maths for you, like adding up positive or negative findings on a rubric. AIs are still terrible at maths.
+- Ask an AI to do *implicit* counting and comparison like "are there more positive or negative mentions of X in this report?"
+:::
+:::
+
+::: {.column width="50%"}
+::: {.callout-tip}
+## DO
+- Use explicit, manual methods (Excel?) to synthesise the results of the multiple separate tasks you gave the AI.
+:::
+:::
+
+:::
+
+# AI-led interviews??
+
+## DO: When to use AI interviewing
+
+- Situations where you **don't know exactly what to ask**
+- Less structured, **explorative conversations**
+- When your respondents may use **different languages**
+- When you can **scale up** from H2H to AI interviewing
+
+## DON'T: When not to use AI interviewing
+
+- When you **could have used a questionnaire**
+- When you have **a lot of specific questions** to ask
+- When you are dealing with **sensitive information** or with **vulnerable populations**
+- When you really need the **human-to-human** interaction
+
+## Where AI interviewing fits
+
+| Method | Quality | Quantity |
+|--------|---------|----------|
+| Face-to-face interviews | High | Low |
+| Conversational AI interviewing | Medium-high | Medium-high |
+| Structured questionnaires | Low | High |
+
+[Bigger because so many possibilities.]{.notes}
+
+## What's QualiaInterviews.com?
+
+A platform for **designing** and **delivering** AI-led online interviews.
+
+> "SurveyMonkey, but for stories"
+
+£50 in credits on signing up. One interview costs £1-2. No subscription.
+
+::: {.columns}
+
+::: {.column width="50%"}
+**What you can do with Qualia**
+
+- Automate, test your interview
+- Get a top-line analysis of your interviews
+:::
+
+::: {.column width="50%"}
+**What you can't do with Qualia**
+
+- Get a general AI helper
+- Analyse random texts or reports
+:::
+
+:::
+
+**Alternatives**: Ailyze.com, Yasna.ai, Focaldata
+
+[We are also the developers of Causal Map 3, an app to do in-depth causal analysis of your data, but today our focus is on QualiaInterviews.]{.aside}
+
+## Let's get interviewed!
+
+[https://shorturl.at/W8UmC](https://shorturl.at/W8UmC)
+
+[https://chat.qualiainterviews.com/?interview=careers-m-e-academy&audio=true](https://chat.qualiainterviews.com/?interview=careers-m-e-academy&audio=true)
+
+::: {.notes}
+5 min. Background: increasing use of chatbots for data gathering — marketing research, customer service, sales, HR — but simple chatbots can be frustrating.
+:::
+
+# A case study
+
+## A real-world case study using Qualia
+
+**Background**
+
+DuocUC, a higher education institution in Chile, hired our consultancy (Causal Map Ltd) to conduct QuIP-style interviews with Qualia and analyse them using the Causal Map app. The interviews were motivated by concerns about the **gender gaps faced by women pursuing STEM careers** at the university.
+
+## Step 1: Setting up the interview in Qualia
+
+- The instruction for the AI interviewer was similar to the **instructions you could give to a human interviewer**.
+- Both the interview instructions and the interviews themselves were conducted in **Spanish**.
+- The AI asked questions about changes in **3 domains**: educational experiences, professional development and relationship dynamics.
+- We used GPT-4o, which was the best AI model to date.
+
+## Step 2: Collecting stories with Qualia
+
+- We sent the interview link to 50 people and were able to collect 32 interviews.
+- We created individual links so we could track the interviews.
+- We downloaded the interview results from Qualia and uploaded them into Causal Map.
+
+## Step 3: Analysing stories with Causal Map
+
+- We used AI (GPT-4o) to identify **each and every causal link** in the interviews, and for each link, label the cause and effect.
+- We used a **"radical zero-shot" approach** in which the AI is given no codebook and is told to invent its own codes (in Spanish). We gave the AI context about the project.
+- We found **251 causal links** mentioned by the respondents.
+
+## References
+
+- Chopra F and Haaland I (2023) *Conducting Qualitative Interviews with AI*: 72.
+- Jang ME and Lukasiewicz T (2023) *Consistency Analysis of ChatGPT*. arXiv:2303.06273. [doi.org/10.48550/arXiv.2303.06273](https://doi.org/10.48550/arXiv.2303.06273)
+- Ray PP (2023) ChatGPT: A comprehensive review on background, applications, key challenges, bias, ethics, limitations and future scope. *Internet of Things and Cyber-Physical Systems* 3.
+- Yuen M (2022) Chatbot market in 2022: Stats, trends, and companies in the growing AI chatbot industry. [Insider Intelligence](https://www.insiderintelligence.com/insights/chatbot-market-stats-trends/).
+

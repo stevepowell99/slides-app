@@ -1,0 +1,751 @@
+---
+pagetitle: "Test2"
+author: "Steve Powell, Causal Map Ltd"
+date: "21 May 2026"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    transition-speed: slow
+    incremental: false
+    footer: "Causal Map ?? app.causalmap.app ?? garden.causalmap.app"
+    width: 1280
+    height: 720
+    fig-cap-location: bottom
+    preview-links: false
+    include-in-header:
+      - ../_shared/preview-bridge.html
+    css:
+      - ../_shared/styles.css
+      - ../fontawesome/css/all.min.css
+---
+
+# Projects and sources {background-color="#fff" .center .section-slide .no-title}
+
+![](../_shared/img/garden_causalmap_app-qr-code.png){width="20%"}
+
+## [Custom columns per source]{background-color="#1b1b3a" .center .section-slide}
+
+::: {.section-badge}
+Projects and sources
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-table-columns" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Add fields like [gender, location or role]{.hl-pink} to every source and edit them spreadsheet-style.
+
+:::
+:::
+::::
+
+## [Source groups!](https://garden.causalmap.app/source-groups-sub-panel/) {.feature-slide}
+
+::: {.section-badge}
+Projects and sources
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-users" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Group sources by stakeholder, theme or any custom column. [Compare]{.hl-green} what each group says causes what.
+
+what??
+:::
+:::
+::::
+
+## [Source groups!](https://garden.causalmap.app/source-groups-sub-panel/) {.feature-slide}
+
+::: {.section-badge}
+Projects and sources
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-users" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Group sources by stakeholder, theme or any custom column. [Compare]{.hl-green} what each group says causes what.
+
+:::
+:::
+::::
+
+## [Sample check](https://garden.causalmap.app/sources-aggregate-tab/) {.feature-slide}
+
+::: {.section-badge}
+Projects and sources
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-clipboard-list" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+See how your sample [breaks down]{.hl-yellow} by demographic before you start coding.
+
+:::
+:::
+::::
+
+# Manual coding {background-color="#1b1b3a" .center .section-slide}
+
+## [Highlight causal claims](https://garden.causalmap.app/create-link-tab/) {.feature-slide}
+
+::: {.section-badge}
+Manual coding
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-highlighter" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Read your source text and [highlight]{.hl-yellow} phrases. Each highlight becomes a causal link between two factors.
+
+:::
+:::
+::::
+
+## [Full text search](https://garden.causalmap.app/full-text-search/) {.feature-slide}
+
+::: {.section-badge}
+Manual coding
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Jump to [key phrases]{.hl-green} across selected sources without leaving the coding pane.
+
+:::
+:::
+::::
+
+## [Link tags](https://garden.causalmap.app/link-tags/) {.feature-slide}
+
+::: {.section-badge}
+Manual coding
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-tags" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Mark links as [doubtful, hypothetical or weak]{.hl-pink}, or add your own tags. Filter on tags later.
+
+:::
+:::
+::::
+
+## [Bulk edit labels](https://garden.causalmap.app/factors-relabel/) {.feature-slide}
+
+::: {.section-badge}
+Manual coding
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Rename, merge or search-and-replace factor labels [across all links at once]{.hl-yellow}.
+
+:::
+:::
+::::
+
+
+# AI coding {background-color="#1b1b3a" .center .section-slide}
+
+## [One-click coding](https://garden.causalmap.app/simple-ai-runner/) {.feature-slide}
+
+::: {.section-badge}
+AI coding
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Run the full pipeline ([auto-code, revise codebook, recode]{.hl-green}) in one go from a single set-up modal.
+
+:::
+:::
+::::
+
+## [Auto-code by paragraph](https://garden.causalmap.app/simple-ai-auto-code/) {.feature-slide}
+
+::: {.section-badge}
+AI coding
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-robot" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+AI reads each source and extracts causal links. Choose a [sample size]{.hl-yellow} (1, 5, 20%, 50%, 100%) and skip already-coded sources.
+
+:::
+:::
+::::
+
+## [Holistic first pass](https://garden.causalmap.app/simple-ai-auto-code-holistic/) {.feature-slide}
+
+::: {.section-badge}
+AI coding
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-diagram-project" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Ask the model to draft a [whole-network diagram]{.hl-pink} first, then convert it to links. Reduces fragmentation on complex texts.
+
+:::
+:::
+::::
+
+## [Revise codebook](https://garden.causalmap.app/simple-ai-revise-codebook/) {.feature-slide}
+
+::: {.section-badge}
+AI coding
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-list-check" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Consolidate raw factor labels into a [cleaner codebook]{.hl-green}, optionally with embedding-based pre-clustering.
+
+:::
+:::
+::::
+
+## [Recode](https://garden.causalmap.app/simple-ai-recode/) {.feature-slide}
+
+::: {.section-badge}
+AI coding
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Map raw labels onto your codebook by [AI index matching]{.hl-yellow} or [embedding similarity]{.hl-pink}.
+
+:::
+:::
+::::
+
+## [Per-source prompts](https://garden.causalmap.app/simple-ai-auto-code/) {.feature-slide}
+
+::: {.section-badge}
+AI coding
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-message" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Add an [extra prompt]{.hl-green} to individual sources when different documents need different framing.
+
+:::
+:::
+::::
+
+# Filter and analyse {background-color="#1b1b3a" .center .section-slide}
+
+## [Filter pipeline](https://garden.causalmap.app/filter-system-overview/) {.feature-slide}
+
+::: {.section-badge}
+Filter and analyse
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-filter" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Stack [over twenty filter types]{.hl-yellow} in a pipeline. Reorder, repeat or toggle individual steps.
+
+:::
+:::
+::::
+
+## [Frequency filters](https://garden.causalmap.app/link-frequency-filter/) {.feature-slide}
+
+::: {.section-badge}
+Filter and analyse
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-chart-bar" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Keep only the [most-cited links and factors]{.hl-green}. Count by citations, sources or other measures.
+
+:::
+:::
+::::
+
+## [Path tracing](https://garden.causalmap.app/path-tracing-filter/) {.feature-slide}
+
+::: {.section-badge}
+Filter and analyse
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-route" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+[Trace paths]{.hl-pink} from any cause to any effect and see which intermediate factors connect them.
+
+:::
+:::
+::::
+
+## [Compare groups](https://garden.causalmap.app/source-groups-filter/) {.feature-slide}
+
+::: {.section-badge}
+Filter and analyse
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-people-arrows" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Split links by stakeholder group and compare. [Who says what?]{.hl-yellow}
+
+:::
+:::
+::::
+
+## [Animate over time](https://garden.causalmap.app/animate-filter/) {.feature-slide}
+
+::: {.section-badge}
+Filter and analyse
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-play" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Watch your map [build up]{.hl-green} by source, time period or any custom column.
+
+:::
+:::
+::::
+
+## [Semantic clustering](https://garden.causalmap.app/soft-recode-plus/) {.feature-slide}
+
+::: {.section-badge}
+Filter and analyse
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-circle-nodes" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Cluster similar labels with [embeddings]{.hl-pink}. Soft Recode Plus, Auto Recode, Optimized Cluster and Tribes give different angles.
+
+:::
+:::
+::::
+
+# Maps, tables and charts {background-color="#1b1b3a" .center .section-slide}
+
+## [Interactive map](https://garden.causalmap.app/map-panel/) {.feature-slide}
+
+::: {.section-badge}
+Maps, tables and charts
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-diagram-project" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+A [live causal network]{.hl-yellow}. Click any link to see the underlying quotes. Drag, zoom or arrange on a grid.
+
+:::
+:::
+::::
+
+## [Map formatting](https://garden.causalmap.app/map-formatting-card/) {.feature-slide}
+
+::: {.section-badge}
+Maps, tables and charts
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-palette" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Style nodes and edges by [colour, size and shape]{.hl-green} from any factor or link column.
+
+:::
+:::
+::::
+
+## [AI map vignettes](https://garden.causalmap.app/vignette-card/) {.feature-slide}
+
+::: {.section-badge}
+Maps, tables and charts
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-pen-fancy" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+AI writes a [short evidence-based summary]{.hl-pink} of the current map, with quotes.
+
+:::
+:::
+::::
+
+## [Factors table](https://garden.causalmap.app/factors-panel/) {.feature-slide}
+
+::: {.section-badge}
+Maps, tables and charts
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-tags" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Editable list of every factor with citation counts, [demographic breakdowns]{.hl-yellow} and statistical significance testing.
+
+:::
+:::
+::::
+
+## [Links table](https://garden.causalmap.app/links-panel/) {.feature-slide}
+
+::: {.section-badge}
+Maps, tables and charts
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-link" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Every link with its supporting quote. Bulk-edit tags, [print quotes]{.hl-green} grouped by factor pair, or assess evidence quality.
+
+:::
+:::
+::::
+
+## [Pivot tables and heatmaps](https://garden.causalmap.app/pivot-panel/) {.feature-slide}
+
+::: {.section-badge}
+Maps, tables and charts
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-table-cells" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Drag and drop to [cross-tabulate]{.hl-pink} any link or factor field. Heatmaps, charts, significance testing, export.
+
+:::
+:::
+::::
+
+# Reports, sharing and collaboration {background-color="#1b1b3a" .center .section-slide}
+
+## [Reports from bookmarks](https://garden.causalmap.app/report-builder/) {.feature-slide}
+
+::: {.section-badge}
+Reports, sharing and collaboration
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Bundle bookmarked maps and tables into a [multi-page report]{.hl-yellow}. Every finding links back to the source text.
+
+:::
+:::
+::::
+
+## [AI answers](https://garden.causalmap.app/answers-panel/) {.feature-slide}
+
+::: {.section-badge}
+Reports, sharing and collaboration
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-comment-dots" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Ask plain-language questions of your project. [Answers grounded]{.hl-green} in your sources, links and factors.
+
+:::
+:::
+::::
+
+## [Share projects](https://garden.causalmap.app/sharing-and-permissions/) {.feature-slide}
+
+::: {.section-badge}
+Reports, sharing and collaboration
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Invite collaborators by email with [view or edit]{.hl-pink} permissions. Public projects viewable by anyone logged in.
+
+:::
+:::
+::::
+
+## [Real-time collaboration](https://garden.causalmap.app/live-collaboration/) {.feature-slide}
+
+::: {.section-badge}
+Reports, sharing and collaboration
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-tower-broadcast" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+[Live updates]{.hl-yellow} when teammates add or edit links. Useful for workshops and demonstrations.
+
+*Requires Team subscription.*
+
+:::
+:::
+::::
+
+## [Versioning](https://garden.causalmap.app/versioning/) {.feature-slide}
+
+::: {.section-badge}
+Reports, sharing and collaboration
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+[Restore any earlier state]{.hl-green} of a project. Roll back accidental bulk edits.
+
+:::
+:::
+::::
+
+## [Two-factor authentication](https://garden.causalmap.app/account-panel/) {.feature-slide}
+
+::: {.section-badge}
+Reports, sharing and collaboration
+:::
+
+:::: {.columns}
+::: {.column width="32%"}
+::: {.feature-icon-circle}
+<i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+:::
+:::
+
+::: {.column width="68%"}
+::: {.feature-body}
+Optional [2FA]{.hl-pink} per account. Admins can enforce it organisation-wide.
+
+:::
+:::
+::::
+
+# New one
+
+asdf
+
+# Try it {background-color="#1b1b3a" .center}
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {.resources-col}
+**App (free for core functionality)**<br>
+[app.causalmap.app](https://app.causalmap.app)
+
+**Knowledge garden**<br>
+[garden.causalmap.app](https://garden.causalmap.app)
+
+**Features page**<br>
+[causalmap.app/features](https://causalmap.app/features)
+:::
+:::
+
+::: {.column width="50%"}
+::: {.resources-col}
+Sign up free and open the built-in example project.
+
+Step-by-step guidance for every panel in the Causal Map Guide.
+
+Sister site for AI interviews: [qualiainterviews.com](https://qualiainterviews.com)
+:::
+:::
+::::
+
+::: {.thank-you}
+Questions, please.
+:::
+
+::: {.contact}
+hello@causalmap.app
+:::
+

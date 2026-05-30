@@ -1,0 +1,183 @@
+/* Terminal: CRT-green on near-black, monospace everything, faint scanlines. */
+
+:root {
+  --bg: #001405;
+  --ink: #c9ffd9;
+  --green: #00ff7a;
+  --dim: #4f7a5f;
+  --amber: #ffb84a;
+  --rule: rgba(0, 255, 122, 0.18);
+}
+
+.reveal {
+  font-family: "JetBrains Mono", "Cascadia Mono", "Consolas", monospace;
+  color: var(--ink);
+  background: var(--bg);
+  font-size: 28px;
+}
+
+.reveal-viewport {
+  background: var(--bg);
+}
+
+/* Faint scanlines across the whole stage */
+.reveal-viewport::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.18) 2px,
+    rgba(0, 0, 0, 0.18) 3px
+  );
+  z-index: 5;
+}
+
+.reveal .slides { text-align: left; }
+.reveal .slides > section { padding: 1.2em 1.6em !important; }
+
+.reveal h1, .reveal h2, .reveal h3 {
+  font-family: "JetBrains Mono", "Cascadia Mono", "Consolas", monospace;
+  color: var(--green);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.reveal h1 { font-size: 2.2em; }
+.reveal h2 {
+  font-size: 1.2em;
+  border-bottom: 1px dashed var(--rule);
+  padding-bottom: 0.25em;
+  margin-bottom: 0.6em;
+}
+.reveal h2::before {
+  content: "# ";
+  color: var(--dim);
+}
+
+.reveal p, .reveal li {
+  font-size: 0.85em;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.reveal ul { list-style: none; margin-left: 0; padding-left: 0; }
+.reveal li::before {
+  content: "› ";
+  color: var(--green);
+}
+.reveal li { margin: 0.2em 0; }
+
+.reveal a { color: var(--amber); text-decoration: underline; }
+
+.reveal blockquote {
+  border-left: 3px solid var(--green);
+  background: rgba(0, 255, 122, 0.06);
+  font-style: normal;
+  font-size: 1em;
+  line-height: 1.45;
+  padding: 0.4em 0.8em;
+  margin: 0.4em 0;
+  color: var(--ink);
+  box-shadow: none;
+  width: auto;
+}
+
+.reveal code {
+  background: rgba(0, 255, 122, 0.1);
+  color: var(--green);
+  padding: 0.05em 0.3em;
+  border-radius: 0;
+  font-size: 0.85em;
+}
+.reveal pre {
+  background: #000a03;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 0.7em 0.9em;
+  font-size: 0.75em;
+}
+
+.reveal section img {
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  filter: hue-rotate(40deg) saturate(0.7);
+}
+
+/* Title slide */
+.title-slide { text-align: left; }
+.title-slide .prompt {
+  font-size: 0.9em;
+  color: var(--ink);
+  margin-bottom: 1em;
+}
+.title-slide .cmd { color: var(--green); }
+.title-slide .banner,
+.title-slide pre.banner {
+  white-space: pre;
+  font-family: "JetBrains Mono", "Cascadia Mono", monospace;
+  color: var(--green);
+  font-size: 0.62em;
+  line-height: 1;
+  margin: 0.5em 0 1em;
+  text-shadow: 0 0 8px rgba(0, 255, 122, 0.5);
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.title-slide .metaline { color: var(--dim); font-size: 0.8em; }
+
+.caret { color: var(--green); animation: blink 1s steps(2, start) infinite; }
+@keyframes blink { to { visibility: hidden; } }
+
+/* Section-only slides (just h1 like "# /etc/sections/01") */
+.reveal section > h1:only-child {
+  color: var(--green);
+  font-size: 2.6em;
+  border-bottom: 1px dashed var(--rule);
+  padding-bottom: 0.4em;
+}
+.reveal section > h1:only-child::before {
+  content: "## ";
+  color: var(--dim);
+}
+
+/* Slide-level command marker (used on `## $ ls -la {.cmd-slide}`) */
+.cmd-slide h2 { color: var(--green); }
+
+.terminal-block {
+  background: #00100a;
+  border: 1px solid var(--rule);
+  padding: 0.7em 0.9em;
+  font-size: 0.9em;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  margin: 0.4em 0;
+}
+.terminal-block .user { color: var(--green); }
+.terminal-block .dollar { color: var(--amber); }
+.terminal-block .cmd { color: var(--ink); }
+.terminal-block .dim { color: var(--dim); }
+
+.ok { color: var(--green); }
+.dim { color: var(--dim); }
+
+.caption {
+  display: block;
+  text-align: center;
+  font-size: 0.7em;
+  color: var(--dim);
+  margin-top: 0.4em;
+}
+
+.attribution { color: var(--dim); font-size: 0.75em; margin-top: 0.2em; }
+
+.closing { margin-top: 0.8em; }
+
+.reveal .slides section.hidden-slide { display: none !important; }
+.reveal section.no-title > :is(h1, h2, h3):first-of-type { display: none; }

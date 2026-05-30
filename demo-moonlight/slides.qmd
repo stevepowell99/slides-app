@@ -1,0 +1,103 @@
+---
+pagetitle: "Demo: Moonlight"
+format:
+  revealjs:
+    theme: black
+    slide-number: c/t
+    transition: slide
+    transition-speed: slow
+    width: 1280
+    height: 720
+    highlight-style: github-dark
+    include-in-header:
+      - ../_shared/preview-bridge.html
+    css:
+      - ../_shared/styles.css
+      - moonlight.css
+---
+
+# Moonlight {.no-title .title-slide background-color="#0a0e1f"}
+
+::: {.eyebrow}
+DEMO DECK · 01
+:::
+
+::: {.headline}
+[Moonlight]{.gradient}
+:::
+
+::: {.subhead}
+A dark, neon-edged theme for engineering and product talks.
+:::
+
+::: {.byline}
+Inter + JetBrains Mono · 16:9 · 2026
+:::
+
+## Why this style works {background-color="#0a0e1f"}
+
+::: {.lead}
+High contrast carries detail at the back of the room. Saturated accents draw the eye where you want it.
+:::
+
+## Agenda
+
+- Establish the problem (3 minutes)
+- Show the data ([with caveats]{.accent})
+- Walk the architecture
+- Land the recommendation
+- Open the floor
+
+[A simple rule: one idea per slide.]{.note-inline}
+
+## Side-by-side {background-color="#0a0e1f"}
+
+:::: {.columns}
+::: {.column width="50%"}
+### Before
+- Manual extraction
+- Two-week loop
+- Stale by review
+:::
+::: {.column width="50%"}
+### [After]{.accent}
+- Streaming ingest
+- Hourly refresh
+- Live in dashboards
+:::
+::::
+
+## A picture, with caption
+
+![A wide placeholder where your photo would go.](https://placehold.co/1200x520/1a2436/5fd4d0){fig-align="center" width="85%"}
+
+## Quoting someone
+
+> The only way to predict the future is to build it, then watch what people do with it.
+
+::: {.attribution}
+— a senior engineer, after the launch
+:::
+
+## A small code sample
+
+```python
+def warm_cache(keys, batch=64):
+    for chunk in chunked(keys, batch):
+        cache.mset({k: load(k) for k in chunk})
+```
+
+[Cache hit-rate climbed from 41% to 92% after warm-up.]{.note-inline}
+
+## Thank you {.no-title background-color="#0a0e1f"}
+
+::: {.closing}
+::: {.headline}
+[Questions?]{.gradient}
+:::
+
+::: {.subhead}
+hello@causalmap.app
+:::
+:::
+

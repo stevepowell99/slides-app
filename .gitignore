@@ -1,0 +1,16 @@
+desktop.ini
+**/desktop.ini
+**/.quarto/
+**/*_files/
+*.tex
+node_modules/
+app/dist/
+app/.vite/
+*.log
+
+/.quarto/
+**/*.quarto_ipynb
+
+# Quarto rendered decks (regenerated from .qmd; keep _shared/preview-bridge.html)
+**/slides.html
+**/features-slides.html

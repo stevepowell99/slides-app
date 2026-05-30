@@ -142,6 +142,10 @@ export function PreviewFrame({ deckId, targetSlide, onSlideChanged, onSlides, on
           ref={iframeRef}
           title="Slide preview"
           src={srcUrl}
+          // Let Reveal's F key enter fullscreen: a browser blocks an iframe's
+          // requestFullscreen unless the parent grants it here.
+          allow="fullscreen"
+          allowFullScreen
         />
       ) : (
         <div className="preview-loader" role="status" aria-live="polite">

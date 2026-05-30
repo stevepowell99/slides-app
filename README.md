@@ -1,8 +1,14 @@
-# Local Quarto Slide Decks
+# Slide App
 
-A workspace for building [Quarto](https://quarto.org) RevealJS slide decks, with a local web app that edits and previews them side by side. Each deck is plain Markdown (`.qmd`) in its own folder, so you can work in any editor or in the app. There is no database: the `.qmd`, CSS, and images are the source of truth.
+A simple app for you, and optionally your AI assistant, to make consistent, powerful, beautiful slideshows.
 
-The app gives you a three-pane editor (deck list, per-slide editor, live preview) with drag-to-reorder, rename, hide/show, and two-way navigation between the slide list and the embedded preview.
+![The editor: deck list and slide list on the left, the slide body in the middle, a live reveal.js preview on the right.](.assets/editor.png)
+
+## Why
+
+Most slide tools keep each deck in a binary file. Styling drifts from one deck to the next, reusing a slide means copy, paste and reformat by hand, and an AI assistant cannot read or write the deck for you.
+
+Here every deck is plain text: a [Quarto](https://quarto.org) Markdown file (`.qmd`) plus its CSS and images, in a folder on your computer. There is no database; those files are the source of truth. That one choice is what makes decks consistent (they share styles), reusable (lift a slide or image from any other deck), and easy for an assistant to draft for you, and it keeps them yours to render to HTML or PDF with no lock-in. You edit in a three-pane app, deck list and slides on the left, the slide body in the middle, a live [reveal.js](https://revealjs.com) preview on the right, or in any text editor.
 
 ## Features
 
@@ -11,7 +17,7 @@ The app gives you a three-pane editor (deck list, per-slide editor, live preview
 - **Write in plain text.** Each deck is Markdown, split into slides by headings, so any editor works and nothing is locked in a database.
 - **Edit with slash commands.** Type `/` for columns, spans, fenced divs, images, fragments, and speaker notes, with tab-through placeholders.
 - **Edit in a capable editor.** CodeMirror brings find and replace, multiple cursors, move and copy lines, class autocomplete drawn from the deck's own CSS, and column-block tinting so the structure is visible in plain text.
-- **Preview live with reveal.js.** Speaker notes, two-dimensional slide layout, incremental reveal, nested rows and columns for any layout, a section breadcrumb, and a progress bar.
+- **Preview live with reveal.js.** Speaker notes, a two-dimensional overview grid, incremental reveal, nested rows and columns for any layout, a section breadcrumb, and a progress bar.
 - **Navigate both ways.** Selecting a slide moves the preview; moving in the preview selects the slide.
 - **Paste images straight into the editor.** They save to a shared folder and insert at the cursor, so copied slides keep working in other decks.
 - **Let your AI write the slides.** A deck is just text, so an assistant can draft a whole deck for you and you refine it here. Every deck is a folder of text files on your computer.
@@ -46,11 +52,15 @@ The rest of this README covers the details: deck layout, the app's editing model
 
 **Reuse slides and images.** The slide gallery lists every slide in every deck. Pick one and choose how its styles travel: keep its original look (the source deck's CSS rules come across, overriding the target where they clash) or adapt it (only missing rules used by that slide are added, so it takes on the target deck's styles). CSS variables the copied rules depend on come across too. A separate image gallery lets you drop any image from any deck into the slide you are editing.
 
+![The slide gallery: every slide from every deck, with its colours, ready to reuse.](.assets/slide-picker.png)
+
+![The image gallery: every image across the decks, filterable by name or folder.](.assets/image-picker.png)
+
 **Plain-text source.** A deck is one `.qmd` file plus its CSS and images in a folder. Slides are separated by Markdown headings: `#` for title or section slides, `##` for normal slides. There is no database and no proprietary format, so you can edit in this app, in Quarto directly, in any text editor, or have an AI assistant generate a deck and then refine it here.
 
 **Slash commands and class autocomplete.** In the body editor, type `/` at the start of a line to insert Quarto structures: `/columns`, `/column`, `/span`, `/div`, `/image`, `/columns3`, `/fragment`, `/notes`. `Tab` jumps between the placeholders. Select text and press `/` to wrap it in a styled span with the class picker already open. Type `.` inside an attribute block to choose from the classes the active deck's CSS actually defines, each tagged shared or deck.
 
-**Live reveal.js preview.** The right pane embeds `quarto preview`, so you get the real reveal.js deck: press `S` for the speaker view with notes, lay slides out in two dimensions (across with `#`, down with `##` under a section, or with nested column blocks), reveal content one step at a time with fragments, and nest rows and columns for any layout. A faint breadcrumb shows the current section and a progress bar tracks position.
+**Live reveal.js preview.** The right pane embeds `quarto preview`, so you get the real reveal.js deck: press `S` for the speaker view with notes, press `Esc` for the overview grid that lays every slide out across and down, reveal content one step at a time with fragments, and nest rows and columns for any layout. A faint breadcrumb shows the current section and a progress bar tracks position. Press `?` in any deck for the full list of keyboard shortcuts. The `welcome` deck walks through all of this.
 
 **Two-way navigation.** The slide list, body editor, and preview stay in step. Selecting a slide jumps the preview to it; arrow keys or the slide menu inside the preview select the matching row. The rendered deck is the source of truth for where each slide sits, so the three panes never drift apart.
 
@@ -69,6 +79,8 @@ Slides are separated by Markdown headings:
 
 - `#` for title or section slides
 - `##` for normal slides
+
+This gives the deck a two-dimensional shape. Each `#` starts a new section that runs across, and the `##` slides under it run down. In the running deck, `→` and `←` move between sections, `↓` and `↑` move within one, and `Space` goes through everything in order. Press `Esc` for an overview grid that shows the same layout. The `welcome` deck demonstrates this.
 
 ## Quarto Workflow
 
@@ -104,13 +116,18 @@ Open the printed local URL. The layout has three columns:
 - **Middle (split)**: slide list on top, body editor for the selected slide on the bottom.
 - **Right**: embedded `quarto preview`. It reloads when the `.qmd` is written to disk, which only happens when you render (see below), not on every keystroke.
 
+![The deck rail: New project, then a card per deck. Hover a card for rename, clone, build HTML, build PDF and delete.](.assets/sidebar.png)
+
 The slide list supports:
 
 - Click to select (the body editor and preview both jump to that slide)
 - Checkbox to multi-select
 - Drag to reorder
 - Double-click to rename (preserves heading attributes such as `{.hidden-slide}`)
-- Right-click for hide/show/copy/paste/delete
+- Hover a row for its actions: hide, copy, duplicate, delete, and more; hover the gap between rows for a `+` to insert a slide
+- Right-click for the same actions, applied to a multi-selection
+
+![Hovering a slide row reveals its actions, with a + to insert a new slide between rows.](.assets/slide-actions.png)
 
 Slide navigation is bidirectional, and the rendered deck is the source of truth for where each slide sits. A small bridge script (`_shared/preview-bridge.html`, injected via `include-in-header`) exchanges `postMessage` events with the parent:
 
@@ -174,7 +191,7 @@ To override, set the same key in a deck's `revealjs` block, for example `transit
 
 ## Section Breadcrumb
 
-Every deck shows a faint label in the bottom-left corner with the title of the current `#` section, so you keep your place in a larger deck. It is driven by a small script in `_shared/preview-bridge.html` and styled by `.slide-breadcrumb` in `_shared/styles.css`, so it applies to all decks automatically and updates as you navigate.
+Every deck shows a faint label in the bottom-right corner with the title of the current `#` section, so you keep your place in a larger deck. It is driven by a small script in `_shared/preview-bridge.html` and styled by `.slide-breadcrumb` in `_shared/styles.css`, so it applies to all decks automatically and updates as you navigate.
 
 Decks with no `#` section headings show nothing. To switch it off for a single deck, set this before Reveal initialises by adding to that deck's `include-in-header`:
 
@@ -198,7 +215,9 @@ Click **Build static HTML** in the deck rail to run `quarto render --embed-resou
 
 ## Publish to Netlify
 
-The decks are hosted read-only on Netlify as static files. Netlify has no Quarto, so we render locally and publish the rendered HTML rather than rebuilding on Netlify.
+The public decks are hosted read-only at [slides.causalmap.app](https://slides.causalmap.app), a demo site on Netlify. The landing page lists the decks; open one and read it with the arrow keys. Each published deck has a faint **Home** link in the top-right corner that returns to the landing page. The `welcome` deck (listed first) explains the reveal.js controls.
+
+Netlify has no Quarto, so we render locally and publish the rendered HTML rather than rebuilding on Netlify.
 
 **Mark a deck public.** Add `public: true` to a deck's front matter:
 
@@ -220,6 +239,8 @@ The script reads every deck's front matter, renders the public ones, and writes 
 
 - `_site/<deck>/index.html` for each public deck (one self-contained file)
 - `_site/index.html`, a landing page listing the decks, with theme demos in their own group
+
+The landing page sorts decks by title. To pin one to the top, add `order:` to its front matter (lower sorts first); decks without it fall to the end. The `welcome` deck uses `order: 0`. The same key orders the deck rail in the app.
 
 It wipes and rebuilds `_site/` each run, so the folder always matches the current `public` flags.
 

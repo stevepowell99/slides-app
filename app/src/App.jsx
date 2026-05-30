@@ -11,6 +11,7 @@ import { PreviewFrame } from "./PreviewFrame.jsx";
 import { SlideList } from "./SlideList.jsx";
 
 const CLIPBOARD_KEY = "local-slide-app.clipboard";
+const DECK_VISITS_KEY = "local-slide-app.deck-visits";
 const PREVIEW_WIDTH_KEY = "local-slide-app.preview-width";
 const SLIDELIST_HEIGHT_KEY = "local-slide-app.slidelist-height";
 const RAIL_HIDDEN_KEY = "local-slide-app.rail-hidden";
@@ -49,6 +50,12 @@ export function App() {
   // bridge: [{ id, h, v, title }] in document order. Source of truth for
   // navigation geometry; the parsed `slides` are aligned to this.
   const [previewSlides, setPreviewSlides] = useState([]);
+  // Rail ordering and search. deckVisits maps deckId -> last-opened timestamp
+  // (persisted), so the rail lists most-recently-opened first. deckIndex maps
+  // deckId -> lowercased body text for content matches in the search box.
+  const [deckVisits, setDeckVisits] = useState(() => readDeckVisits());
+  const [deckQuery, setDeckQuery] = useState("");
+  const [deckIndex, setDeckIndex] = useState({});
   // Bumps after any structural change (rename, slide actions, mode switch). Used
   // in the Editor's `key` so it remounts and re-extracts its initialValue from
   // the latest source. Typing alone does NOT bump it — that would steal focus.
@@ -118,6 +125,28 @@ export function App() {
     api(`/api/decks/${activeDeck}/classes`).then(setDeckClasses).catch(() => setDeckClasses([]));
   }, [activeDeck]);
 
+  // Record each deck visit so the rail can order by recency. Persisted so the
+  // ordering survives reloads.
+  useEffect(() => {
+    if (!activeDeck) return;
+    setDeckVisits((prev) => {
+      const next = { ...prev, [activeDeck]: Date.now() };
+      localStorage.setItem(DECK_VISITS_KEY, JSON.stringify(next));
+      return next;
+    });
+  }, [activeDeck]);
+
+  // Pull the per-deck content index for the search box. Refreshed when the set
+  // of decks changes (new / clone / delete / rename).
+  useEffect(() => {
+    if (!decks.length) { setDeckIndex({}); return; }
+    api("/api/decks/index").then((items) => {
+      const map = {};
+      for (const item of items) map[item.id] = item.text || "";
+      setDeckIndex(map);
+    }).catch(() => {});
+  }, [decks]);
+
   const selectedSlide = useMemo(
     () => slides.find((slide) => slide.id === selectedSlideId) || null,
     [slides, selectedSlideId]
@@ -181,6 +210,29 @@ export function App() {
   }, [slides, selectedSlideId]);
 
   const activeDeckMeta = decks.find((deck) => deck.id === activeDeck);
+
+  // The decks the rail shows: most-recently-opened first, filtered and ranked by
+  // the search box. Title and filename matches rank above content-only matches;
+  // recency breaks ties. An empty query just orders every deck by recency.
+  const visibleDecks = useMemo(() => {
+    const byRecency = (a, b) =>
+      (deckVisits[b.id] || 0) - (deckVisits[a.id] || 0)
+      || (a.order - b.order)
+      || a.title.localeCompare(b.title);
+
+    const q = deckQuery.trim().toLowerCase();
+    if (!q) return [...decks].sort(byRecency);
+
+    const ranked = [];
+    for (const deck of decks) {
+      const nameHit = deck.title.toLowerCase().includes(q) || deck.folder.toLowerCase().includes(q);
+      const contentHit = (deckIndex[deck.id] || "").includes(q);
+      if (!nameHit && !contentHit) continue;
+      ranked.push({ deck, tier: nameHit ? 0 : 1 });
+    }
+    ranked.sort((a, b) => (a.tier - b.tier) || byRecency(a.deck, b.deck));
+    return ranked.map((entry) => entry.deck);
+  }, [decks, deckQuery, deckVisits, deckIndex]);
 
   async function refreshDecks(preferredDeckId = "") {
     const items = await api("/api/decks");
@@ -701,8 +753,21 @@ export function App() {
         <div className="project-actions">
           <button className="btn btn-sm btn-info" type="button" onClick={createProject}>New project</button>
         </div>
+        <div className="deck-search">
+          <input
+            type="search"
+            value={deckQuery}
+            onChange={(e) => setDeckQuery(e.target.value)}
+            placeholder="Search decks"
+            aria-label="Search decks by title, filename or contents"
+            spellCheck={false}
+          />
+        </div>
         <div className="deck-list">
-          {decks.map((deck) => (
+          {!visibleDecks.length && (
+            <div className="deck-list-empty">{deckQuery.trim() ? "No decks match" : "No decks"}</div>
+          )}
+          {visibleDecks.map((deck) => (
             <div
               key={deck.id}
               className={`deck-card ${deck.id === activeDeck ? "active" : ""}`}
@@ -1026,6 +1091,11 @@ function spliceBody(source, slide, body) {
 function readClipboard() {
   try { return JSON.parse(localStorage.getItem(CLIPBOARD_KEY) || "[]"); }
   catch { return []; }
+}
+
+function readDeckVisits() {
+  try { return JSON.parse(localStorage.getItem(DECK_VISITS_KEY) || "{}"); }
+  catch { return {}; }
 }
 
 function readPreviewWidth() {

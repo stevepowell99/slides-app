@@ -33,6 +33,10 @@ foreach ($dir in Get-ChildItem -Path $root -Directory) {
     if ($fm -match '(?m)^\s*title:\s*(.+?)\s*$') { $title = $Matches[1].Trim('"', "'") }
     elseif ($fm -match '(?m)^\s*pagetitle:\s*(.+?)\s*$') { $title = $Matches[1].Trim('"', "'") }
 
+    # Lower `order:` lists first; decks without it fall to the end (then by title).
+    $order = 999
+    if ($fm -match '(?m)^\s*order:\s*(\d+)\s*$') { $order = [int]$Matches[1] }
+
     $decks += [pscustomobject]@{
         Slug    = $dir.Name
         Qmd     = $qmd.FullName
@@ -40,6 +44,7 @@ foreach ($dir in Get-ChildItem -Path $root -Directory) {
         Title   = $title
         Rel     = "$($dir.Name)/$($qmd.Name)"
         IsDemo  = $dir.Name -match '^demo-'
+        Order   = $order
     }
 }
 
@@ -78,8 +83,8 @@ function Format-Links($items) {
     }) -join "`n"
 }
 Add-Type -AssemblyName System.Web
-$real = $decks | Where-Object { -not $_.IsDemo } | Sort-Object Title
-$demo = $decks | Where-Object { $_.IsDemo } | Sort-Object Title
+$real = $decks | Where-Object { -not $_.IsDemo } | Sort-Object Order, Title
+$demo = $decks | Where-Object { $_.IsDemo } | Sort-Object Order, Title
 
 $demoBlock = ''
 if ($demo) {

@@ -175,11 +175,38 @@ body {
   grid-column: 1 / -1;
 }
 
+.deck-search {
+  margin-bottom: 10px;
+}
+
+.deck-search input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--ink);
+  font-size: 0.78rem;
+  padding: 5px 9px;
+}
+
+.deck-search input::placeholder { color: rgba(244, 241, 234, 0.4); }
+
+.deck-search input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
 .deck-list {
   display: grid;
   gap: 8px;
   overflow-y: auto;
   min-height: 0;
+}
+
+.deck-list-empty {
+  color: rgba(244, 241, 234, 0.45);
+  font-size: 0.78rem;
+  padding: 6px 2px;
 }
 
 .deck-card {

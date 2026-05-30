@@ -101,6 +101,9 @@
 
 /* Title slide */
 .title-slide { text-align: center; padding-top: 1.6em !important; }
+/* The body prose measure (max-width on p) would pin the centred kicker and
+   signoff lines to the left, since Pandoc wraps each div's text in a p. */
+.title-slide p { max-width: none; margin-left: auto; margin-right: auto; }
 .title-slide .kicker {
   font-variant: small-caps;
   letter-spacing: 0.15em;

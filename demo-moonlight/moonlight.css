@@ -100,7 +100,8 @@
 .title-slide .subhead {
   color: var(--muted);
   font-size: 0.9em;
-  margin-top: 0.8em;
+  /* auto side margins centre the capped-width block with the rest of the slide */
+  margin: 0.8em auto 0;
   max-width: 22em;
 }
 .title-slide .byline {

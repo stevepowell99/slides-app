@@ -149,6 +149,8 @@ async function describeDeck(repoRoot, name) {
     html: outputHtmlFor(qmd, files),
     title: metadata.pagetitle || metadata.title || name,
     date: metadata.date || "",
+    // Lower `order:` sorts first; decks without it fall to the end (then by title).
+    order: metadata.order !== undefined ? Number(metadata.order) : 999,
     slideCount: parseQmd(source).slides.length
   };
 }
@@ -161,7 +163,32 @@ export async function listDecks(repoRoot) {
     const deck = await describeDeck(repoRoot, entry.name);
     if (deck) decks.push(deck);
   }
-  return decks.sort((a, b) => a.title.localeCompare(b.title));
+  return decks.sort((a, b) => (a.order - b.order) || a.title.localeCompare(b.title));
+}
+
+// Plain-text body of each deck, lowercased, for the rail's search box. Title and
+// filename live on the deck already, so this only carries slide contents; the
+// client ranks title/filename hits above content hits.
+export async function listDeckSearchIndex(repoRoot) {
+  const decks = await listDecks(repoRoot);
+  return Promise.all(decks.map(async (deck) => {
+    const source = await fs.readFile(path.join(repoRoot, deck.folder, deck.qmd), "utf8").catch(() => "");
+    return { id: deck.id, text: deckSearchText(source) };
+  }));
+}
+
+// Strip front matter and markdown noise to leave searchable prose.
+function deckSearchText(source) {
+  return source
+    .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "")  // front matter
+    .replace(/```[\s\S]*?```/g, " ")                 // code fences
+    .replace(/^:::.*$/gm, " ")                       // fenced-div fences
+    .replace(/\{[^}]*\}/g, " ")                      // attribute blocks
+    .replace(/<[^>]+>/g, " ")                        // raw html
+    .replace(/[#*_`>]/g, " ")                        // markdown punctuation
+    .replace(/\s+/g, " ")
+    .toLowerCase()
+    .trim();
 }
 
 // Flat list of every slide across every deck, with metadata for the gallery.

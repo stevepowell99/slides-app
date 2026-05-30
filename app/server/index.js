@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import { applySlideAction, extractSlideBlocks } from "./parser.js";
 import {
   cloneDeck, createDeck, deleteDeck, getDeck, IMAGE_EXTENSIONS, listAllImages, listAllSlides,
-  listDecks, readDeckSource, setDeckTitle, writeDeckSource
+  listDecks, listDeckSearchIndex, readDeckSource, setDeckTitle, writeDeckSource
 } from "./decks.js";
 import { renderDeck, renderPdf } from "./render.js";
 import { startPreview, stopPreview, stopAll } from "./preview-process.js";
@@ -25,6 +25,8 @@ app.use(express.json({ limit: "10mb" }));
 
 // Decks
 app.get("/api/decks", asyncHandler(async (_req, res) => res.json(await listDecks(repoRoot))));
+// Searchable content per deck, for the rail's search box.
+app.get("/api/decks/index", asyncHandler(async (_req, res) => res.json(await listDeckSearchIndex(repoRoot))));
 app.post("/api/decks", asyncHandler(async (req, res) =>
   res.status(201).json(await createDeck(repoRoot, req.body.title))
 ));

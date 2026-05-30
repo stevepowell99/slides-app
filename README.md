@@ -14,6 +14,7 @@ Here every deck is plain text: a [Quarto](https://quarto.org) Markdown file (`.q
 
 - **Build consistent decks.** Shared styles and project-wide RevealJS defaults keep every deck looking the same, and any deck can override them.
 - **Reuse slides and images across decks.** Pick a slide from another deck and either keep its original look or adapt it to the current deck's styles. Reuse any image from any deck through a picker.
+- **Find a deck fast.** A search box in the rail matches decks by title, filename or slide contents, and the rail keeps the decks you opened most recently at the top.
 - **Write in plain text.** Each deck is Markdown, split into slides by headings, so any editor works and nothing is locked in a database.
 - **Edit with slash commands.** Type `/` for columns, spans, fenced divs, images, fragments, and speaker notes, with tab-through placeholders.
 - **Edit in a capable editor.** CodeMirror brings find and replace, multiple cursors, move and copy lines, class autocomplete drawn from the deck's own CSS, and column-block tinting so the structure is visible in plain text.
@@ -26,15 +27,18 @@ Here every deck is plain text: a [Quarto](https://quarto.org) Markdown file (`.q
 
 ## Quick start
 
-Run the app:
+From the project root (`19c-slides`):
 
 ```powershell
-cd app
-npm install
-npm run dev
+npm run install:app   # one time, installs the app's dependencies
+npm start             # rebuilds the frontend, then serves on http://127.0.0.1:3210
 ```
 
-Open the printed local URL, pick a deck on the left, and edit. Press `Ctrl+Enter` or `Ctrl+S` (or click **Save**) to update the preview.
+Open http://127.0.0.1:3210, pick a deck on the left, and edit. Press `Ctrl+Enter` or `Ctrl+S` (or click **Save**) to update the preview.
+
+The app itself lives in `app/`; the root `package.json` just forwards these commands into it, so you never need to `cd app`. `npm start` always rebuilds first, so it reflects the current code. Use `npm run serve` to start without rebuilding (faster, serves the last build).
+
+Only run `npm run dev` if you are editing the app's own code: it starts a second server with hot reload on http://127.0.0.1:5173 and proxies data calls to the main server. It is not needed for making slides.
 
 Or work in Quarto directly, from any deck folder:
 
@@ -55,6 +59,8 @@ The rest of this README covers the details: deck layout, the app's editing model
 ![The slide gallery: every slide from every deck, with its colours, ready to reuse.](.assets/slide-picker.png)
 
 ![The image gallery: every image across the decks, filterable by name or folder.](.assets/image-picker.png)
+
+**Find a deck.** The deck rail has a search box that matches your text against each deck's title, folder name and slide contents, so you can jump to a deck by something it says, not just its name. Title and filename matches rank above content-only matches. With the box empty, the rail lists the decks you opened most recently first (then by `order:`, then title), so whatever you are working on stays to hand.
 
 **Plain-text source.** A deck is one `.qmd` file plus its CSS and images in a folder. Slides are separated by Markdown headings: `#` for title or section slides, `##` for normal slides. There is no database and no proprietary format, so you can edit in this app, in Quarto directly, in any text editor, or have an AI assistant generate a deck and then refine it here.
 
@@ -102,17 +108,15 @@ Or use the existing batch files:
 
 ## Local Web App
 
-The app is in `app/`. It edits the same `.qmd` files and embeds `quarto preview` for the live view.
+The app is in `app/`. It edits the same `.qmd` files and embeds `quarto preview` for the live view. Run it from the project root (see Quick start):
 
 ```powershell
-cd app
-npm install
-npm run dev
+npm start
 ```
 
-Open the printed local URL. The layout has three columns:
+Open http://127.0.0.1:3210. The layout has three columns:
 
-- **Left**: deck list, plus New / Clone / Delete / Build static HTML.
+- **Left**: a search box and the deck list. New project at the top; hover a deck card for rename, clone, build HTML, build PDF and delete.
 - **Middle (split)**: slide list on top, body editor for the selected slide on the bottom.
 - **Right**: embedded `quarto preview`. It reloads when the `.qmd` is written to disk, which only happens when you render (see below), not on every keystroke.
 

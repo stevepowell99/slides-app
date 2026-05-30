@@ -35,16 +35,8 @@ Projects and sources
 :::: {.columns}
 ::::: {.column width="50%"}
 in col 
-:::::: {.rows}
-::::::: {.row height="50%" .emph-green}
-top row
-:::::::
-::::::: {.row height="50%"}
-bottom row
-:::::::
-::::::
 :::::
-::::: {.column width="50%"}
+::::: {.column width="50%" .bg-blue}
 right
 :::::
 ::::

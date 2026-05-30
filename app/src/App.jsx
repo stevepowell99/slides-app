@@ -999,6 +999,7 @@ export function App() {
                 <li><kbd>Ctrl</kbd>+<kbd>/</kbd> toggle comment, <kbd>Tab</kbd> indent, <kbd>Shift</kbd>+<kbd>Tab</kbd> outdent</li>
                 <li><kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Y</kbd> undo / redo</li>
                 <li><kbd>Ctrl</kbd>+<kbd>Enter</kbd> or <kbd>Ctrl</kbd>+<kbd>S</kbd> render the deck (write to disk, reload preview)</li>
+                <li>Formatting (toggles on a selection or at the cursor): <kbd>Ctrl</kbd>+<kbd>B</kbd> bold, <kbd>Ctrl</kbd>+<kbd>I</kbd> italic, <kbd>Ctrl</kbd>+<kbd>`</kbd> code, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> strikethrough, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd> yellow highlight, <kbd>Ctrl</kbd>+<kbd>K</kbd> link</li>
                 <li>Type <kbd>/</kbd> at the start of a line for slash commands (columns, span, div, image, fragment, notes). <kbd>Tab</kbd> jumps between the placeholders; <kbd>/image</kbd> opens the picture gallery.</li>
                 <li>Select text and press <kbd>/</kbd> to wrap it in a styled span and pick a class straight away.</li>
                 <li>Inside an attribute block, type <kbd>.</kbd> (as in <code>::: {".|"}</code> or <code>[text]{".|"}</code>) to pick from the styles this deck's CSS actually defines.</li>

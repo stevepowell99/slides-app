@@ -23,7 +23,7 @@ Two open-source tools do the work under the hood, and the app drives both for yo
 - **Find a deck fast.** A search box matches decks by title, filename or slide contents, and the rail keeps the decks you opened most recently at the top.
 - **Write in plain text.** Each deck is Markdown, split into slides by headings, so any editor works and nothing is locked in a database.
 - **Edit with slash commands.** Type `/` for columns, spans, fenced divs, images, fragments and speaker notes, with tab-through placeholders.
-- **Edit in a capable editor.** Find and replace, multiple cursors, move and copy lines, and class autocomplete drawn from the deck's own CSS.
+- **Edit in a capable editor.** Find and replace, multiple cursors, move and copy lines, and class autocomplete drawn from the deck's own CSS. Familiar formatting shortcuts toggle markup on a selection or at the cursor: `Ctrl+B` bold, `Ctrl+I` italic, `` Ctrl+` `` code, `Ctrl+Shift+X` strikethrough, `Ctrl+Shift+H` highlight, `Ctrl+K` link.
 - **Preview live.** The real reveal.js deck, side by side with the editor: speaker notes, an overview grid, step-by-step reveals, and a progress bar.
 - **Navigate both ways.** Selecting a slide moves the preview; moving in the preview selects the slide.
 - **Paste images straight into the editor.** They save to a shared folder and insert at the cursor, so copied slides keep working in other decks.
@@ -166,6 +166,13 @@ The breadcrumb shows the current `#` section's title in a corner. Decks with no 
 ```html
 <script>window.SLIDE_BREADCRUMB = false</script>
 ```
+
+`_shared/styles.css` also defines reusable content classes. Wrap a block in a fenced div to apply one, for example `::: {.panel .panel-teal}` ... `:::`:
+
+- **Highlights** (inline, on a span): `.hl-blue`, `.hl-yellow`, `.hl-pink`, `.hl-green` add a coloured highlight behind text, as in `[important]{.hl-yellow}`.
+- **Background-only blocks**: `.bg-blue`, `.bg-green`, `.bg-teal`, `.bg-yellow`, `.bg-pink`, `.bg-grey` add a pale fill and nothing else.
+- **Panels** (padded box with a left border): `.panel` plus one of `.panel-blue`, `.panel-green`, `.panel-teal`, `.panel-grey`. Related boxes: `.note` (amber), `.examples` (grey), `.quote` (teal), `.takeaway` (dark).
+- **Stat pills** (inline): `.stat` plus `.stat-blue`, `.stat-green`, `.stat-teal`.
 
 ### Hiding a slide
 

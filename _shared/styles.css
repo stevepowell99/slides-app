@@ -162,6 +162,17 @@
 .hl-pink   { background: var(--cm-pink); }
 .hl-green  { background: var(--cm-mint); }
 
+/* Background-only blocks: a pale fill and nothing else (no border, no padding).
+   Wrap a block with `::: {.bg-teal}` ... `:::`. For padded boxes with a left
+   border use the `.panel` family instead. Tints match the panel/stat palette so
+   dark text stays legible. */
+.bg-blue   { background: #eaf2fb; }
+.bg-green  { background: #e8f3ec; }
+.bg-teal   { background: #e6f7f6; }
+.bg-yellow { background: #fdf6e3; }
+.bg-pink   { background: #fdeef3; }
+.bg-grey   { background: var(--grey-bg); }
+
 /* Accent text */
 .accent {
   color: var(--teal-dark);

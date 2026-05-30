@@ -1,6 +1,30 @@
 # Local Quarto Slide Decks
 
-This repo stores Quarto RevealJS slide decks as plain files. There is no database: the `.qmd`, CSS, images, and generated outputs are the source of truth.
+A workspace for building [Quarto](https://quarto.org) RevealJS slide decks, with a local web app that edits and previews them side by side. Each deck is plain Markdown (`.qmd`) in its own folder, so you can work in any editor or in the app. There is no database: the `.qmd`, CSS, and images are the source of truth.
+
+The app gives you a three-pane editor (deck list, per-slide editor, live preview) with drag-to-reorder, rename, hide/show, and two-way navigation between the slide list and the embedded preview.
+
+## Quick start
+
+Run the app:
+
+```powershell
+cd app
+npm install
+npm run dev
+```
+
+Open the printed local URL, pick a deck on the left, and edit. Press `Ctrl+Enter` or **Render** to update the preview.
+
+Or work in Quarto directly, from any deck folder:
+
+```powershell
+quarto preview slides.qmd
+```
+
+Requirements: [Quarto](https://quarto.org/docs/get-started/) and [Node.js](https://nodejs.org). Developed on Windows with PowerShell; the app runs anywhere Node and Quarto do.
+
+The rest of this README covers the details: deck layout, the app's editing model, deck front matter, and building static HTML.
 
 ## Deck Layout
 

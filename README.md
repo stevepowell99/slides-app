@@ -86,7 +86,19 @@ Slides are separated by Markdown headings:
 - `#` for title or section slides
 - `##` for normal slides
 
-This gives the deck a two-dimensional shape. Each `#` starts a new section that runs across, and the `##` slides under it run down. In the running deck, `→` and `←` move between sections, `↓` and `↑` move within one, and `Space` goes through everything in order. Press `Esc` for an overview grid that shows the same layout. The `welcome` deck demonstrates this.
+Each `#` starts a new section and the `##` slides sit under it. This groups the deck into sections (the breadcrumb shows the current one) and gives the `Esc` overview its across-and-down layout. Arrow keys and `Space` move through the slides one at a time in order, so `→` and `↓` both go to the next slide; to jump straight to a section, open the overview and click it. Quarto runs RevealJS in `linear` navigation mode, which is why the arrows do not move across and down separately. The `welcome` deck demonstrates this.
+
+### Two-dimensional arrow navigation
+
+To make the arrows move in two dimensions instead, so `→` and `←` step between sections and `↓` and `↑` move within one, override Quarto's `linear` default with `navigation-mode`:
+
+```yaml
+format:
+  revealjs:
+    navigation-mode: vertical
+```
+
+Put it in a single deck's front matter, or in `_quarto.yml` to change every deck. The values are `linear` (the default here), `vertical` (the two-dimensional mode just described), and `grid` (like `vertical`, but `→` and `←` keep your depth within a section as you cross between them). The decks in this repo, including `welcome`, are written for `linear`.
 
 ## Quarto Workflow
 

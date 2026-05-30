@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This repo lives in Google Drive, which keeps re-injecting desktop.ini files
+# into .git/ (including .git/refs/*). Git reads those as refs and aborts push
+# with "bad object refs/desktop.ini". The pre-commit hook cleans them at commit
+# time; clean again here in case Drive re-added some before this push.
+set -euo pipefail
+find "${GIT_DIR:-.git}" -iname 'desktop.ini' -delete 2>/dev/null || true
+exit 0

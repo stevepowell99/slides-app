@@ -2,3 +2,8 @@
 # does not render multi-MB inlined-base64 diffs, and GitHub collapses them.
 _site/** linguist-generated=true
 _site/**/*.html -diff
+
+# Git hooks are bash scripts run by Git for Windows. With core.autocrlf=true a
+# checkout would give them CRLF endings, and bash chokes on the "\r" in the
+# shebang. Keep them LF so they always run.
+hooks/** text eol=lf

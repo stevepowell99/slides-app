@@ -281,4 +281,10 @@ git config core.hooksPath hooks
 
 It needs PowerShell 7 (`pwsh`) on PATH. If `pwsh` is missing the hook aborts the commit and tells you to run `build-site.ps1` yourself.
 
+This clone lives in Google Drive, which keeps copying `desktop.ini` files into every synced folder, including inside `.git/` (such as `.git/refs/`). Git reads those as refs and aborts with `bad object refs/desktop.ini`, breaking commits and pushes. The `pre-commit` and `pre-push` hooks (both in `hooks/`) delete every `desktop.ini` under `.git/` before they run, so this self-heals once `core.hooksPath` is set. If git ever fails this way outside a hook, clear them by hand from a Git Bash prompt at the repo root:
+
+```bash
+find .git -iname desktop.ini -delete
+```
+
 Quarto output is deterministic, so rebuilding a deck whose source is unchanged produces the same file and adds nothing to git history. Only decks you actually edit write new blobs. `.gitattributes` marks `_site/` as generated so git and GitHub treat the inlined-base64 files as binary rather than rendering multi-MB diffs.

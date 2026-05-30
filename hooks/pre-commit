@@ -6,6 +6,13 @@
 #   git commit --no-verify
 set -euo pipefail
 
+# This repo lives in Google Drive, which scatters desktop.ini files through
+# every synced folder, including inside .git/ (notably .git/refs/*). Git reads
+# those as refs and aborts with "bad object refs/desktop.ini", which is what
+# breaks commits here. Strip them from .git before doing anything else, so the
+# commit (and the git calls below) run against a clean ref database.
+find "${GIT_DIR:-.git}" -iname 'desktop.ini' -delete 2>/dev/null || true
+
 root="$(git rev-parse --show-toplevel)"
 cd "$root"
 

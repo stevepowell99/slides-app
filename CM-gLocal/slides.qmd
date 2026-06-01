@@ -4,7 +4,7 @@ pagetitle: "Causal Map / gLocal"
 format:
   revealjs:
     theme: white
-    navigation-mode: vertical
+    navigation-mode: linear
     slide-number: false
     transition: slide
     width: 1280

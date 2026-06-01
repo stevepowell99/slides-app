@@ -37,7 +37,14 @@ async function doRenderPdf(repoRoot, deckId) {
   await runQuartoRender(deckDir, deck.qmd);
   await runDecktape(deckDir, htmlName, pdfName);
 
-  return { pdf: pdfName, html: htmlName };
+  // Kept in the deck folder; the route also streams it so the browser can
+  // offer it as a download named after the deck.
+  return {
+    pdf: pdfName,
+    html: htmlName,
+    pdfPath: path.join(deckDir, pdfName),
+    downloadName: `${deck.id}.pdf`,
+  };
 }
 
 function runDecktape(cwd, htmlName, pdfName) {

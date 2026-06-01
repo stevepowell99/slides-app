@@ -552,7 +552,7 @@ font-size: 34px;
 text-align: left;
 }
 
-.reveal .slides section {
+.reveal .slides section:not(.stack) {
 padding: 1.2em 1.8em !important;
 text-align: left;
 
@@ -1626,6 +1626,13 @@ margin-right: 0; }
       window.parent.postMessage(payload, "*");
     }
 
+    // The deck's authoring size (Reveal's logical width/height). The parent uses
+    // its ratio to keep the preview box a fixed slide shape while resizing.
+    function revealSize() {
+      var c = (typeof Reveal !== "undefined" && Reveal.getConfig) ? Reveal.getConfig() : null;
+      return c ? { width: c.width, height: c.height } : {};
+    }
+
     // Every slide Reveal will actually show, in document order, with its real
     // index and heading text. Vertical-stack wrappers are not slides, so they
     // are excluded automatically by getSlides().
@@ -1656,8 +1663,8 @@ margin-right: 0; }
       });
       // Re-announce the list whenever Reveal (re)lays out, e.g. after a resize
       // that collapses verticals; cheap and keeps the parent's map fresh.
-      Reveal.on("ready", function () { send("ready", { slides: slideList() }); });
-      send("ready", { slides: slideList() });
+      Reveal.on("ready", function () { send("ready", Object.assign({ slides: slideList() }, revealSize())); });
+      send("ready", Object.assign({ slides: slideList() }, revealSize()));
       return true;
     }
 

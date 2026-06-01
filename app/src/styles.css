@@ -1097,11 +1097,25 @@ body {
   gap: 12px;
 }
 
-.preview-frame iframe {
+/* Holds the iframe to the deck's slide ratio so dragging the divider scales a
+   fixed shape rather than reflowing the layout. Container query units let it
+   stay contained whichever way the available area is wider. */
+.preview-stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  container-type: size;
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.preview-stage iframe {
   background: white;
   border: 0;
-  flex: 1 1 auto;
-  width: 100%;
+  width: min(100cqw, calc(100cqh * var(--preview-aspect, 1.7778)));
+  height: min(100cqh, calc(100cqw / var(--preview-aspect, 1.7778)));
 }
 
 .preview-loader {

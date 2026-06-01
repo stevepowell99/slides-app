@@ -10,6 +10,9 @@ export function PreviewFrame({ deckId, targetSlide, onSlideChanged, onSlides, on
   const [baseUrl, setBaseUrl] = useState("");
   const [srcUrl, setSrcUrl] = useState("");
   const [status, setStatus] = useState("idle");
+  // The deck's slide aspect ratio (width / height), reported by the bridge on
+  // ready. Holds the preview box to a fixed slide shape as the divider moves.
+  const [aspect, setAspect] = useState(16 / 9);
   const iframeRef = useRef(null);
   const targetRef = useRef(targetSlide);
   const onSlideChangedRef = useRef(onSlideChanged);
@@ -61,6 +64,9 @@ export function PreviewFrame({ deckId, targetSlide, onSlideChanged, onSlides, on
       if (data.type === "ready") {
         // The rendered deck just told us exactly which slides exist and where.
         if (data.slides) onSlidesRef.current?.(data.slides);
+        if (Number.isFinite(data.width) && Number.isFinite(data.height) && data.height > 0) {
+          setAspect(data.width / data.height);
+        }
         previewPosRef.current = { h: data.h, v: data.v };
         // If the parent already has a slide selected, push it back into the
         // freshly (re)loaded deck. Otherwise let the deck lead: report whatever
@@ -138,15 +144,17 @@ export function PreviewFrame({ deckId, targetSlide, onSlideChanged, onSlides, on
         </span>
       </div>
       {baseUrl ? (
-        <iframe
-          ref={iframeRef}
-          title="Slide preview"
-          src={srcUrl}
-          // Let Reveal's F key enter fullscreen: a browser blocks an iframe's
-          // requestFullscreen unless the parent grants it here.
-          allow="fullscreen"
-          allowFullScreen
-        />
+        <div className="preview-stage" style={{ "--preview-aspect": aspect }}>
+          <iframe
+            ref={iframeRef}
+            title="Slide preview"
+            src={srcUrl}
+            // Let Reveal's F key enter fullscreen: a browser blocks an iframe's
+            // requestFullscreen unless the parent grants it here.
+            allow="fullscreen"
+            allowFullScreen
+          />
+        </div>
       ) : (
         <div className="preview-loader" role="status" aria-live="polite">
           {status === "error" ? (

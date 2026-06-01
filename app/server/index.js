@@ -141,9 +141,12 @@ app.post("/api/decks/:deck/build", asyncHandler(async (req, res) =>
 ));
 
 // Render to PDF via Quarto + decktape (requires `npm install -g decktape`).
-app.post("/api/decks/:deck/pdf", asyncHandler(async (req, res) =>
-  res.json(await renderPdf(repoRoot, req.params.deck))
-));
+// The PDF is saved in the deck folder and also streamed back so the browser
+// offers it as a download.
+app.post("/api/decks/:deck/pdf", asyncHandler(async (req, res) => {
+  const { pdfPath, downloadName } = await renderPdf(repoRoot, req.params.deck);
+  res.download(pdfPath, downloadName);
+}));
 
 // Built frontend
 const distPath = path.join(appRoot, "dist");

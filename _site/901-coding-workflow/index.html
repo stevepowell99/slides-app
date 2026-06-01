@@ -550,7 +550,7 @@ font-size: 34px;
 text-align: left;
 }
 
-.reveal .slides section {
+.reveal .slides section:not(.stack) {
 padding: 1.2em 1.8em !important;
 text-align: left;
 
@@ -1469,6 +1469,13 @@ margin-right: 0; }
       window.parent.postMessage(payload, "*");
     }
 
+    // The deck's authoring size (Reveal's logical width/height). The parent uses
+    // its ratio to keep the preview box a fixed slide shape while resizing.
+    function revealSize() {
+      var c = (typeof Reveal !== "undefined" && Reveal.getConfig) ? Reveal.getConfig() : null;
+      return c ? { width: c.width, height: c.height } : {};
+    }
+
     // Every slide Reveal will actually show, in document order, with its real
     // index and heading text. Vertical-stack wrappers are not slides, so they
     // are excluded automatically by getSlides().
@@ -1499,8 +1506,8 @@ margin-right: 0; }
       });
       // Re-announce the list whenever Reveal (re)lays out, e.g. after a resize
       // that collapses verticals; cheap and keeps the parent's map fresh.
-      Reveal.on("ready", function () { send("ready", { slides: slideList() }); });
-      send("ready", { slides: slideList() });
+      Reveal.on("ready", function () { send("ready", Object.assign({ slides: slideList() }, revealSize())); });
+      send("ready", Object.assign({ slides: slideList() }, revealSize()));
       return true;
     }
 
@@ -4611,7 +4618,7 @@ z-index: 1000;
 <h2>The nine steps</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>Plan</strong></p>
+<p><strong>Collect</strong></p>
 <ol type="1">
 <li>Overall planning</li>
 <li>Data gathering</li>
@@ -4636,8 +4643,8 @@ z-index: 1000;
 </div>
 </section></section>
 <section>
-<section id="plan" class="title-slide slide level1 center">
-<h1>Plan</h1>
+<section id="collect" class="title-slide slide level1 center">
+<h1>Collect</h1>
 
 </section>
 <section id="step-1-start-from-the-question" class="slide level2">
@@ -4978,7 +4985,9 @@ z-index: 1000;
 <section id="the-whole-thing-in-one-line" class="slide level2">
 <h2>The whole thing in one line</h2>
 <div class="lead">
-<p>Code “X influenced Y, with a quote”. Capture cheaply. Then judge, in the open, until you have something you can defend.</p>
+<p>Code “X influenced Y, with a quote”.</p>
+<p>Capture everything. Capture cheaply. AI can do this.</p>
+<p>Then judge, in the open.</p>
 </div>
 <div class="fragment panel panel-teal">
 <p>None of this is statistical causal inference. It is a disciplined way to assemble evidence, weigh it transparently, and reach conclusions you can stand behind.</p>

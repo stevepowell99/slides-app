@@ -572,8 +572,21 @@ export function App() {
     if (!target) return;
     setBuilding(true);
     try {
-      const data = await api(`/api/decks/${target.id}/pdf`, { method: "POST" });
-      setMessage(`Built ${data.pdf}`);
+      const response = await fetch(`/api/decks/${encodeURIComponent(target.id)}/pdf`, { method: "POST" });
+      if (!response.ok) {
+        const body = await response.json().catch(() => ({}));
+        throw new Error(body.error || response.statusText);
+      }
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${target.id}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      setMessage(`Saved and downloaded ${target.id}.pdf`);
     } catch (error) {
       showError(error);
     } finally {
@@ -1013,7 +1026,7 @@ export function App() {
                 <li>Hide a slide's heading (keep it in nav / outlines): <code>## My title {"{.no-title}"}</code></li>
                 <li>Paste an image from the clipboard into the editor — it saves to <code>_shared/img/</code> (global, shared across decks) and inserts <code>![](../_shared/img/paste-….png)</code> at the cursor, so copied slides keep working in other decks.</li>
                 <li>Speaker notes: wrap a block in a notes fenced div:<br /><code>::: {"{.notes}"}</code><br /><code>Your speaker note here.</code><br /><code>:::</code><br />In the running deck press <kbd>S</kbd> to open the speaker view.</li>
-                <li>Right-click a project → <b>Build PDF</b> renders the deck to PDF (requires <code>npm install -g decktape</code> once).</li>
+                <li>Right-click a project → <b>Build PDF</b> renders the deck to PDF, saves it in the deck folder and downloads it (requires <code>npm install -g decktape</code> once).</li>
               </ul>
 
               <p className="help-foot">Press <kbd>Esc</kbd> or click outside to close.</p>

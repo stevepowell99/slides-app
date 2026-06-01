@@ -178,7 +178,7 @@ Coding is broad and cheap on purpose. The value is added later, spending that vo
 
 ::: {.columns}
 ::: {.column width="50%"}
-**Plan**
+**Collect**
 
 1. Overall planning
 2. Data gathering
@@ -203,7 +203,7 @@ Coding is broad and cheap on purpose. The value is added later, spending that vo
 Not a strict sequence. You revisit the early ones. Only the last is strictly required.
 :::
 
-# Plan
+# Collect
 
 ## Step 1: Start from the question
 
@@ -567,7 +567,11 @@ If yes, you have a conclusion with every step on show, from quote to claim to bu
 ## The whole thing in one line
 
 ::: {.lead}
-Code "X influenced Y, with a quote". Capture cheaply. Then judge, in the open, until you have something you can defend.
+Code "X influenced Y, with a quote". 
+
+Capture everything. Capture cheaply. AI can do this.
+
+Then judge, in the open.
 :::
 
 ::: {.fragment .panel .panel-teal}

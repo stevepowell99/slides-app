@@ -37,6 +37,10 @@ foreach ($dir in Get-ChildItem -Path $root -Directory) {
     $order = 999
     if ($fm -match '(?m)^\s*order:\s*(\d+)\s*$') { $order = [int]$Matches[1] }
 
+    # A pre-built PDF (e.g. from the app's Build PDF) sitting next to the .qmd is
+    # copied into _site and offered as a discreet download link on the index.
+    $pdfPath = Join-Path $dir.FullName ($qmd.BaseName + '.pdf')
+
     $decks += [pscustomobject]@{
         Slug    = $dir.Name
         Qmd     = $qmd.FullName
@@ -45,6 +49,8 @@ foreach ($dir in Get-ChildItem -Path $root -Directory) {
         Rel     = "$($dir.Name)/$($qmd.Name)"
         IsDemo  = $dir.Name -match '^demo-'
         Order   = $order
+        Pdf     = $pdfPath
+        HasPdf  = Test-Path $pdfPath
     }
 }
 
@@ -72,6 +78,8 @@ foreach ($d in $decks) {
     if ($i -lt 0) { throw "No </body> in $($d.Slug)." }
     $content = $content.Substring(0, $i) + $homeLink + "`n" + $content.Substring($i)
     Set-Content -Path (Join-Path $dest 'index.html') -Value $content -Encoding utf8
+    # Copy a committed PDF alongside, named after the deck for a tidy download.
+    if ($d.HasPdf) { Copy-Item $d.Pdf -Destination (Join-Path $dest "$($d.Slug).pdf") -Force }
 }
 
 # Landing page.
@@ -79,7 +87,8 @@ function Format-Links($items) {
     ($items | ForEach-Object {
         $t = [System.Web.HttpUtility]::HtmlEncode($_.Title)
         $p = [System.Web.HttpUtility]::HtmlEncode($_.Rel)
-        "      <li><a href=`"./$($_.Slug)/`">$t</a> <span class=`"path`">$p</span></li>"
+        $pdf = if ($_.HasPdf) { " <a class=`"pdf`" href=`"./$($_.Slug)/$($_.Slug).pdf`" download>PDF</a>" } else { '' }
+        "      <li><a href=`"./$($_.Slug)/`">$t</a> <span class=`"path`">$p</span>$pdf</li>"
     }) -join "`n"
 }
 Add-Type -AssemblyName System.Web
@@ -112,6 +121,8 @@ $html = @"
     a { color: #2a4eff; text-decoration: none; }
     a:hover { text-decoration: underline; }
     .path { color: #999; font-family: ui-monospace, monospace; font-size: 0.82em; }
+    .pdf { color: #888; font-size: 0.72em; border: 1px solid #ccc; border-radius: 5px; padding: 0 0.4em; margin-left: 0.5em; text-decoration: none; vertical-align: middle; }
+    .pdf:hover { color: #2a4eff; border-color: #2a4eff; }
   </style>
 </head>
 <body>

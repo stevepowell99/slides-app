@@ -32,6 +32,10 @@ How to build a real-life theory of change from your interviews using AI:
 a Causal Map 4 training session
 :::
 
+::: {.notes}
+Gabi shares, steve shares app
+:::
+
 ## The team {.content background-color="#ffffff"}
 
 ::: {.body}
@@ -50,7 +54,7 @@ Gabriele Caldas Cabral, Outreach Coordinator, Causal Map Ltd
 :::
 ::::
 
-What we will do today: gather interviews with AI, turn them into a theory of change, and learn to question it. About 90 minutes, with plenty of room for your questions.
+What we will do today: explain what is causal mapping and how to do it with AI, turning your text data into a theory of change, and learn to question it. About 90 minutes, with plenty of room for your questions!
 
 :::
 
@@ -178,7 +182,7 @@ It codes every claim across hundreds of documents, and each one traces back to t
 
 :::
 
-## Case studies {.content background-color="#ffffff"}
+## Some recent projects {.content background-color="#ffffff"}
 
 ::: {.body}
 - **VIB, Brussels:** 100 HR interviews on career trajectories
@@ -188,10 +192,19 @@ It codes every claim across hundreds of documents, and each one traces back to t
 - **Climate adaptation, Austria:** 38 harvested outcome statements
 :::
 
+
+::: {.notes}
+Gabi
+:::
+
 ## Chile: gender gaps in STEM {.no-title background-image="../_shared/img/screenshot-duoc-uc-evaluating-gender-equity-in-stem-with-ai-driven-interviews-2.png" background-size="contain" background-color="#ffffff"}
 
 ::: {.shot-cap}
 DuocUC, Chile. 32 student interviews about gender in STEM, coded by AI into 251 links, with sentiment marked: blue for positive, red for negative.
+:::
+
+::: {.notes}
+Gabi
 :::
 
 ## INTRAC: one map across 13 countries {.no-title background-image="../_shared/img/intrac-map.png" background-size="contain" background-color="#ffffff"}
@@ -269,6 +282,27 @@ A quick read of a varied sample catches most problems.
 
 :::
 
+# Using the Causal Map app {.section .no-title background-color="#0E3D5F"}
+
+::: {.section-title}
+Your map is a theory of change you can question
+:::
+
+![](assets/cm-logo-white.png){.brand-cm}
+
+
+
+
+## It's free! {.content background-color="#ffffff"}
+
+::: {.body}
+
+- Manual coding
+- Some filters
+- 1-click coding
+
+:::
+
 # Your map is a theory of change you can question {.section .no-title background-color="#0E3D5F"}
 
 ::: {.section-title}
@@ -333,6 +367,137 @@ Every box is a factor, every arrow a claimed influence, and behind each arrow is
 The same data, one question added: how do the groups differ? The links each group stresses light up differently.
 :::
 
+# Your map is a theory of change you can question {.section .no-title background-color="#0E3D5F"}
+
+::: {.section-title}
+Your map is a theory of change you can question
+:::
+
+![](assets/cm-logo-white.png){.brand-cm}
+
+## A filter is a question {.content background-color="#ffffff"}
+
+::: {.body}
+
+Your links are not a static report. They are a living map you can question, over and over.
+
+You ask a question by filtering. Women only. Everything downstream of training. Stack the filters and you answer a bigger question. The same data gives very different maps, each one just the result of a different question.
+
+:::
+
+
+## A filter is a question {.content background-color="#ffffff"}
+
+::: {.body}
+
+Your links are not a static report. They are a living map you can question, over and over.
+
+You ask a question by filtering. Women only. Everything downstream of training. Stack the filters and you answer a bigger question. The same data gives very different maps, each one just the result of a different question.
+
+:::
+
+## Two everyday examples {.content background-color="#ffffff"}
+
+::: {.body}
+
+**"What did the cash transfer lead to?"** Filter to that factor, look downstream. Out comes a map of every reported consequence, with counts.
+
+**"Do women and men tell different stories?"** Split the same map by group. The links each group stresses light up differently.
+
+:::
+
+## The transitivity trap {.content background-color="#ffffff"}
+
+::: {.body}
+
+A pig farmer says the cash grant gave them **more cash**. A wheat farmer says **more cash** let them buy **more seed**.
+
+So cash grants lead to more seed? **No.** Two people, two stories, stitched into one that nobody told.
+
+The safe move: keep only the sources whose own account runs all the way through.
+
+:::
+
+## Step back and judge {.content background-color="#ffffff"}
+
+::: {.body}
+
+Behind one tidy map there may still be hundreds of quotes. Does the claim hold up? Do the links really belong to the same context?
+
+The AI can draft a source-by-source commentary on each pathway, doing only what a patient reader could. Treat it as a first draft and edit it.
+
+:::
+
+## Let's build a map, live {.no-title background-iframe="https://app.causalmap.app" background-interactive="true"}
+
+## A coded map of what people said {.no-title background-image="../_shared/img/filtered-map-final.png" background-size="contain" background-color="#ffffff"}
+
+::: {.shot-cap}
+Every box is a factor, every arrow a claimed influence, and behind each arrow is the quote it came from.
+:::
+
+## The same map, split by group {.no-title background-image="../_shared/img/map-group-differences-shown-on-map.png" background-size="contain" background-color="#ffffff"}
+
+::: {.shot-cap}
+The same data, one question added: how do the groups differ? The links each group stresses light up differently.
+:::
+
+## A filter is a question {.content background-color="#ffffff"}
+
+::: {.body}
+
+Your links are not a static report. They are a living map you can question, over and over.
+
+You ask a question by filtering. Women only. Everything downstream of training. Stack the filters and you answer a bigger question. The same data gives very different maps, each one just the result of a different question.
+
+:::
+
+## Two everyday examples {.content background-color="#ffffff"}
+
+::: {.body}
+
+**"What did the cash transfer lead to?"** Filter to that factor, look downstream. Out comes a map of every reported consequence, with counts.
+
+**"Do women and men tell different stories?"** Split the same map by group. The links each group stresses light up differently.
+
+:::
+
+## The transitivity trap {.content background-color="#ffffff"}
+
+::: {.body}
+
+A pig farmer says the cash grant gave them **more cash**. A wheat farmer says **more cash** let them buy **more seed**.
+
+So cash grants lead to more seed? **No.** Two people, two stories, stitched into one that nobody told.
+
+The safe move: keep only the sources whose own account runs all the way through.
+
+:::
+
+## Step back and judge {.content background-color="#ffffff"}
+
+::: {.body}
+
+Behind one tidy map there may still be hundreds of quotes. Does the claim hold up? Do the links really belong to the same context?
+
+The AI can draft a source-by-source commentary on each pathway, doing only what a patient reader could. Treat it as a first draft and edit it.
+
+:::
+
+## Let's build a map, live {.no-title background-iframe="https://app.causalmap.app" background-interactive="true"}
+
+## A coded map of what people said {.no-title background-image="../_shared/img/filtered-map-final.png" background-size="contain" background-color="#ffffff"}
+
+::: {.shot-cap}
+Every box is a factor, every arrow a claimed influence, and behind each arrow is the quote it came from.
+:::
+
+## The same map, split by group {.no-title background-image="../_shared/img/map-group-differences-shown-on-map.png" background-size="contain" background-color="#ffffff"}
+
+::: {.shot-cap}
+The same data, one question added: how do the groups differ? The links each group stresses light up differently.
+:::
+
 # A real evaluation: the Love Alliance {.section .no-title background-color="#0E3D5F"}
 
 ::: {.section-title}
@@ -340,6 +505,10 @@ A real evaluation: the Love Alliance
 :::
 
 ![](assets/cm-logo-white.png){.brand-cm}
+
+::: {.notes}
+Gabi speaks from here to the end
+:::
 
 ## What the programme planned {.no-title background-image="../_shared/img/map-love-alliance-theory-of-change.png" background-size="contain" background-color="#ffffff"}
 
@@ -409,7 +578,7 @@ This is not statistical proof. It is a disciplined way to assemble evidence, wei
 
 ::: {.body}
 
-No interviews yet? Qualia can gather them. It runs a chat interview that asks people what changed and why, follows up in their own words, in any language.
+No interviews yet? QualiaInterviews can gather them. It runs a chat interview that asks people what changed and why, follows up in their own words, in any language.
 
 The answers come back as narrative text, ready to code into a map.
 
@@ -430,7 +599,9 @@ If you want to go from a stack of interviews to a theory of change you can defen
 ::: {.body .resources}
 
 ::: {.thanks}
-Thanks. Questions, please. hello@causalmap.app
+
+
+hello@causalmap.app
 :::
 
 :::: {.columns}

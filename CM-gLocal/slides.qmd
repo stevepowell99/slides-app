@@ -4,9 +4,9 @@ pagetitle: "Causal Map / gLocal"
 format:
   revealjs:
     theme: white
-    navigation-mode: linear
+    navigation-mode: vertical
     slide-number: false
-    transition: none
+    transition: slide
     width: 1280
     height: 720
     margin: 0
@@ -425,16 +425,29 @@ If you want to go from a stack of interviews to a theory of change you can defen
 
 :::
 
-## Obrigada! {.closing .no-title background-color="#0E3D5F"}
+## Resources {.content background-color="#ffffff"}
 
-::: {.gei-logo}
-![](assets/gei-mark.png)
+::: {.body .resources}
 
-::: {}
-global<br><b>evaluation</b>initiative
-:::
+::: {.thanks}
+Thanks. Questions, please. hello@causalmap.app
 :::
 
-::: {.closing-title}
-Obrigada!
+:::: {.columns}
+::: {.column width="50%"}
+**App, free for public projects**<br>
+[app.causalmap.app](https://app.causalmap.app)
+
+**Knowledge garden**<br>
+[garden.causalmap.app](https://garden.causalmap.app)
+:::
+::: {.column width="50%"}
+Powell and Cabral (2025) AI-assisted causal mapping: a validation study. *IJSRM.*
+
+Powell, Cabral and Mishan (2025) A workflow for collecting and understanding stories at scale. *Evaluation.*
+
+Powell, Copestake and Remnant (2024) Causal mapping for evaluators. *Evaluation.*
+:::
+::::
+
 :::

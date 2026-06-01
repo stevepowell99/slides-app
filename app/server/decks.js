@@ -241,9 +241,22 @@ export async function readDeckSource(repoRoot, deckId) {
   };
 }
 
-export async function writeDeckSource(repoRoot, deckId, source) {
+export async function writeDeckSource(repoRoot, deckId, source, base) {
   const deck = await getDeck(repoRoot, deckId);
   const filePath = deckSourcePath(repoRoot, deck);
+  // Optimistic concurrency: if the caller says what it last saw on disk
+  // (`base`), refuse to write when the file has changed underneath it. This
+  // stops a stale editor buffer (or another deck's content) from silently
+  // overwriting the deck. The client reloads on a 409 and the user re-applies.
+  if (typeof base === "string") {
+    const current = await fs.readFile(filePath, "utf8").catch(() => null);
+    if (current !== null && current !== base) {
+      throw Object.assign(
+        new Error("This deck changed on disk since you opened it. Reload it before saving."),
+        { status: 409 }
+      );
+    }
+  }
   await fs.writeFile(filePath, source, "utf8");
   return readDeckSource(repoRoot, deckId);
 }

@@ -38,7 +38,7 @@ app.put("/api/decks/:deck/source", asyncHandler(async (req, res) => {
     res.status(400).json({ error: "source must be a string" });
     return;
   }
-  res.json(await writeDeckSource(repoRoot, req.params.deck, req.body.source));
+  res.json(await writeDeckSource(repoRoot, req.params.deck, req.body.source, req.body.base));
 }));
 // Classes defined in the CSS this deck includes. Feeds the editor's style picker.
 app.get("/api/decks/:deck/classes", asyncHandler(async (req, res) =>
@@ -90,7 +90,7 @@ app.post("/api/decks/:deck/slides/copy", asyncHandler(async (req, res) => {
 app.post("/api/decks/:deck/slides/apply", asyncHandler(async (req, res) => {
   const source = await deckSourceForAction(repoRoot, req.params.deck, req.body);
   const nextSource = applySlideAction(source, req.body);
-  const written = await writeDeckSource(repoRoot, req.params.deck, nextSource);
+  const written = await writeDeckSource(repoRoot, req.params.deck, nextSource, req.body.base);
 
   // Cross-deck paste: copy any class definitions the pasted slide uses
   // that aren't already defined in the target deck's CSS.

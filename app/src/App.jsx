@@ -113,7 +113,10 @@ export function App() {
     setSource("");
     // Mark the in-memory source as belonging to no deck until the load resolves,
     // so a render in this window is refused rather than writing stale content.
+    // Clear the ref synchronously too: state updates lag a render, but render()
+    // reads the ref, so leaving it stale lets the old deck's text be written.
     sourceDeckRef.current = "";
+    sourceRef.current = "";
     setStructureVersion((v) => v + 1);
     const token = ++loadTokenRef.current;
     loadSource(activeDeck, token).catch(showError);
@@ -248,6 +251,9 @@ export function App() {
     if (token !== loadTokenRef.current) return;
     lastSavedSourceRef.current = data.source;
     sourceDeckRef.current = deckId;
+    // Sync the ref now, not just via setSource (which lands next render), so the
+    // marker and the text render() would write can never disagree for a tick.
+    sourceRef.current = data.source;
     setSource(data.source);
     setSlides(data.parsed.slides);
     setMessage(`${data.deck.title} · ${data.parsed.slides.length} slides`);
@@ -258,10 +264,13 @@ export function App() {
   // memory until the user asks for a render (Render button / Ctrl+Enter), so
   // typing no longer reloads the preview on every keystroke.
   async function render(doneMessage = "Rendered") {
-    if (!activeDeck) return;
+    const deck = activeDeck;
+    if (!deck) return;
     // Never write if the in-memory source belongs to a different deck (we are
-    // mid-switch). This is the guard against cross-deck overwrites.
-    if (sourceDeckRef.current !== activeDeck) return;
+    // mid-switch). This is the guard against cross-deck overwrites. Capture the
+    // deck id and write to that captured id, so a switch cannot redirect the
+    // PUT to the wrong deck.
+    if (sourceDeckRef.current !== deck) return;
     const sent = sourceRef.current;
     if (sent === lastSavedSourceRef.current) {
       setDirty(false);
@@ -270,9 +279,12 @@ export function App() {
     if (renderingRef.current) return; // a write is already in flight
     renderingRef.current = true;
     try {
-      const data = await api(`/api/decks/${activeDeck}/source`, {
+      const data = await api(`/api/decks/${deck}/source`, {
         method: "PUT",
-        body: JSON.stringify({ source: sent })
+        // `base` is what we believe is on disk. The server refuses the write if
+        // the file changed underneath us (stale buffer / edited elsewhere),
+        // returning 409 so we reload instead of clobbering.
+        body: JSON.stringify({ source: sent, base: lastSavedSourceRef.current })
       });
       lastSavedSourceRef.current = sent;
       const stillDirty = sourceRef.current !== sent;
@@ -282,7 +294,17 @@ export function App() {
       setDirty(stillDirty);
       setMessage(stillDirty ? "Rendered (more edits pending)" : doneMessage);
     } catch (error) {
-      showError(error);
+      if (/changed on disk/i.test(error.message) && deck === activeDeck) {
+        // The deck was modified outside this editor. Reload it rather than
+        // overwrite, so the on-disk version wins and nothing is lost.
+        setMessage("Deck changed on disk; reloading. Your unsaved edits were not written.");
+        const token = ++loadTokenRef.current;
+        sourceDeckRef.current = "";
+        sourceRef.current = "";
+        loadSource(deck, token).catch(showError);
+      } else {
+        showError(error);
+      }
     } finally {
       renderingRef.current = false;
     }
@@ -417,7 +439,7 @@ export function App() {
     // renders, so the deck is no longer dirty afterwards.
     const data = await api(`/api/decks/${activeDeck}/slides/apply`, {
       method: "POST",
-      body: JSON.stringify({ ...payload, source: sourceRef.current })
+      body: JSON.stringify({ ...payload, source: sourceRef.current, base: lastSavedSourceRef.current })
     }).catch(showError);
     if (!data) return;
 
@@ -484,7 +506,7 @@ export function App() {
     }
     const data = await api(`/api/decks/${activeDeck}/slides/apply`, {
       method: "POST",
-      body: JSON.stringify({ type: "rename", slideId, title, source: sourceRef.current })
+      body: JSON.stringify({ type: "rename", slideId, title, source: sourceRef.current, base: lastSavedSourceRef.current })
     }).catch(showError);
     if (!data) return;
     lastSavedSourceRef.current = data.source;

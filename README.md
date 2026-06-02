@@ -205,6 +205,8 @@ The breadcrumb shows the current `#` section's title in a corner. Decks with no 
 
 **Text helpers**: `.lead` (a larger intro line), `.caption` (small caption under a figure, plain text with no background), `.shot-cap` (a caption for a full-bleed `background-image` slide, pinned to the bottom on a mostly opaque dark fill so it stays readable over a map or screenshot, where `.caption` would not), `.accent` (accent-coloured emphasis).
 
+**Brand logo**: `.brand` on a logo image pins it to the top-left corner, the logo's fixed home: `![](../_shared/img/causal-map-logo-no-straplineRGB-inverted.png){.brand}` (use the inverted white logo on a dark slide, the plain one on a light slide). Drop any width attribute; the class sizes it.
+
 **Recolouring.** A deck retunes the palette by overriding the colour classes' `--hue*` variables in its own `.css` (for example `.reveal .blue { --hue: #1C79BE; ... }`), never by redefining the component rules. See `CM-gLocal/cm-glocal.css`.
 
 **Legacy** (still work in the old decks that include `legacy.css`, but prefer a core piece for new slides): `.note` becomes `.panel .yellow`, `.takeaway` becomes `.panel .navy .dark`, `.tiles` becomes `.cards`, `.stat` / `.metric` become `.bignum` or `.cards`.

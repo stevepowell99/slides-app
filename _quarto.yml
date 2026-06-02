@@ -10,3 +10,9 @@ format:
     transition: slide
     transition-speed: slow
     progress: true
+    # Default to linear key navigation for every deck: the right and down arrows
+    # (and the spacebar) all just walk to the next slide, in order. Sections still
+    # group the overview grid and feed the breadcrumb, but a first-time presenter
+    # never gets lost in a two-dimensional grid. A deck can still opt back in with
+    # `navigation-mode: vertical` or `grid` in its own front matter.
+    navigation-mode: linear

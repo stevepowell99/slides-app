@@ -15,6 +15,7 @@
  *     .bignum + .fig + .bn-body   one headline figure beside a note
  *     .shot-cap   caption pinned to the bottom of a full-bleed image slide,
  *                 on a mostly opaque dark fill (use instead of .caption there)
+ *     .brand      Causal Map logo pinned top-left (the logo's only home)
  *
  *   COLOUR (variable-only; one fixed hue each, shows nothing alone)
  *     .blue .cyan .teal .green .mint .yellow .pink .mag .navy .grey
@@ -259,13 +260,17 @@
 }
 
 /* COMPONENT: highlight (animated). It flares in and resolves to the colour, so
-   a settled flare looks like a plain highlight. Ink text keeps the words
-   readable through the transparent flare-in, so use light/medium hues. */
+   a settled flare looks like a plain highlight. The text colour is `inherit`
+   until the fill lands, so before/between flares the word reads as ordinary text
+   in its surroundings (dark on a light deck, light on a dark section slide); the
+   keyframes switch it to ink only once the bright fill is behind it. This keeps
+   a delayed (.cascade-*) flare readable on a dark background, where fixed ink
+   text used to vanish during the wait. */
 .reveal .flare {
   padding: 0.02em 0.22em;
   border-radius: 5px;
   font-weight: 700;
-  color: var(--ink);
+  color: inherit;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   --flare-fill: var(--fill, var(--hue-bright, var(--hue)));
@@ -321,9 +326,10 @@
 .reveal .cascade-4 { --flare-delay: 5.5s; }
 .reveal .cascade-5 { --flare-delay: 6.9s; }
 @keyframes hlFlare {
-  0%   { background-color: transparent;                        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); filter: none; }
-  42%  { background-color: var(--flare-fill, var(--cm-yellow)); box-shadow: 0 0 20px 5px var(--flare-fill, var(--cm-yellow)); filter: brightness(1.18) saturate(1.5); }
-  100% { background-color: var(--flare-fill, var(--cm-yellow)); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); filter: none; }
+  0%   { background-color: transparent;                        color: inherit;    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); filter: none; }
+  35%  {                                                       color: inherit; }
+  42%  { background-color: var(--flare-fill, var(--cm-yellow)); color: var(--ink); box-shadow: 0 0 20px 5px var(--flare-fill, var(--cm-yellow)); filter: brightness(1.18) saturate(1.5); }
+  100% { background-color: var(--flare-fill, var(--cm-yellow)); color: var(--ink); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); filter: none; }
 }
 
 /* Accent text */
@@ -564,6 +570,25 @@
   color: #94a3b8;
   font-size: 0.55em;
   margin-top: 1em;
+}
+
+/* Brand logo, pinned top-left. The Causal Map logo ALWAYS goes in the top-left
+   corner; add this class to the image and drop any width attribute:
+   `![](../_shared/img/causal-map-logo-no-straplineRGB-inverted.png){.brand}`.
+   Use the inverted (white) logo on a dark slide, the plain one on a light slide.
+   `fixed` pins it to the slide canvas (the transformed `.slides`), so it stays in
+   the corner even on a `.center`-ed slide, where reveal vertically centres the
+   section and `absolute` would drift to the middle. */
+.reveal img.brand {
+  position: fixed;
+  top: 4%;
+  left: 4%;
+  width: 11%;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+  background: none;
+  z-index: 10;
 }
 
 /* Small caption under an image or figure. Plain grey text, NO background, so

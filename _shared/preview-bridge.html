@@ -157,3 +157,53 @@
   }, 80);
 })();
 </script>
+<script>
+// First-run navigation hint. On a published or standalone deck only (NOT the
+// app's editing preview, where window.parent !== window), show a gentle prompt
+// on the opening slide so a first-time viewer knows to press the spacebar. With
+// linear navigation that one key walks the whole deck. The hint fades out the
+// moment they navigate and does not return. Self-contained (injects its own
+// style) so it works on any deck that includes this header, even without
+// styles.css.
+(function () {
+  if (window.parent !== window) return; // editing preview: skip the hint
+  var hint, dismissed = false;
+  function build() {
+    var s = document.createElement("style");
+    s.textContent =
+      ".slide-start-hint{position:fixed;left:50%;bottom:5%;transform:translateX(-50%);z-index:60;" +
+      "background:rgba(31,31,54,0.82);color:#fff;font-family:Inter,'Segoe UI',system-ui,sans-serif;" +
+      "font-size:18px;font-weight:600;letter-spacing:.02em;padding:10px 18px;border-radius:999px;" +
+      "box-shadow:0 4px 18px rgba(0,0,0,.35);pointer-events:none;transition:opacity .45s ease;" +
+      "animation:slideHintPulse 1.8s ease-in-out infinite}" +
+      ".slide-start-hint.gone{opacity:0}" +
+      "@keyframes slideHintPulse{0%,100%{transform:translateX(-50%) translateY(0)}" +
+      "50%{transform:translateX(-50%) translateY(-5px)}}";
+    document.head.appendChild(s);
+    hint = document.createElement("div");
+    hint.className = "slide-start-hint";
+    hint.textContent = "Press the spacebar to move on";
+    (document.querySelector(".reveal") || document.body).appendChild(hint);
+  }
+  function dismiss() {
+    if (dismissed || !hint) return;
+    dismissed = true;
+    hint.classList.add("gone");
+    setTimeout(function () { if (hint && hint.parentNode) hint.parentNode.removeChild(hint); }, 600);
+  }
+  function attach() {
+    if (typeof Reveal === "undefined" || !Reveal.on || !Reveal.getIndices) return false;
+    build();
+    Reveal.on("slidechanged", function () {
+      var i = Reveal.getIndices();
+      if ((i.h || 0) !== 0 || (i.v || 0) !== 0) dismiss();
+    });
+    return true;
+  }
+  var k = 0;
+  var timer = setInterval(function () {
+    k += 1;
+    if (attach() || k > 100) clearInterval(timer);
+  }, 80);
+})();
+</script>

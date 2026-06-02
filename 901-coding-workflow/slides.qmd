@@ -3,7 +3,6 @@ public: true
 pagetitle: "A nine-step workflow for AI-assisted causal coding"
 format:
   revealjs:
-    navigation-mode: vertical
     include-in-header:
       - ../_shared/preview-bridge.html
     css:

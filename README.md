@@ -28,7 +28,7 @@ Two open-source tools do the work under the hood, and the app drives both for yo
 - **Navigate both ways.** Selecting a slide moves the preview; moving in the preview selects the slide.
 - **Paste images straight into the editor.** They save to a shared folder and insert at the cursor, so copied slides keep working in other decks.
 - **Let an AI write the slides.** A deck is just text, so an assistant can draft a whole deck for you and you refine it here.
-- **Export and publish.** Produce a self-contained HTML file or a PDF from any deck, and publish chosen decks as a read-only website.
+- **Export and publish.** Produce a self-contained HTML file or a PDF from any deck (the PDF saves beside the deck and downloads in your browser), and publish chosen decks as a read-only website, with an optional PDF download link per deck.
 - **Start from a theme.** The repo ships with several demo decks (brutalist, editorial, moonlight, pastel cards, terminal) showing distinct looks you can clone.
 
 ## Install and run
@@ -77,10 +77,14 @@ The slide list supports:
 - Hover a row for its actions (hide, copy, duplicate, delete, and more); hover the gap between rows for a `+` to insert a slide
 - Right-click for the same actions, applied to a multi-selection
 
+Copy, duplicate, delete and move act on exactly the slides you select, nothing more. A `#` section header is itself a slide, so selecting it affects only that slide, not the slides beneath it.
+
 ![Slide row actions screenshot](.assets/slide-actions.png)
 *Hover a slide row for its actions, or the gap between rows for a + to insert a new slide.*
 
 **Editing does not touch disk until you save.** Type freely; the preview does not reload on every keystroke. Press `Ctrl+Enter` (or `Ctrl+S`, or click **Save**) to write the deck to disk and refresh the preview. Switching deck saves the one you are leaving, and the slide actions (new, delete, move, paste, rename) save as they go. Closing the tab with unsaved edits prompts first.
+
+**Saves never clobber outside changes.** If the deck's file changed on disk since you opened it (edited in another tool, or left in a stale tab), the app refuses the save and reloads the file instead of overwriting it. It tells you the unsaved edits were not written, so two writers can't silently overwrite each other.
 
 **Slash commands and class autocomplete.** In the body editor, type `/` at the start of a line to insert structures: `/columns`, `/column`, `/span`, `/div`, `/image`, `/columns3`, `/fragment`, `/notes`. `Tab` jumps between the placeholders. Select text and press `/` to wrap it in a styled span with the class picker already open. Type `.` inside an attribute block (`::: {.`, `[text]{.`, `## Title {.`) to pick from the classes the active deck's CSS actually defines, each tagged shared or deck, so a class only appears where it will work.
 
@@ -167,12 +171,43 @@ The breadcrumb shows the current `#` section's title in a corner. Decks with no 
 <script>window.SLIDE_BREADCRUMB = false</script>
 ```
 
-`_shared/styles.css` also defines reusable content classes. Wrap a block in a fenced div to apply one, for example `::: {.panel .panel-teal}` ... `:::`:
+`_shared/styles.css` defines a small set of reusable styles that **compose from a few orthogonal axes**, rather than many single-use classes: pick a component, add a colour, add modifiers. Reach for these before writing new CSS, and keep any one-off, deck-specific flourish in that deck's own `.css` file.
 
-- **Highlights** (inline, on a span): `.hl-blue`, `.hl-yellow`, `.hl-pink`, `.hl-green` add a coloured highlight behind text, as in `[important]{.hl-yellow}`.
-- **Background-only blocks**: `.bg-blue`, `.bg-green`, `.bg-teal`, `.bg-yellow`, `.bg-pink`, `.bg-grey` add a pale fill and nothing else.
-- **Panels** (padded box with a left border): `.panel` plus one of `.panel-blue`, `.panel-green`, `.panel-teal`, `.panel-grey`. Related boxes: `.note` (amber), `.examples` (grey), `.quote` (teal), `.takeaway` (dark).
-- **Stat pills** (inline): `.stat` plus `.stat-blue`, `.stat-green`, `.stat-teal`.
+**Components** (what a thing is):
+
+- **Highlights** (inline, on a span): `.flare` is an animated highlight (it flares in, then settles to its colour); `.hl` is the same look without the animation. Combine with a colour: `[important]{.flare .yellow}`, `[note]{.hl .blue}`.
+- **Panels** (a tinted box with an accent left border): `.panel` plus a colour, as in `::: {.panel .teal}`. `.panel` alone is a plain padded box.
+- **Cards**: `::: {.cards}` is a responsive grid; fill it with a plain list (one card per `-` item) or with explicit `::: {.card}` blocks you can colour individually (`::: {.card .blue}`). `.panel` blocks work too. Add `.cols-2/3/4` for a fixed column count.
+- **Tint**: `.bg` plus a colour is a flat background fill with no border or padding (`::: {.bg .grey}`).
+- **Chips** (inline pill): `.chip` plus a colour, as in `[yes]{.chip .mint}`.
+- **Big number**, a headline figure beside a note:
+
+  ```markdown
+  ::: {.bignum}
+  ::: {.fig}
+  90<small>%</small>
+  :::
+  ::: {.bn-body}
+  of claims code cleanly as a single link.
+  :::
+  :::
+  ```
+
+**Colours** (one fixed hue each, variable-only, they show nothing on their own): `.blue`, `.cyan`, `.teal`, `.green`, `.mint`, `.yellow`, `.pink`, `.mag`, `.navy`, `.grey`. A component renders the colour at a sensible shade (highlights vivid, panels pale).
+
+**Modifiers:**
+
+- **Shade**: `.light` (pale) or `.dark` (deep), e.g. `::: {.panel .navy .dark}` for a dark box, `[x]{.flare .blue .light}` for a pale highlight.
+- **Order**: `.cascade-2` to `.cascade-5` on later flares so several on a line fire in turn: `[a]{.flare .cyan}` then `[b]{.flare .yellow .cascade-2}`.
+- **Size**: `.scale-50` to `.scale-500` (a percentage) shrink or grow everything in a block (text, icons, images), or any amount via `::: {.scale style="--scale:0.83"}`. This is the single sizing control; use it for big icons instead of FontAwesome's `.fa-2x` to `.fa-10x`.
+- **Place**: `::: {.place style="top:30%; left:54%"}` floats a block anywhere over the slide.
+- **Align**: `.left` / `.center` / `.right`.
+
+**Text helpers**: `.lead` (a larger intro line), `.caption` (small caption under a figure), `.accent` (accent-coloured emphasis).
+
+**Recolouring.** A deck retunes the palette by overriding the colour classes' `--hue*` variables in its own `.css` (for example `.reveal .blue { --hue: #1C79BE; ... }`), never by redefining the component rules. See `CM-gLocal/cm-glocal.css`.
+
+**Legacy** (still work in the old decks that include `legacy.css`, but prefer a core piece for new slides): `.note` becomes `.panel .yellow`, `.takeaway` becomes `.panel .navy .dark`, `.tiles` becomes `.cards`, `.stat` / `.metric` become `.bignum` or `.cards`.
 
 ### Hiding a slide
 
@@ -186,7 +221,7 @@ The hide/show buttons in the slide list just toggle this class.
 
 ## Export and publish
 
-**One file or a PDF.** Use **Build static HTML** in the deck rail (or **Build PDF**) to produce a single self-contained file alongside the `.qmd`, handy for emailing a deck.
+**One file or a PDF.** **Build static HTML** writes a single self-contained `.html` beside the `.qmd`, handy for emailing a deck. **Build PDF** renders the deck to PDF, saves it beside the `.qmd`, and downloads it in your browser. The PDF route uses [decktape](https://github.com/astefanutti/decktape), so run `npm install -g decktape` once before using it.
 
 **A read-only website.** You can put chosen decks online as a static site on any static host. These steps use [Netlify](https://www.netlify.com), but the idea is the same anywhere: Quarto runs only on your machine, so you render locally and upload the finished HTML.
 
@@ -206,13 +241,15 @@ The hide/show buttons in the slide list just toggle this class.
 
    This renders every public deck into `_site/`: one self-contained `_site/<deck>/index.html` per deck, plus a landing page (`_site/index.html`) listing them. It wipes and rebuilds `_site/` each run, so the folder always matches your current `public:` flags. The landing page sorts decks by title; add `order:` to a deck's front matter to pin it higher (the same key orders the rail in the app).
 
+   **Offer a PDF download.** If a public deck has a PDF beside it (from **Build PDF**), the build copies it into `_site/<deck>/` and the landing page shows a small **PDF** link next to that deck. Decks without one show no link, so add a downloadable PDF simply by building and committing it. Browser print-to-PDF is not used; the committed decktape PDF keeps the deck's real styling.
+
 3. **Deploy.** Either drag the `_site/` folder onto Netlify's deploy page, or push the repo to GitHub and connect it in Netlify with **build command** empty and **publish directory** `_site`. Then every push redeploys. For a private link, switch on the host's password protection.
 
 ## Repo notes
 
 A few things worth knowing if you fork this to manage your own decks.
 
-**What is committed.** The source `.qmd`, CSS and images are committed, along with the generated `_site/`. The throwaway per-deck renders (`slides.html`) are ignored; only `_site/` is published. Because the host serves the committed `_site/`, it must be rebuilt before any push that changes a deck.
+**What is committed.** The source `.qmd`, CSS and images are committed, along with the generated `_site/`. The throwaway per-deck renders (`slides.html`) are ignored; only `_site/` is published. A deck's `slides.pdf` is committed when you want it offered as a download (the build copies it into `_site/`). Because the host serves the committed `_site/`, it must be rebuilt before any push that changes a deck.
 
 **Automatic rebuilds.** A tracked `pre-commit` hook does this for you: when a commit touches a `.qmd`, `_shared/`, or `build-site.ps1`, it runs `build-site.ps1` and stages `_site/` into the same commit. Point your clone at the hooks once (git cannot do this for you):
 

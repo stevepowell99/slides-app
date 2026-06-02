@@ -6,8 +6,9 @@ import { fileURLToPath } from "node:url";
 
 import { applySlideAction, extractSlideBlocks } from "./parser.js";
 import {
-  cloneDeck, createDeck, deleteDeck, getDeck, IMAGE_EXTENSIONS, listAllImages, listAllSlides,
-  listDecks, listDeckSearchIndex, readDeckSource, setDeckTitle, writeDeckSource
+  cloneDeck, createDeck, deleteDeck, getDeck, IMAGE_EXTENSIONS, listAllImages,
+  listAllSlides, listDecks, listDeckSearchIndex, readDeckSource, setDeckTitle, undoDeckSource,
+  writeDeckSource
 } from "./decks.js";
 import { renderDeck, renderPdf } from "./render.js";
 import { startPreview, stopPreview, stopAll } from "./preview-process.js";
@@ -40,6 +41,11 @@ app.put("/api/decks/:deck/source", asyncHandler(async (req, res) => {
   }
   res.json(await writeDeckSource(repoRoot, req.params.deck, req.body.source, req.body.base));
 }));
+// Undo: restore the deck to the snapshot taken before the last write this
+// session. Returns the restored parsed deck (same shape as the source GET).
+app.post("/api/decks/:deck/undo", asyncHandler(async (req, res) =>
+  res.json(await undoDeckSource(repoRoot, req.params.deck))
+));
 // Classes defined in the CSS this deck includes. Feeds the editor's style picker.
 app.get("/api/decks/:deck/classes", asyncHandler(async (req, res) =>
   res.json(await listDeckClasses(repoRoot, await getDeck(repoRoot, req.params.deck)))
@@ -106,6 +112,55 @@ app.post("/api/decks/:deck/slides/apply", asyncHandler(async (req, res) => {
 
   res.json({ ...written, stylesAdded });
 }));
+
+// Live CSS reload. quarto preview re-renders on a .qmd change but not when its
+// linked CSS changes (styles.css, a deck's css), so a CSS edit never reaches the
+// preview and the browser keeps the stale stylesheet from cache. We poll every
+// deck/shared .css file's mtime once a second (a handful of files; simpler and
+// more robust than fs.watch across editor save/rename quirks) and push a
+// Server-Sent Event; the preview frame then asks the bridge to re-point its
+// stylesheets, restyling in place with no reload.
+const cssClients = new Set();
+app.get("/api/css-events", (req, res) => {
+  res.writeHead(200, {
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+    Connection: "keep-alive"
+  });
+  res.write(": connected\n\n");
+  cssClients.add(res);
+  req.on("close", () => cssClients.delete(res));
+});
+
+let cssMtimes = new Map();
+async function listCssFiles() {
+  const out = [];
+  const dirs = await fs.readdir(repoRoot, { withFileTypes: true }).catch(() => []);
+  for (const d of dirs) {
+    if (!d.isDirectory() || d.name === "node_modules" || d.name === ".git" || d.name === "_site") continue;
+    const dir = path.join(repoRoot, d.name);
+    for (const f of await fs.readdir(dir).catch(() => [])) {
+      if (f.endsWith(".css")) out.push(path.join(dir, f));
+    }
+  }
+  return out;
+}
+async function pollCss() {
+  const next = new Map();
+  let changed = false;
+  for (const f of await listCssFiles()) {
+    const m = await fs.stat(f).then((s) => s.mtimeMs).catch(() => 0);
+    next.set(f, m);
+    if (cssMtimes.get(f) !== m) changed = true;
+  }
+  // Skip the first pass (priming the map) so we don't fire on boot.
+  if (cssMtimes.size && (changed || next.size !== cssMtimes.size)) {
+    for (const res of cssClients) res.write(`data: ${Date.now()}\n\n`);
+  }
+  cssMtimes = next;
+}
+setInterval(() => pollCss().catch(() => {}), 1000);
+pollCss().catch(() => {});
 
 // Live preview: spawn `quarto preview` per deck and hand back its URL.
 // The right-pane iframe loads this URL directly. Slide navigation works by

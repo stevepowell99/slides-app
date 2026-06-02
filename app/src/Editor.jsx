@@ -32,11 +32,11 @@ function classSnippet(template, info) {
 // wrapSelectionOnSlash), so /span here is for the empty-cursor case.
 const SLASH_COMMANDS = [
   snippetCompletion(
-    ':::: {.columns}\n::: {.column width="50%"}\n${left}\n:::\n::: {.column width="50%"}\n${right}\n:::\n::::\n${}',
+    ':::: {.columns}\n\n::: {.column width="50%"}\n${left}\n:::\n\n::: {.column width="50%"}\n${right}\n:::\n\n::::\n\n${}',
     { label: "/columns", detail: "two columns (50/50)", type: "keyword", boost: 99 }
   ),
   snippetCompletion(
-    '::: {.column width="${1:50}%"}\n${content}\n:::\n${}',
+    '::: {.column width="${1:50}%"}\n\n${content}\n\n:::\n\n${}',
     { label: "/column", detail: "single column block", type: "keyword", boost: 98 }
   ),
   classSnippet(
@@ -44,21 +44,61 @@ const SLASH_COMMANDS = [
     { label: "/span", detail: "inline span [text]{.class}", type: "keyword", boost: 97 }
   ),
   classSnippet(
-    "::: {.${1}}\n${2:content}\n:::\n${}",
+    "::: {.${1}}\n\n${2:content}\n\n:::\n\n${}",
     { label: "/div", detail: "fenced div with class", type: "keyword", boost: 96 }
   ),
   snippetCompletion(
-    ':::: {.columns}\n::: {.column width="33%"}\n${one}\n:::\n::: {.column width="33%"}\n${two}\n:::\n::: {.column width="33%"}\n${three}\n:::\n::::\n${}',
+    "::: {.cards}\n\n- **${1:Title}** ${2:body}\n- **${3:Title}** ${4:body}\n\n:::\n\n${}",
+    { label: "/cards", detail: "grid of cards (one per list item)", type: "keyword", boost: 92 }
+  ),
+  snippetCompletion(
+    "::: {.card}\n\n${1:content}\n\n:::\n\n${}",
+    { label: "/card", detail: "one card (add a colour to tint it)", type: "keyword", boost: 91 }
+  ),
+  snippetCompletion(
+    '::: {.place style="top:${1:50}%; left:${2:50}%"}\n\n${3:content}\n\n:::\n\n${}',
+    { label: "/place", detail: "float a block anywhere (top/left %)", type: "keyword", boost: 51 }
+  ),
+  // Component + colour: inserts the component class then opens the picker for
+  // the colour (you then add .light/.dark or .cascade-2 by typing another `.`).
+  classSnippet(
+    "::: {.panel .${1}}\n\n${2:content}\n\n:::\n\n${}",
+    { label: "/panel", detail: "panel box, then pick a colour", type: "keyword", boost: 94 }
+  ),
+  classSnippet(
+    "[${2:text}]{.hl .${1}}${}",
+    { label: "/highlight", detail: "static highlight, then pick a colour", type: "keyword", boost: 93 }
+  ),
+  classSnippet(
+    "[${2:text}]{.flare .${1}}${}",
+    { label: "/flare", detail: "animated highlight, then pick a colour", type: "keyword", boost: 93 }
+  ),
+  snippetCompletion(
+    ':::: {.columns}\n\n::: {.column width="33%"}\n${one}\n:::\n\n::: {.column width="33%"}\n${two}\n:::\n\n::: {.column width="33%"}\n${three}\n:::\n\n::::\n\n${}',
     { label: "/columns3", detail: "three columns (33%)", type: "keyword", boost: 50 }
   ),
   snippetCompletion(
-    "::: {.fragment}\n${content}\n:::\n${}",
+    "::: {.fragment}\n\n${content}\n\n:::\n\n${}",
     { label: "/fragment", detail: "reveal one step at a time", type: "keyword", boost: 49 }
   ),
   snippetCompletion(
-    "::: {.notes}\n${Speaker note}\n:::\n${}",
+    "::: {.incremental}\n\n${- first\n- second}\n\n:::\n\n${}",
+    { label: "/incremental", detail: "reveal list items one at a time", type: "keyword", boost: 48 }
+  ),
+  snippetCompletion(
+    "::: {.notes}\n\n${Speaker note}\n\n:::\n\n${}",
     { label: "/notes", detail: "speaker notes (press S in the deck)", type: "keyword", boost: 48 }
-  )
+  ),
+  // Not a snippet: removes the fenced div around the cursor (opener + matching
+  // closer), keeping the content. Works with the cursor on the opening line or
+  // anywhere inside the block. See unwrapDivAtCursor.
+  {
+    label: "/unwrap",
+    detail: "remove the surrounding div, keep its content",
+    type: "keyword",
+    boost: 46,
+    apply: (view, _completion, from, to) => unwrapDivAtCursor(view, from, to)
+  }
 ];
 
 // `/image` is not a snippet: its apply removes the typed `/image` and calls back
@@ -87,14 +127,30 @@ function makeSlashCompletions(getOnImage) {
   };
 }
 
-// inputHandler: when the user types "/" over a selection, wrap it as an inline
-// span `[selection]{.}`, put the cursor right after the dot, and open the class
-// picker so they just choose a style. With no selection (from === to) return
-// false, so "/" types normally and the slash-command menu opens. Skips
-// multi-line selections, where an inline span would be invalid.
+// inputHandler: when the user types "/" over a selection, wrap it and open the
+// class picker so they just choose a style. A selection inside one line becomes
+// an inline span `[selection]{.}`; a selection spanning several lines is rounded
+// out to whole lines and wrapped in a fenced div (`::: {.}` ... `:::`), so it is
+// always balanced. With no selection (from === to) return false, so "/" types
+// normally and the slash-command menu opens.
 function wrapSelectionOnSlash(view, from, to, text) {
   if (text !== "/" || from === to) return false;
-  if (view.state.doc.lineAt(from).number !== view.state.doc.lineAt(to).number) return false;
+  const doc = view.state.doc;
+  const startLine = doc.lineAt(from);
+  const endLine = doc.lineAt(to);
+
+  if (startLine.number !== endLine.number) {
+    // Multi-line: wrap the whole line range in a fenced div, cursor after the dot.
+    const body = view.state.sliceDoc(startLine.from, endLine.to);
+    const insert = `::: {.}\n${body}\n:::`;
+    view.dispatch({
+      changes: { from: startLine.from, to: endLine.to, insert },
+      selection: { anchor: startLine.from + "::: {.".length } // between "." and "}"
+    });
+    startCompletion(view);
+    return true;
+  }
+
   const selected = view.state.sliceDoc(from, to);
   const insert = `[${selected}]{.}`;
   view.dispatch({
@@ -105,9 +161,79 @@ function wrapSelectionOnSlash(view, from, to, text) {
   return true;
 }
 
+// Detect Pandoc fenced-div lines (three or more colons). An opener carries
+// content after the colons (`::: {.foo}` or `::: foo`); a closer is bare colons.
+const isOpenFence = (t) => /^\s*:{3,}\s*\S/.test(t);
+const isCloseFence = (t) => /^\s*:{3,}\s*$/.test(t);
+
+// Find the innermost fenced div whose line range contains `lineNumber`. Pairs
+// openers to closers with a stack, so nesting (and same-colon-count nesting,
+// which Pandoc allows) resolves correctly. Returns { open, close } line numbers.
+function findEnclosingDiv(doc, lineNumber) {
+  const stack = [];
+  let best = null;
+  for (let n = 1; n <= doc.lines; n++) {
+    const t = doc.line(n).text;
+    if (isCloseFence(t)) {
+      const open = stack.pop();
+      if (open != null && open <= lineNumber && lineNumber <= n && (!best || open > best.open)) {
+        best = { open, close: n };
+      }
+    } else if (isOpenFence(t)) {
+      stack.push(n);
+    }
+  }
+  return best;
+}
+
+// Slash command: remove the fenced div surrounding the cursor, keeping its
+// content. Strips the typed trigger first, then deletes the opening fence line
+// and its matching closing fence line.
+function unwrapDivAtCursor(view, from, to) {
+  view.dispatch({ changes: { from, to, insert: "" }, selection: { anchor: from } });
+  const doc = view.state.doc;
+  const cursorLine = doc.lineAt(from).number;
+  const div = findEnclosingDiv(doc, cursorLine);
+  if (!div) return;
+  const openLine = doc.line(div.open);
+  const closeLine = doc.line(div.close);
+  // Delete each fence line plus its trailing newline; closer first to keep
+  // the opener's offsets valid.
+  const lineSpan = (ln) => ({
+    from: ln.from,
+    to: ln.number < doc.lines ? doc.line(ln.number + 1).from : ln.to
+  });
+  view.dispatch({ changes: [lineSpan(closeLine), lineSpan(openLine)].map((s) => ({ ...s, insert: "" })) });
+}
+
+// Which classes make sense on an INLINE span (`[text]{.}`) rather than a block.
+// Block classes (panel, cards, columns, fragment, ...) are noise inside a span,
+// so we hide them there. This is an allowlist of the inline families we use; a
+// class not listed still works if typed by hand, it just is not suggested inline.
+// Add new inline classes here.
+const INLINE_PREFIXES = ["cascade-", "hl-", "flare-", "chip-", "emph-", "arrow-", "stat"];
+const INLINE_EXACT = new Set([
+  // components usable inline
+  "flare", "hl", "chip",
+  // colours (shared inline and block) and shades
+  "blue", "cyan", "teal", "grey", "yellow", "pink", "green", "mint", "navy", "mag", "light", "dark",
+  // misc inline
+  "accent", "verdict", "term", "gloss", "note-inline", "caption", "ref", "sep", "dot"
+]);
+const isInlineClass = (name) =>
+  INLINE_EXACT.has(name) || INLINE_PREFIXES.some((p) => name.startsWith(p));
+
+// FontAwesome classes (`fa-solid`, `fa-2x`, `fa-feather`, ... and the style
+// bases) come from all.min.css and belong in `<i class="...">`, not in a `{.}`
+// attribute. Hide them from the picker. Icon sizing is done with `.scale-*`.
+const FA_BASES = new Set(["fa", "fas", "far", "fab", "fal", "fat", "fad", "fass", "fasr"]);
+const isFontAwesomeClass = (name) => name.startsWith("fa-") || FA_BASES.has(name);
+
 // Offer the deck's real CSS classes when the cursor is just after a "." inside a
 // Pandoc attribute block, e.g. `::: {.|}`, `[text]{.|}`, `## Title {.|}`.
 // `getClasses` returns the current [{ name, shared }] list (fetched per deck).
+// In an inline span the list is narrowed to inline-appropriate classes; in a
+// fenced div or heading attribute the full list is offered.
 function makeClassCompletions(getClasses) {
   return function classCompletions(context) {
     const list = getClasses();
@@ -117,10 +243,17 @@ function makeClassCompletions(getClasses) {
     const line = context.state.doc.lineAt(context.pos);
     const before = line.text.slice(0, context.pos - line.from);
     // Inside an open attribute block only: last "{" must come after last "}".
-    if (before.lastIndexOf("{") <= before.lastIndexOf("}")) return null;
+    const openBrace = before.lastIndexOf("{");
+    if (openBrace <= before.lastIndexOf("}")) return null;
+    // Drop FontAwesome noise everywhere; then, in an inline span, narrow to
+    // inline-appropriate classes. Fences/headings get the full (non-FA) list.
+    const usable = list.filter((c) => !isFontAwesomeClass(c.name));
+    const inline = openBrace > 0 && before[openBrace - 1] === "]";
+    const options = (inline ? usable.filter((c) => isInlineClass(c.name)) : usable)
+      .map((c) => ({ label: c.name, type: "class", detail: c.shared ? "shared" : "deck" }));
     return {
       from: match.from + 1, // keep the "."; complete the name after it
-      options: list.map((c) => ({ label: c.name, type: "class", detail: c.shared ? "shared" : "deck" })),
+      options,
       validFor: /^[\w-]*$/
     };
   };

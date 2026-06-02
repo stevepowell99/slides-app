@@ -8,6 +8,7 @@ format:
       - ../_shared/preview-bridge.html
     css:
       - ../_shared/styles.css
+      - ../_shared/legacy.css
     theme: default
     slide-number: true
     progress: true
@@ -32,7 +33,7 @@ Interviews. Reports. Open-ended survey answers. Hundreds of pages of people tell
 Somewhere in there is the answer to your evaluation or research questions.
 
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 How do you get the answers, in a rigorous way?
 :::
 
@@ -49,7 +50,7 @@ Fast, fluent, and you have no idea what it leaned on. You cannot show your worki
 ::: {.column width="50%"}
 **Read it all yourself**
 
-Thorough, but it [does not scale]{.emph-blue}. Three hundred transcripts? How to make sure that your synthesis really reflects what they all say, without jumping to early conclusions? How can you synthesise in a way which answers the [causal]{.accent} questions in research and evaluation?
+Thorough, but it [does not scale]{.accent}. Three hundred transcripts? How to make sure that your synthesis really reflects what they all say, without jumping to early conclusions? How can you synthesise in a way which answers the [causal]{.accent} questions in research and evaluation?
 
 :::
 :::
@@ -81,7 +82,7 @@ It has a [50-year tradition](garden.causalmap.app).
 
 It is the step that finds the causal claims, organises them, and hands them to contribution analysis, process tracing, Outcome Harvesting, QuIP, or your own judgement.
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 Stories in, organised evidence out. The evaluative call stays with you.
 :::
 
@@ -93,13 +94,13 @@ You read the text and mark each causal claim as a link from one factor to anothe
 
 > "The training gave me confidence, and that is why I started the business."
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 becomes **training → confidence → started a business**, with the verbatim quote and the source kept on every link.
 :::
 
 ## We code claims, not facts
 
-::: {.panel .panel-teal}
+::: {.panel .teal}
 A coded link means: *there is evidence that this source claims X influenced Y.*
 :::
 
@@ -134,7 +135,7 @@ Decide the question, check the work, judge what it all means.
 :::
 :::
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 The minimalist task is simple enough to hand over. The judgement is not, so we keep it.
 :::
 
@@ -249,7 +250,7 @@ The question decides the data.
 
 Narrative material works best. Ask people what changed and why, and you get causal claims to code.
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 Want to compare women and men, or staff and clients, or early and late? Those groups must be in the data and recorded in the source metadata. You cannot compare what you did not capture.
 :::
 
@@ -375,7 +376,7 @@ Every link separately. Fuller coverage. Best for many texts. Links join up less,
 Every link needs a quote.
 :::
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 Without a verbatim quote behind each link, you cannot show your working, and you cannot defend the conclusion. Ask for it explicitly, every time.
 :::
 
@@ -422,7 +423,7 @@ You query the graph with filters. Each filter is a question. Stack them and you 
 Links → women only → trace training to income → zoom out → bundle → map
 :::
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 The same data gives very different maps with no contradiction. Each map is just the result of a different chain of filters. Order usually matters.
 :::
 
@@ -452,14 +453,14 @@ The moment coding is done, these answer themselves.
 
 ::: {.columns}
 ::: {.column width="50%"}
-::: {.panel .panel-teal}
+::: {.panel .teal}
 **"What did the cash transfer lead to?"**
 
 Filter to that factor, look downstream. Out comes the map of every reported consequence, with counts.
 :::
 :::
 ::: {.column width="50%"}
-::: {.panel .panel-teal}
+::: {.panel .teal}
 **"Do women and men tell different stories?"**
 
 Split by group on the same map. The links each group stresses light up differently.
@@ -477,7 +478,7 @@ These quick wins also sharpen your question before the harder work. The next fou
 A bundle is all the claims that say the same X influences Y, from different sources or different parts of one source.
 :::
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 Whatever else you do, weigh each bundle as a whole. How many sources? How convincing? Do they agree or pull apart?
 :::
 
@@ -485,7 +486,7 @@ Whatever else you do, weigh each bundle as a whole. How many sources? How convin
 
 You can weigh bundles by eye, or record the judgement formally.
 
-::: {.panel .panel-teal}
+::: {.panel .teal}
 Collapse a bundle into a single **assessed link** that carries your quality score. The raw claims are not deleted; a switch shows either view, never both at once. Thin bundles earn no assessed link.
 :::
 
@@ -514,7 +515,7 @@ A wheat farmer says:
 > **more cash** let me buy **more seed**
 :::
 ::: {.column width="45%"}
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 So cash grants lead to more seed?
 
 **No.** The first step is true only for pig farmers, the second only for wheat farmers. Two people, two stories, stitched into one that nobody told.
@@ -528,7 +529,7 @@ So cash grants lead to more seed?
 Path tracing shows every link on a route between two factors, across all sources. Easy to misread.
 :::
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 Source tracing keeps only the sources whose own account runs all the way through. Every link is then part of one complete story told by one person. That is the safe move.
 :::
 
@@ -548,7 +549,7 @@ Finally, step back and draw the conclusion.
 
 Behind a single tidy map there may still be hundreds of quotes. Does the claim hold up? Do all the links really belong to the same context?
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 The AI can draft a **vignette**: a source-by-source commentary on the pathways, judging how coherent each account is. It does only what a patient reader could. Treat it as a first draft and edit it.
 :::
 
@@ -574,7 +575,7 @@ Capture everything. Capture cheaply. AI can do this.
 Then judge, in the open.
 :::
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 None of this is statistical causal inference. It is a disciplined way to assemble evidence, weigh it transparently, and reach conclusions you can stand behind.
 :::
 
@@ -607,7 +608,7 @@ Most real evaluations combine several. Pick the methods to fit the question.
 This is how we work at Causal Map Ltd, and it keeps evolving.
 :::
 
-::: {.fragment .panel .panel-teal}
+::: {.fragment .panel .teal}
 If you want to go from a stack of documents to a conclusion you can defend, come and try it with us.
 :::
 

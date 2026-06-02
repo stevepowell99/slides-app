@@ -1,4 +1,34 @@
 <script>
+// Cache-buster for the embedded preview ONLY. The deck preview runs inside the
+// app's iframe (window.parent !== window); a Chrome "saved app" caches the
+// linked stylesheets hard, so edits to styles.css / a deck's css often do not
+// show even after reload, which wastes a lot of time. Here we re-point every
+// local stylesheet <link> at a uniquely-queried URL on each load, so the
+// browser always fetches the current CSS. Skipped when not embedded (a
+// standalone or published deck), where caching is fine and links may be inlined.
+(function () {
+  if (window.parent === window) return; // only in the app preview
+  function bust() {
+    var stamp = Date.now();
+    document.querySelectorAll('link[rel="stylesheet"]').forEach(function (link) {
+      var href = link.getAttribute("href") || "";
+      if (!href || /^https?:\/\//i.test(href)) return; // leave absolute/CDN links
+      link.setAttribute("href", href.split("#")[0].split("?")[0] + "?_cb=" + stamp);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bust);
+  else bust();
+  // The app watches the CSS files and posts this when one changes, so an edit to
+  // styles.css or a deck's css restyles the live preview within a second, with no
+  // reload and no loss of slide position. quarto preview only re-renders on a
+  // .qmd change, so without this a CSS edit never reaches the preview.
+  window.addEventListener("message", function (e) {
+    var d = e.data;
+    if (d && d.source === "slide-bridge" && d.type === "reload-css") bust();
+  });
+})();
+</script>
+<script>
 // Two-way bridge between the embedded Reveal deck and the parent slide app.
 // Outgoing: posts `ready` (with the full slide list) once and `slidechanged`
 // on every navigation. Incoming: accepts `{type:'goto', h, v}`.

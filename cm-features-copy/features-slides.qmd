@@ -36,7 +36,7 @@ Projects and sources
 ::::: {.column width="50%"}
 in col 
 :::::
-::::: {.column width="50%" .bg-blue}
+::::: {.column width="50%"}
 right
 :::::
 ::::
@@ -56,7 +56,7 @@ Projects and sources
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Group sources by stakeholder, theme or any custom column. [Compare]{.hl-green} what each group says causes what.
+Group sources by stakeholder, theme or any custom column. [Compare]{.hl .green} what each group says causes what.
 
 what??
 :::
@@ -78,7 +78,7 @@ Projects and sources
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Group sources by stakeholder, theme or any custom column. [Compare]{.hl-green} what each group says causes what.
+Group sources by stakeholder, theme or any custom column. [Compare]{.hl .green} what each group says causes what.
 
 :::
 :::
@@ -99,7 +99,7 @@ Projects and sources
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-See how your sample [breaks down]{.hl-yellow} by demographic before you start coding.
+See how your sample [breaks down]{.hl .yellow} by demographic before you start coding.
 
 :::
 :::
@@ -122,7 +122,7 @@ Manual coding
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Read your source text and [highlight]{.hl-yellow} phrases. Each highlight becomes a causal link between two factors.
+Read your source text and [highlight]{.hl .yellow} phrases. Each highlight becomes a causal link between two factors.
 
 :::
 :::
@@ -143,7 +143,7 @@ Manual coding
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Jump to [key phrases]{.hl-green} across selected sources without leaving the coding pane.
+Jump to [key phrases]{.hl .green} across selected sources without leaving the coding pane.
 
 :::
 :::
@@ -164,7 +164,7 @@ Manual coding
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Mark links as [doubtful, hypothetical or weak]{.hl-pink}, or add your own tags. Filter on tags later.
+Mark links as [doubtful, hypothetical or weak]{.hl .pink}, or add your own tags. Filter on tags later.
 
 :::
 :::
@@ -185,7 +185,7 @@ Manual coding
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Rename, merge or search-and-replace factor labels [across all links at once]{.hl-yellow}.
+Rename, merge or search-and-replace factor labels [across all links at once]{.hl .yellow}.
 
 :::
 :::
@@ -209,7 +209,7 @@ AI coding
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Run the full pipeline ([auto-code, revise codebook, recode]{.hl-green}) in one go from a single set-up modal.
+Run the full pipeline ([auto-code, revise codebook, recode]{.hl .green}) in one go from a single set-up modal.
 
 :::
 :::
@@ -230,7 +230,7 @@ AI coding
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-AI reads each source and extracts causal links. Choose a [sample size]{.hl-yellow} (1, 5, 20%, 50%, 100%) and skip already-coded sources.
+AI reads each source and extracts causal links. Choose a [sample size]{.hl .yellow} (1, 5, 20%, 50%, 100%) and skip already-coded sources.
 
 :::
 :::
@@ -251,7 +251,7 @@ AI coding
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Ask the model to draft a [whole-network diagram]{.hl-pink} first, then convert it to links. Reduces fragmentation on complex texts.
+Ask the model to draft a [whole-network diagram]{.hl .pink} first, then convert it to links. Reduces fragmentation on complex texts.
 
 :::
 :::
@@ -272,7 +272,7 @@ AI coding
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Consolidate raw factor labels into a [cleaner codebook]{.hl-green}, optionally with embedding-based pre-clustering.
+Consolidate raw factor labels into a [cleaner codebook]{.hl .green}, optionally with embedding-based pre-clustering.
 
 :::
 :::
@@ -293,7 +293,7 @@ AI coding
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Map raw labels onto your codebook by [AI index matching]{.hl-yellow} or [embedding similarity]{.hl-pink}.
+Map raw labels onto your codebook by [AI index matching]{.hl .yellow} or [embedding similarity]{.hl .pink}.
 
 :::
 :::
@@ -314,7 +314,7 @@ AI coding
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Add an [extra prompt]{.hl-green} to individual sources when different documents need different framing.
+Add an [extra prompt]{.hl .green} to individual sources when different documents need different framing.
 
 :::
 :::
@@ -337,7 +337,7 @@ Filter and analyse
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Stack [over twenty filter types]{.hl-yellow} in a pipeline. Reorder, repeat or toggle individual steps.
+Stack [over twenty filter types]{.hl .yellow} in a pipeline. Reorder, repeat or toggle individual steps.
 
 :::
 :::
@@ -358,7 +358,7 @@ Filter and analyse
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Keep only the [most-cited links and factors]{.hl-green}. Count by citations, sources or other measures.
+Keep only the [most-cited links and factors]{.hl .green}. Count by citations, sources or other measures.
 
 :::
 :::
@@ -379,7 +379,7 @@ Filter and analyse
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-[Trace paths]{.hl-pink} from any cause to any effect and see which intermediate factors connect them.
+[Trace paths]{.hl .pink} from any cause to any effect and see which intermediate factors connect them.
 
 :::
 :::
@@ -400,7 +400,7 @@ Filter and analyse
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Split links by stakeholder group and compare. [Who says what?]{.hl-yellow}
+Split links by stakeholder group and compare. [Who says what?]{.hl .yellow}
 
 :::
 :::
@@ -421,7 +421,7 @@ Filter and analyse
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Watch your map [build up]{.hl-green} by source, time period or any custom column.
+Watch your map [build up]{.hl .green} by source, time period or any custom column.
 
 :::
 :::
@@ -442,7 +442,7 @@ Filter and analyse
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Cluster similar labels with [embeddings]{.hl-pink}. Soft Recode Plus, Auto Recode, Optimized Cluster and Tribes give different angles.
+Cluster similar labels with [embeddings]{.hl .pink}. Soft Recode Plus, Auto Recode, Optimized Cluster and Tribes give different angles.
 
 :::
 :::
@@ -465,7 +465,7 @@ Maps, tables and charts
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-A [live causal network]{.hl-yellow}. Click any link to see the underlying quotes. Drag, zoom or arrange on a grid.
+A [live causal network]{.hl .yellow}. Click any link to see the underlying quotes. Drag, zoom or arrange on a grid.
 
 :::
 :::
@@ -486,7 +486,7 @@ Maps, tables and charts
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Style nodes and edges by [colour, size and shape]{.hl-green} from any factor or link column.
+Style nodes and edges by [colour, size and shape]{.hl .green} from any factor or link column.
 
 :::
 :::
@@ -507,7 +507,7 @@ Maps, tables and charts
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-AI writes a [short evidence-based summary]{.hl-pink} of the current map, with quotes.
+AI writes a [short evidence-based summary]{.hl .pink} of the current map, with quotes.
 
 :::
 :::
@@ -528,7 +528,7 @@ Maps, tables and charts
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Editable list of every factor with citation counts, [demographic breakdowns]{.hl-yellow} and statistical significance testing.
+Editable list of every factor with citation counts, [demographic breakdowns]{.hl .yellow} and statistical significance testing.
 
 :::
 :::
@@ -549,7 +549,7 @@ Maps, tables and charts
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Every link with its supporting quote. Bulk-edit tags, [print quotes]{.hl-green} grouped by factor pair, or assess evidence quality.
+Every link with its supporting quote. Bulk-edit tags, [print quotes]{.hl .green} grouped by factor pair, or assess evidence quality.
 
 :::
 :::
@@ -570,7 +570,7 @@ Maps, tables and charts
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Drag and drop to [cross-tabulate]{.hl-pink} any link or factor field. Heatmaps, charts, significance testing, export.
+Drag and drop to [cross-tabulate]{.hl .pink} any link or factor field. Heatmaps, charts, significance testing, export.
 
 :::
 :::
@@ -593,7 +593,7 @@ Reports, sharing and collaboration
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Bundle bookmarked maps and tables into a [multi-page report]{.hl-yellow}. Every finding links back to the source text.
+Bundle bookmarked maps and tables into a [multi-page report]{.hl .yellow}. Every finding links back to the source text.
 
 :::
 :::
@@ -614,7 +614,7 @@ Reports, sharing and collaboration
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Ask plain-language questions of your project. [Answers grounded]{.hl-green} in your sources, links and factors.
+Ask plain-language questions of your project. [Answers grounded]{.hl .green} in your sources, links and factors.
 
 :::
 :::
@@ -635,7 +635,7 @@ Reports, sharing and collaboration
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Invite collaborators by email with [view or edit]{.hl-pink} permissions. Public projects viewable by anyone logged in.
+Invite collaborators by email with [view or edit]{.hl .pink} permissions. Public projects viewable by anyone logged in.
 
 :::
 :::
@@ -656,7 +656,7 @@ Reports, sharing and collaboration
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-[Live updates]{.hl-yellow} when teammates add or edit links. Useful for workshops and demonstrations.
+[Live updates]{.hl .yellow} when teammates add or edit links. Useful for workshops and demonstrations.
 
 *Requires Team subscription.*
 
@@ -679,7 +679,7 @@ Reports, sharing and collaboration
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-[Restore any earlier state]{.hl-green} of a project. Roll back accidental bulk edits.
+[Restore any earlier state]{.hl .green} of a project. Roll back accidental bulk edits.
 
 :::
 :::
@@ -700,7 +700,7 @@ Reports, sharing and collaboration
 
 ::: {.column width="68%"}
 ::: {.feature-body}
-Optional [2FA]{.hl-pink} per account. Admins can enforce it organisation-wide.
+Optional [2FA]{.hl .pink} per account. Admins can enforce it organisation-wide.
 
 :::
 :::

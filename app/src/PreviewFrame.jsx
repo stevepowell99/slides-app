@@ -91,6 +91,18 @@ export function PreviewFrame({ deckId, targetSlide, onSlideChanged, onSlides, on
     return () => window.removeEventListener("message", handler);
   }, []);
 
+  // A CSS file changed on disk: ask the bridge to re-fetch the stylesheets so the
+  // preview restyles in place. EventSource auto-reconnects, so a server restart
+  // heals itself.
+  useEffect(() => {
+    const es = new EventSource("/api/css-events");
+    es.onmessage = () => iframeRef.current?.contentWindow?.postMessage(
+      { source: "slide-bridge", type: "reload-css" }, "*"
+    );
+    es.onerror = () => {};
+    return () => es.close();
+  }, []);
+
   useEffect(() => {
     if (!targetSlide) return;
     // If the deck is already here, the selection came from the preview itself

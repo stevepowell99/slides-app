@@ -6,28 +6,23 @@ export function parseQmd(text) {
   const lines = text.split(/\r?\n/);
   const headings = [];
   let inFence = false;
-  let divDepth = 0;
   let currentGroupId = null;
 
   lines.forEach((line, index) => {
+    // Track code fences so a `#` inside a code block is not read as a heading.
     if (/^```|^~~~/.test(line.trim())) {
       inFence = !inFence;
       return;
     }
+    if (inFence || index + 1 <= frontMatterEnd) return;
 
-    // Pandoc fenced divs: `::: {.callout-warning}` opens; bare `:::` closes.
-    // ## inside one of these (e.g. a callout title) is NOT a slide heading.
-    if (!inFence) {
-      const fenceDivMatch = line.match(/^:{3,}\s*(.*)$/);
-      if (fenceDivMatch) {
-        if (fenceDivMatch[1].trim() === "") divDepth = Math.max(0, divDepth - 1);
-        else divDepth += 1;
-        return;
-      }
-    }
-
-    if (inFence || divDepth > 0 || index + 1 <= frontMatterEnd) return;
-
+    // In Quarto reveal a level-1/2 heading at column 0 always starts a new
+    // slide, even inside a fenced div (the heading ends the div). So detect
+    // headings regardless of `:::` nesting. The old code counted div depth and
+    // skipped headings while inside a div; an unbalanced or miscounted `:::`
+    // left the depth stuck, so later headings were missed and a slide's endLine
+    // ran to end-of-file, which let a single-slide save truncate everything
+    // after it. Keying off the heading itself cannot get stuck.
     const match = line.match(/^(#{1,2})\s*(.*?)\s*$/);
     if (!match) return;
 
@@ -82,7 +77,9 @@ export function parseQmd(text) {
 
 export function applySlideAction(text, action) {
   const parsed = parseQmd(text);
-  const selected = expandSelectedSlides(parsed.slides, action.slideIds || []);
+  // Every action operates on exactly the slides selected. A section header
+  // (`#`) is just a slide; selecting it never pulls in its section's children.
+  const selected = new Set(action.slideIds || []);
 
   if (action.type === "hide" || action.type === "show") {
     return toggleHiddenClass(text, parsed.slides, selected, action.type === "hide");
@@ -123,26 +120,15 @@ export function applySlideAction(text, action) {
 
 export function extractSlideBlocks(text, slideIds) {
   const parsed = parseQmd(text);
-  const selected = expandSelectedSlides(parsed.slides, slideIds || []);
+  // Copy exactly the slides selected, nothing more. A section header (`#`) is
+  // itself a slide with its own content, so it copies its own block (down to
+  // the next heading) like any other; it does not drag its section's children.
+  const selected = new Set(slideIds || []);
   const lines = text.split(/\r?\n/);
 
   return parsed.slides
     .filter((slide) => selected.has(slide.id))
     .map((slide) => lines.slice(slide.startLine - 1, slide.endLine).join("\n"));
-}
-
-function expandSelectedSlides(slides, slideIds) {
-  const selected = new Set(slideIds);
-
-  slides.forEach((slide) => {
-    if (selected.has(slide.id) && slide.level === 1) {
-      slides.forEach((candidate) => {
-        if (candidate.groupId === slide.id) selected.add(candidate.id);
-      });
-    }
-  });
-
-  return selected;
 }
 
 function toggleHiddenClass(text, slides, selected, shouldHide) {

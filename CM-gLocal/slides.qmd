@@ -72,7 +72,9 @@ You have a stack of interviews
 
 Interviews. Reports. Open survey answers. Pages of people telling you what changed and why.
 
-Somewhere in there is the answer to your question. How do you get it out, in a way you can stand behind?
+::: {.fragment}
+Somewhere in there is [the answer to your question]{.flare .yellow}. How do you get it out, in a way you can [stand behind]{.hl .cyan}?
+:::
 
 :::
 
@@ -80,11 +82,17 @@ Somewhere in there is the answer to your question. How do you get it out, in a w
 
 ::: {.body}
 
-**Hand it to the black box.** "ChatGPT, what does this say?" Fast and fluent, but you cannot see what it leaned on, so you cannot defend the answer.
+::: {.fragment}
+**Hand it to the black box.** [shortcut 1]{.chip .mag} "ChatGPT, what does this say?" Fast and fluent, but you cannot see what it leaned on, so you cannot defend the answer.
+:::
 
-**Read it all yourself.** Thorough, but it does not scale. Three hundred transcripts, and you still have to show your synthesis really reflects what people said.
+::: {.fragment}
+**Read it all yourself.** [shortcut 2]{.chip .mag} Thorough, but it does not scale. Three hundred transcripts, and you still have to show your synthesis really reflects what people said.
+:::
 
-There is a better way.
+::: {.fragment}
+There is [a better way]{.flare .cyan}.
+:::
 
 :::
 
@@ -94,11 +102,15 @@ There is a better way.
 
 One route from your interviews to a theory of change you can defend:
 
+::: {.incremental}
 - start from interviews, reports, open answers, any narrative data
 - turn what people said into a map of causes and effects, with AI
 - question that map until you have an answer
+:::
 
-AI does the patient clerical work. You make the judgements.
+::: {.fragment}
+[AI]{.flare .blue} does the patient clerical work. [You]{.flare .yellow .cascade-2} make the judgements.
+:::
 
 :::
 
@@ -110,17 +122,23 @@ Why causal mapping
 
 ![](assets/cm-logo-white.png){.brand-cm}
 
-## What we do {.content background-color="#ffffff"}
+## What we do when we do causal mapping {.content background-color="#ffffff"}
 
 ::: {.body}
+
+Researchers have been doing causal mapping for [50 years](https:garden.causalmap.app/bibliography).
 
 You read the text and mark each causal claim as a link from one factor to another.
 
 > "The training gave me confidence, and that is why I started the business."
 
-This becomes **training → confidence → started a business**, keeping the exact quote and the source on every link.
+::: {.fragment}
+This becomes [training]{.flare .cyan} → [confidence]{.flare .yellow .cascade-2} → [started a business]{.flare .mag .cascade-3}, keeping the exact quote and the source on every link.
+:::
 
-Do that across all your interviews and the links join up into a map: your theory of change, built from what people actually said.
+::: {.fragment}
+Do that across all your interviews and the links join up into a map: [your theory of change]{.flare .cyan}, built from what people actually said.
+:::
 
 :::
 
@@ -132,19 +150,89 @@ Do that across all your interviews and the links join up into a map: your theory
 
 ::: {.body}
 
-A link means: this person says X influenced Y. Not that X really did.
+A link means: this person [says]{.hl .yellow} X influenced Y.
 
-Twenty people saying so is not proof. It is evidence you can now weigh. Turning that evidence into a conclusion is your job, and we come back to it later.
+::: {.fragment}
+Maybe X [really did]{.hl .yellow} influence Y [maybe]{.chip .cyan}, [maybe not]{.chip .mag}.
+:::
+
+::: {.fragment}
+Twenty people saying so is [not proof]{.flare .mag}. It is evidence you can now weigh. Turning that evidence into a conclusion is [your job]{.flare .cyan .cascade-2}, and we come back to it later.
+:::
 
 :::
 
-## Keep it simple {.content background-color="#ffffff"}
+## You don't need a special app {.content background-color="#ffffff"}
+
+```{=html}
+<div class="mashup">
+  <div class="app fragment">
+    <div class="bar">Code it · NVivo, Dedoose, any CAQDAS</div>
+    <div class="pane code">"The <mark class="m1">training</mark> gave me <mark class="m2">confidence</mark>, and that's why I <mark class="m3">started a business</mark>."</div>
+  </div>
+  <div class="app fragment">
+    <div class="bar">Tabulate it · Excel, Sheets</div>
+    <div class="pane">
+      <table class="ce">
+        <thead><tr><th>Cause</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>training</td><td>confidence</td></tr>
+          <tr><td>confidence</td><td>started a business</td></tr>
+          <tr><td>cash grant</td><td>more cash</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="app fragment">
+    <div class="bar">Map it · Kumu, draw.io, any graphing app</div>
+    <div class="pane">
+      <svg viewBox="0 0 200 150" class="mapsvg" preserveAspectRatio="xMidYMid meet">
+        <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0E3D5F"/></marker></defs>
+        <rect x="55" y="6" width="90" height="26" rx="6" fill="#00ADEE"/><text x="100" y="24" text-anchor="middle" font-size="13">training</text>
+        <line x1="100" y1="32" x2="100" y2="58" stroke="#0E3D5F" stroke-width="2" marker-end="url(#ah)"/>
+        <rect x="50" y="62" width="100" height="26" rx="6" fill="#FFE000"/><text x="100" y="80" text-anchor="middle" font-size="13">confidence</text>
+        <line x1="100" y1="88" x2="100" y2="114" stroke="#0E3D5F" stroke-width="2" marker-end="url(#ah)"/>
+        <rect x="35" y="118" width="130" height="26" rx="6" fill="#DC378C"/><text x="100" y="136" text-anchor="middle" font-size="13" fill="#fff">started a business</text>
+      </svg>
+    </div>
+  </div>
+</div>
+```
+
+::: {.mashup-note}
+[Anyone can do causal mapping.]{.flare .yellow} It is a method, not an app.
+
+Code your text,
+
+list each claim as cause and effect with its quote,
+
+then draw the map, all in tools you already know.
+:::
+
+
+## A combined app {.content background-color="#ffffff"}
+
+::: {.body}
+![](../_shared/img/paste-1780037747474.png){width="100%"}
+:::
+
+## Keep coding simple {.content background-color="#ffffff"}
 
 ::: {.body}
 
-We do not code how strong the link was, or whether it was good or bad, or what the hidden meaning might be.
+We do not code:
 
-People say "X made Y happen". They rarely say how strongly. So we do not invent it. Simple coding stays close to what people said, and that is exactly why AI can do it.
+::: {.incremental}
+- [how strong the link was,]{.strike-red}
+- [or whether it was good or bad,]{.strike-red}
+- [or what the hidden meaning might be.]{.strike-red}
+:::
+
+::: {.fragment}
+People say "X made Y happen". They rarely say how strongly. So we do not invent it.
+
+[Coding what people actually said is simpler]{.flare .cyan}, and that is exactly why [AI can do it]{.flare .cyan .cascade-2}.
+:::
 
 :::
 
@@ -154,19 +242,22 @@ People say "X made Y happen". They rarely say how strongly. So we do not invent 
 Why use AI for causal mapping
 :::
 
+
 ![](assets/cm-logo-white.png){.brand-cm}
 
 ## AI as a clerk, not an oracle {.content background-color="#ffffff"}
 
 ::: {.body}
 
-**The clerk's job:** find every causal claim, attach a quote. Tireless, exhaustive, cheap.
+::: {.fragment}
+[**The clerk's job:**]{.hl .blue} find every causal claim, attach a quote. Tireless, exhaustive, cheap.
+:::
 
-**Your job:** decide the question, check the work, judge what it all means.
+::: {.fragment}
+[**Your job:**]{.hl .yellow} decide the question, check the work, judge what it all means.
+:::
 
-The clerical task is simple enough to hand over. The judgement is not, so you keep it.
 
-![](../_shared/img/paste-1780037747474.png){width="80%"}
 
 :::
 
@@ -174,9 +265,11 @@ The clerical task is simple enough to hand over. The judgement is not, so you ke
 
 ::: {.body}
 
-A team reading by hand tires, gets bored, and pays uneven attention. The AI does not.
+[Humans get bored]{.flare .yellow}, and pay uneven attention. [The AI does not.]{.flare .cyan .cascade-2}
 
-It codes every claim across hundreds of documents, and each one traces back to the sentence it came from. So you capture everything cheaply, then spend that volume down into a conclusion you can defend.
+::: {.fragment}
+It codes every claim across hundreds of documents, and each one traces back to the sentence it came from. So you capture everything cheaply and quickly.
+:::
 
 ![](../_shared/img/paste-1780170402464.png){width="70%"}
 
@@ -185,11 +278,15 @@ It codes every claim across hundreds of documents, and each one traces back to t
 ## Some recent projects {.content background-color="#ffffff"}
 
 ::: {.body}
+::: {.incremental}
 - **VIB, Brussels:** 100 HR interviews on career trajectories
-- **Sudan:** 60 development professionals for a programme evaluation
 - **Gender gap in STEM, Chile:** 32 student interviews
 - **UK postdoc feedback:** mid-career drivers and obstacles to learning
-- **Climate adaptation, Austria:** 38 harvested outcome statements
+- **British Academy:** Free-ranging interviews with former workshop participants
+- **[INTRAC](https://garden.causalmap.app/INTRAC):** one causal map across a 13-country governance programme
+- **[Love Alliance](https://garden.causalmap.app/love-alliance):** end-term evaluation across ten African countries
+:::
+
 :::
 
 
@@ -210,7 +307,7 @@ Gabi
 ## INTRAC: one map across 13 countries {.no-title background-image="../_shared/img/intrac-map.png" background-size="contain" background-color="#ffffff"}
 
 ::: {.shot-cap}
-INTRAC needed the big picture from a programme across 13 countries. The AI coded 5,430 causal claims into an overall map and one per country, and drafted the written analysis as a vignette.
+INTRAC needed the big picture from a programme across 13 countries. The AI coded 5,430 causal claims into an overall map and one per country, and drafted the written analysis as a vignette. [Read the case study](https://garden.causalmap.app/INTRAC)
 :::
 
 # The workflow, three steps {.section .no-title background-color="#0E3D5F"}
@@ -225,9 +322,11 @@ The workflow, three steps
 
 ::: {.body}
 
-Before you touch the data, write down what you want to be able to say at the end, and to whom.
+Before you touch the data, write down [what you want to be able to say at the end]{.flare .yellow}, and to whom.
 
+::: {.fragment}
 Every later choice follows from that one sentence: the data you gather, the labels you use, the maps you make.
+:::
 
 :::
 
@@ -237,22 +336,28 @@ Every later choice follows from that one sentence: the data you gather, the labe
 
 :::: {.columns}
 ::: {.column width="50%"}
-**Good at**
+**Good at** [yes]{.chip .cyan}
 
+::: {.incremental}
 - which factors matter most
 - what drives or follows from a factor
 - how groups differ
 - whether the evidence fits your theory of change
 :::
+:::
 ::: {.column width="50%"}
-**Not for**
+**Not for** [no]{.chip .mag}
 
+::: {.incremental}
 - effect sizes
 - proving X causes Y on its own
 :::
+:::
 ::::
 
-Pick questions the method can serve.
+::: {.fragment}
+Pick [questions the method can serve]{.flare .cyan}.
+:::
 
 :::
 
@@ -262,9 +367,13 @@ Pick questions the method can serve.
 
 You write a short instruction for the AI, like a chatbot prompt, and it codes the links for you.
 
-The golden rule: test on a small, varied sample, see exactly where the output is wrong or thin, fix the instruction, then scale up.
+::: {.fragment}
+The golden rule: [test on a small, varied sample]{.hl .cyan}, see exactly where the output is wrong or thin, fix the instruction, then scale up.
+:::
 
-And one rule you never break: **every link needs a quote.** Without it you cannot show your working.
+::: {.fragment}
+And one rule you never break: [**every link needs a quote.**]{.flare .yellow} Without it you cannot show your working.
+:::
 
 :::
 
@@ -272,35 +381,48 @@ And one rule you never break: **every link needs a quote.** Without it you canno
 
 ::: {.body}
 
-However careful the coding, some links will be wrong. Check them before you analyse.
+However careful the coding, [some links will be wrong]{.hl .mag}.
 
+If there are systematic errors, iterate the prompt until you are satisfied, then code the whole dataset.
+
+Check them again before you analyse.
+
+::: {.incremental}
 - tag the doubtful or surprising ones, to filter later
 - note how sure each source sounds
 - note how reliable each source is
-
-A quick read of a varied sample catches most problems.
+:::
 
 :::
 
 # Using the Causal Map app {.section .no-title background-color="#0E3D5F"}
 
 ::: {.section-title}
-Your map is a theory of change you can question
+Using the Causal Map app
 :::
 
 ![](assets/cm-logo-white.png){.brand-cm}
 
-
-
-
-## It's free! {.content background-color="#ffffff"}
+## It's [free!]{.flare .yellow} {.content background-color="#ffffff"}
 
 ::: {.body}
 
+::: {.incremental}
+- ... All core functionality is free; unlimited projects of unlimited size, for as long as you want...
+- ... If you don't mind other people viewing your maps.
+- All users get free AI credits every month.
+- You can switch off AI if you want.
+- You can choose a region for AI  processing if you want.
+- You can get a subscription if you want private projects or extra features.
+:::
+
+:::
+
+::: {.notes}
+Speaker note
 - Manual coding
 - Some filters
-- 1-click coding
-
+- [1-click coding]{.hl .cyan}
 :::
 
 # Your map is a theory of change you can question {.section .no-title background-color="#0E3D5F"}
@@ -315,9 +437,11 @@ Your map is a theory of change you can question
 
 ::: {.body}
 
-Your links are not a static report. They are a living map you can question, over and over.
+Your links are not a static report. They are [a living map you can question]{.flare .cyan}, over and over.
 
-You ask a question by filtering. Women only. Everything downstream of training. Stack the filters and you answer a bigger question. The same data gives very different maps, each one just the result of a different question.
+::: {.fragment}
+You ask a question by filtering. [Women only.]{.hl .yellow} [Everything downstream of training.]{.hl .yellow} Stack the filters and you answer a bigger question. The same data gives very different maps, each one just the result of a different question.
+:::
 
 :::
 
@@ -325,9 +449,13 @@ You ask a question by filtering. Women only. Everything downstream of training. 
 
 ::: {.body}
 
-**"What did the cash transfer lead to?"** Filter to that factor, look downstream. Out comes a map of every reported consequence, with counts.
+::: {.fragment}
+[**"What did the cash transfer lead to?"**]{.hl .blue} Filter to that factor, look downstream. Out comes a map of every reported consequence, with counts.
+:::
 
-**"Do women and men tell different stories?"** Split the same map by group. The links each group stresses light up differently.
+::: {.fragment}
+[**"Do women and men tell different stories?"**]{.hl .blue} Split the same map by group. The links each group stresses light up differently.
+:::
 
 :::
 
@@ -335,164 +463,55 @@ You ask a question by filtering. Women only. Everything downstream of training. 
 
 ::: {.body}
 
-A pig farmer says the cash grant gave them **more cash**. A wheat farmer says **more cash** let them buy **more seed**.
+A pig farmer says the [cash grant]{.hl .mag} gave them [more cash]{.hl .cyan}.
 
-So cash grants lead to more seed? **No.** Two people, two stories, stitched into one that nobody told.
+::: {.fragment}
+A wheat farmer says [more cash]{.hl .cyan} let them buy [more seed]{.hl .yellow}.
+:::
 
-The safe move: keep only the sources whose own account runs all the way through.
+::: {.fragment}
+So [cash grants]{.hl .mag} lead to [more seed]{.hl .yellow}?
+:::
 
+::: {.fragment}
+[No.]{.verdict}
+:::
+
+::: {.fragment}
+Two people, two stories, [stitched into one that nobody told]{.flare .mag}.
+:::
+
+:::
+
+::: {.callout .fragment}
+**The safe move:** keep only the sources whose own account runs all the way through.
 :::
 
 ## Step back and judge {.content background-color="#ffffff"}
 
 ::: {.body}
 
-Behind one tidy map there may still be hundreds of quotes. Does the claim hold up? Do the links really belong to the same context?
+Behind one tidy map there may still be [hundreds of quotes]{.hl .yellow}. Does the claim hold up? Do the links really belong to the same context?
 
-The AI can draft a source-by-source commentary on each pathway, doing only what a patient reader could. Treat it as a first draft and edit it.
+::: {.fragment}
+The AI can draft a source-by-source commentary on each pathway, doing only what a patient reader could. [Treat it as a first draft and edit it.]{.flare .cyan}
+:::
 
 :::
 
-## Let's build a map, live {.no-title background-iframe="https://app.causalmap.app" background-interactive="true"}
+## Let's build a map, live {.no-title}
 
-## A coded map of what people said {.no-title background-image="../_shared/img/filtered-map-final.png" background-size="contain" background-color="#ffffff"}
+
+
+![](../_shared/img/app_causalmap_app-qr-code.png){width="20%"}
+
+## A coded map of what people said {background-image="../_shared/img/filtered-map-final.png" background-size="contain" background-color="#ffffff" .no-title .png visibility="hidden"}
 
 ::: {.shot-cap}
 Every box is a factor, every arrow a claimed influence, and behind each arrow is the quote it came from.
 :::
 
-## The same map, split by group {.no-title background-image="../_shared/img/map-group-differences-shown-on-map.png" background-size="contain" background-color="#ffffff"}
-
-::: {.shot-cap}
-The same data, one question added: how do the groups differ? The links each group stresses light up differently.
-:::
-
-# Your map is a theory of change you can question {.section .no-title background-color="#0E3D5F"}
-
-::: {.section-title}
-Your map is a theory of change you can question
-:::
-
-![](assets/cm-logo-white.png){.brand-cm}
-
-## A filter is a question {.content background-color="#ffffff"}
-
-::: {.body}
-
-Your links are not a static report. They are a living map you can question, over and over.
-
-You ask a question by filtering. Women only. Everything downstream of training. Stack the filters and you answer a bigger question. The same data gives very different maps, each one just the result of a different question.
-
-:::
-
-
-## A filter is a question {.content background-color="#ffffff"}
-
-::: {.body}
-
-Your links are not a static report. They are a living map you can question, over and over.
-
-You ask a question by filtering. Women only. Everything downstream of training. Stack the filters and you answer a bigger question. The same data gives very different maps, each one just the result of a different question.
-
-:::
-
-## Two everyday examples {.content background-color="#ffffff"}
-
-::: {.body}
-
-**"What did the cash transfer lead to?"** Filter to that factor, look downstream. Out comes a map of every reported consequence, with counts.
-
-**"Do women and men tell different stories?"** Split the same map by group. The links each group stresses light up differently.
-
-:::
-
-## The transitivity trap {.content background-color="#ffffff"}
-
-::: {.body}
-
-A pig farmer says the cash grant gave them **more cash**. A wheat farmer says **more cash** let them buy **more seed**.
-
-So cash grants lead to more seed? **No.** Two people, two stories, stitched into one that nobody told.
-
-The safe move: keep only the sources whose own account runs all the way through.
-
-:::
-
-## Step back and judge {.content background-color="#ffffff"}
-
-::: {.body}
-
-Behind one tidy map there may still be hundreds of quotes. Does the claim hold up? Do the links really belong to the same context?
-
-The AI can draft a source-by-source commentary on each pathway, doing only what a patient reader could. Treat it as a first draft and edit it.
-
-:::
-
-## Let's build a map, live {.no-title background-iframe="https://app.causalmap.app" background-interactive="true"}
-
-## A coded map of what people said {.no-title background-image="../_shared/img/filtered-map-final.png" background-size="contain" background-color="#ffffff"}
-
-::: {.shot-cap}
-Every box is a factor, every arrow a claimed influence, and behind each arrow is the quote it came from.
-:::
-
-## The same map, split by group {.no-title background-image="../_shared/img/map-group-differences-shown-on-map.png" background-size="contain" background-color="#ffffff"}
-
-::: {.shot-cap}
-The same data, one question added: how do the groups differ? The links each group stresses light up differently.
-:::
-
-## A filter is a question {.content background-color="#ffffff"}
-
-::: {.body}
-
-Your links are not a static report. They are a living map you can question, over and over.
-
-You ask a question by filtering. Women only. Everything downstream of training. Stack the filters and you answer a bigger question. The same data gives very different maps, each one just the result of a different question.
-
-:::
-
-## Two everyday examples {.content background-color="#ffffff"}
-
-::: {.body}
-
-**"What did the cash transfer lead to?"** Filter to that factor, look downstream. Out comes a map of every reported consequence, with counts.
-
-**"Do women and men tell different stories?"** Split the same map by group. The links each group stresses light up differently.
-
-:::
-
-## The transitivity trap {.content background-color="#ffffff"}
-
-::: {.body}
-
-A pig farmer says the cash grant gave them **more cash**. A wheat farmer says **more cash** let them buy **more seed**.
-
-So cash grants lead to more seed? **No.** Two people, two stories, stitched into one that nobody told.
-
-The safe move: keep only the sources whose own account runs all the way through.
-
-:::
-
-## Step back and judge {.content background-color="#ffffff"}
-
-::: {.body}
-
-Behind one tidy map there may still be hundreds of quotes. Does the claim hold up? Do the links really belong to the same context?
-
-The AI can draft a source-by-source commentary on each pathway, doing only what a patient reader could. Treat it as a first draft and edit it.
-
-:::
-
-## Let's build a map, live {.no-title background-iframe="https://app.causalmap.app" background-interactive="true"}
-
-## A coded map of what people said {.no-title background-image="../_shared/img/filtered-map-final.png" background-size="contain" background-color="#ffffff"}
-
-::: {.shot-cap}
-Every box is a factor, every arrow a claimed influence, and behind each arrow is the quote it came from.
-:::
-
-## The same map, split by group {.no-title background-image="../_shared/img/map-group-differences-shown-on-map.png" background-size="contain" background-color="#ffffff"}
+## The same map, split by group {background-image="../_shared/img/map-group-differences-shown-on-map.png" background-size="contain" background-color="#ffffff" .no-title .png visibility="hidden"}
 
 ::: {.shot-cap}
 The same data, one question added: how do the groups differ? The links each group stresses light up differently.
@@ -516,17 +535,44 @@ Gabi speaks from here to the end
 The official theory of change: a tidy ladder from strategies up to goals. Clear, communicable, fundable. But a ladder cannot draw a loop.
 :::
 
-## Too much evidence, the nicer problem {.content background-color="#ffffff"}
+## Too much data!{.content background-color="#ffffff"}
 
 ::: {.body}
 
-An end-term evaluation across ten African countries, with Southern Hemisphere. We coded the narrative data for them.
+An end-term evaluation across ten African countries, with Southern Hemisphere.
 
-- 176 documents: 79 country reports, 97 interview transcripts
-- over 22,000 causal claims, coded by AI
-- 13,756 kept for the maps
+We coded the narrative data for them.
 
-No team could hand-code that and stay fresh. Every link still carries the quote it came from.
+::: {.bignum .fragment}
+::: {.fig}
+176
+:::
+::: {.bn-body}
+documents: 79 country reports, 97 interview transcripts
+:::
+:::
+
+::: {.bignum .fragment}
+::: {.fig}
+22,000
+:::
+::: {.bn-body}
+causal claims, coded by AI
+:::
+:::
+
+::: {.bignum .fragment}
+::: {.fig}
+13,756
+:::
+::: {.bn-body}
+kept for the maps
+:::
+:::
+
+::: {.fragment}
+No team could hand-code that and stay fresh. [Every link still carries the quote it came from.]{.hl .cyan}
+:::
 
 :::
 
@@ -546,11 +592,15 @@ The movement-building view. Networking is the hub, with reinforcing circles: cap
 
 ::: {.body}
 
-Partway through, a fair worry surfaced: was the programme's advocacy provoking a backlash against key populations?
+Partway through, a fair worry surfaced: was the programme's advocacy [provoking a backlash]{.hl .mag} against key populations?
 
-Rather than trade impressions, we put the question to the data and traced it through the 43 sources that raised it. Every account pointed the other way: the support helped communities resist backlash, none named it as the cause.
+::: {.fragment}
+Rather than trade impressions, we put the question to the data and traced it through the 43 sources that raised it. [Every account pointed the other way]{.flare .cyan}: the support helped communities resist backlash, none named it as the cause.
+:::
 
 > "also helping to counter the backlash against women's rights and LGBT rights"
+
+[Read the full Love Alliance case study](https://garden.causalmap.app/love-alliance)
 
 :::
 
@@ -566,9 +616,11 @@ So what
 
 ::: {.body}
 
-Code "X influenced Y, with a quote". Capture everything, capture cheaply, let AI do it. Then judge, in the open.
+Code [**"X influenced Y, with a quote"**]{.flare .yellow}. Capture everything, capture cheaply, let AI do it. Then [judge, in the open]{.hl .cyan}.
 
-This is not statistical proof. It is a disciplined way to assemble evidence, weigh it transparently, and reach a conclusion you can stand behind.
+::: {.fragment}
+This is not statistical proof. It is a disciplined way to assemble evidence, weigh it transparently, and [reach a conclusion you can stand behind]{.hl .mag}.
+:::
 
 :::
 
@@ -590,7 +642,9 @@ The answers come back as narrative text, ready to code into a map.
 
 This is how we work at Causal Map Ltd, every day.
 
-If you want to go from a stack of interviews to a theory of change you can defend, come and try it with us at **app.causalmap.app**.
+::: {.fragment}
+If you want to go from a stack of interviews to a theory of change you can defend, come and try it with us at [**app.causalmap.app**]{.flare .cyan}.
+:::
 
 :::
 

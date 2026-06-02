@@ -110,7 +110,7 @@ palette = {
 }
 ```
 
-[Inline accent on the [pink]{.hl-pink} swatch and the [blue]{.hl-blue} swatch.]{.note-inline}
+[Inline accent on the [pink]{.hl .pink} swatch and the [blue]{.hl .blue} swatch.]{.note-inline}
 
 ## Thank you {.no-title background-color="#fdf6f0"}
 

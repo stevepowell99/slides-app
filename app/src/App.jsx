@@ -155,20 +155,17 @@ export function App() {
     [slides, selectedSlideId]
   );
 
-  // Map each parsed slide id to the real (h, v) Reveal gives it. Both lists are
-  // in document order, so we walk them together and pair by heading text. A
-  // parsed heading the deck doesn't render (Quarto merged it, or it is hidden)
-  // simply gets no entry and is not navigable; it never shifts the others.
+  // Map each parsed slide id to the real (h, v) Reveal gives it. Both lists come
+  // in document order, so we pair by position: the Nth visible parsed slide is
+  // the Nth rendered slide. Hidden slides are dropped first, since the rendered
+  // deck omits them. No text matching, so smart quotes, dashes, ellipses and the
+  // like can never knock the rail and preview out of step.
   const navById = useMemo(() => {
     const map = new Map();
-    let cursor = 0;
-    for (const slide of slides) {
-      let k = cursor;
-      while (k < previewSlides.length && normTitle(previewSlides[k].title) !== normTitle(slide.title)) k++;
-      if (k < previewSlides.length) {
-        map.set(slide.id, { h: previewSlides[k].h, v: previewSlides[k].v });
-        cursor = k + 1;
-      }
+    const visible = slides.filter((slide) => !slide.hidden);
+    const n = Math.min(visible.length, previewSlides.length);
+    for (let i = 0; i < n; i++) {
+      map.set(visible[i].id, { h: previewSlides[i].h, v: previewSlides[i].v });
     }
     return map;
   }, [slides, previewSlides]);
@@ -188,10 +185,21 @@ export function App() {
     if (!previewSlides.length || !slides.length) return;
     const selId = selectedSlideIdRef.current;
     if (selId && navById.has(selId)) return;
-    const first = previewSlides[0];
-    const match = slides.find((slide) => normTitle(slide.title) === normTitle(first.title)) || slides[0];
+    // The first rendered slide is the first visible parsed slide.
+    const match = slides.find((slide) => !slide.hidden) || slides[0];
     if (match && match.id !== selId) setSelectedSlideId(match.id);
   }, [previewSlides, slides, navById]);
+
+  // Positional pairing drifts past any count difference between the rail and the
+  // rendered deck, so surface a mismatch rather than misnavigate silently. The
+  // usual causes are a `title:` auto title slide or two headings Quarto merged.
+  useEffect(() => {
+    if (!slides.length || !previewSlides.length) return;
+    const visible = slides.filter((slide) => !slide.hidden).length;
+    if (visible !== previewSlides.length) {
+      setMessage(`Rail has ${visible} visible slides, preview has ${previewSlides.length}. Navigation may be off until they match.`);
+    }
+  }, [slides, previewSlides]);
 
   // Fallback when the preview never reports (e.g. Quarto failed to start): still
   // let the user edit by selecting the first slide. If the preview later loads,
@@ -398,6 +406,23 @@ export function App() {
     // we are leaving, but its preview is about to unmount so nothing flickers.
     if (dirty) await render("Rendered");
     setActiveDeck(deckId);
+  }
+
+  // Undo: restore the snapshot the server took before the last write this
+  // session. Recovers from a bad edit (e.g. a save that truncated the deck).
+  async function undoDeck() {
+    if (!activeDeck) return;
+    const data = await api(`/api/decks/${activeDeck}/undo`, { method: "POST" }).catch(showError);
+    if (!data) return;
+    lastSavedSourceRef.current = data.source;
+    setSource(data.source);
+    setSlides(data.parsed.slides);
+    setCheckedSlideIds([]);
+    setDirty(false);
+    setStructureVersion((v) => v + 1);
+    const keep = data.parsed.slides.find((s) => s.id === selectedSlideIdRef.current);
+    setSelectedSlideId(keep ? keep.id : (data.parsed.slides[0]?.id || ""));
+    setMessage("Undid last change");
   }
 
   async function onSlideAction(action) {
@@ -918,6 +943,7 @@ export function App() {
                   onClick={() => setImageGalleryOpen(true)}
                   title="Insert image"
                 ><Icon name="image" /> Image</button>
+                <button type="button" className="link-button" onClick={undoDeck} title="Undo the last change to this deck (this session)">Undo</button>
                 <button type="button" className="link-button" disabled={!dirty} onClick={() => render()} title="Save and reload the preview (Ctrl+Enter or Ctrl+S)">Save</button>
               </div>
               {selectedSlide ? (
@@ -1093,17 +1119,23 @@ export function App() {
   );
 }
 
-// Loose heading-text key for pairing parsed slides with the rendered deck's
-// slides. Pandoc strips attributes/markup much as parseHeadingTitle does, so a
-// case- and whitespace-insensitive compare is enough; empty headings (an
-// attribute-only title slide) pair as empty on both sides.
-function normTitle(title) {
-  return (title || "").toLowerCase().replace(/\s+/g, " ").trim();
+// The exclusive end (0-based line index) of a slide's body: the next `#`/`##`
+// heading at column 0 outside a code fence, else end of file. Recomputed from
+// the source so a stale or bad parsed `endLine` can never make the editor read
+// or overwrite past the next slide (the truncation bug). Mirrors the server
+// parser's heading rule.
+function slideBodyEnd(lines, headingLine) {
+  let inFence = false;
+  for (let i = headingLine; i < lines.length; i++) {
+    if (/^```|^~~~/.test(lines[i].trim())) { inFence = !inFence; continue; }
+    if (!inFence && /^#{1,2}(\s|$)/.test(lines[i])) return i;
+  }
+  return lines.length;
 }
 
 function extractBody(source, slide) {
   const lines = source.split(/\r?\n/);
-  const bodyLines = lines.slice(slide.headingLine, slide.endLine);
+  const bodyLines = lines.slice(slide.headingLine, slideBodyEnd(lines, slide.headingLine));
   while (bodyLines.length && !bodyLines[0].trim()) bodyLines.shift();
   while (bodyLines.length && !bodyLines[bodyLines.length - 1].trim()) bodyLines.pop();
   return bodyLines.join("\n");
@@ -1115,7 +1147,7 @@ function extractBody(source, slide) {
 function spliceBody(source, slide, body) {
   const lines = source.split(/\r?\n/);
   const before = lines.slice(0, slide.headingLine);
-  const after = lines.slice(slide.endLine);
+  const after = lines.slice(slideBodyEnd(lines, slide.headingLine));
   const trimmedBody = body.replace(/^\s*\n/, "").replace(/\s*$/, "");
   const bodyLines = trimmedBody ? ["", ...trimmedBody.split("\n"), ""] : [""];
   return {

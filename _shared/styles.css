@@ -1,4 +1,44 @@
-/* Shared Causal Map RevealJS slide styles */
+/* Shared Causal Map RevealJS slide styles
+ * ============================================================================
+ * STYLE MAP. Everything composes from a few orthogonal AXES: pick a component,
+ * add a colour, add modifiers. Keep this vocabulary small; put whimsical,
+ * single-deck flourishes in the deck's own CSS, not here.
+ *
+ *   COMPONENT (what it is)
+ *     .flare      animated inline highlight (flares in, resolves to its colour)
+ *     .hl         static inline highlight (same look, no animation)
+ *     .panel      padded box with an accent left border
+ *     .bg         flat background tint (no border/padding)
+ *     .chip       small inline pill
+ *     .card       plain card (use inside .cards)
+ *     .cards      responsive grid of cards/panels (+ .cols-2/3/4)
+ *     .bignum + .fig + .bn-body   one headline figure beside a note
+ *
+ *   COLOUR (variable-only; one fixed hue each, shows nothing alone)
+ *     .blue .cyan .teal .green .mint .yellow .pink .mag .navy .grey
+ *     each sets --hue (solid), --hue-bright (highlight), --hue-pale (tint),
+ *     --hue-deep (dark), --on (text on a solid fill)
+ *
+ *   MODIFIERS
+ *     .light / .dark            shade: pale or deep fill
+ *     .cascade-2 ... .cascade-5 order: later flares on a line fire in turn
+ *     .scale-50 ... .scale-500  size (text/icons/images); or .scale + --scale
+ *     .place                    float a block anywhere (inline top/left)
+ *     .left / .center / .right  text alignment
+ *
+ *   Examples:
+ *     [x]{.flare .yellow}   [x]{.flare .blue .cascade-2}   [x]{.hl .green}
+ *     ::: {.panel .teal}    ::: {.panel .navy .dark}    ::: {.bg .grey}
+ *     [x]{.chip .mint}      ::: {.cards} ::: {.card .blue} ... ::: :::
+ *
+ * RECOLOUR: a deck retunes the palette by overriding the colour classes' --hue*
+ * variables (never the component rules). See cm-glocal.css.
+ *
+ * LEGACY: .note, .takeaway, .stat, .metric, .tiles live in legacy.css, included
+ * only by old decks. Prefer .panel/.bg/.cards/.bignum instead.
+ *
+ * Full catalogue with examples is in README.md ("reusable content classes").
+ * ============================================================================ */
 
 /* Section breadcrumb: current-section label in the bottom-right, sitting just
    left of the slide number so the two read as one unit. Populated by the
@@ -154,30 +194,135 @@
   margin: 0.2em 0 0.5em;
 }
 
-/* Inline highlights: `[text]{.hl-yellow}`. box-decoration-break keeps the fill
-   tidy when a highlight wraps across lines. */
-.hl-blue, .hl-yellow, .hl-pink, .hl-green {
-  padding: 0 0.18em;
-  border-radius: 3px;
+/* ================================================================ *
+ * DIMENSIONAL SYSTEM (new): component + colour + modifiers          *
+ * ================================================================ *
+ * Compose a component class with a colour class and optional modifiers:
+ *   [text]{.flare .blue}            an animated highlight
+ *   [text]{.flare .blue .cascade-2} ... second in an auto cascade
+ *   ::: {.panel .teal}              a tinted panel
+ *   ::: {.bg .grey}                 a flat tint
+ * Colour classes are variable-only: a colour name is one fixed hue and shows
+ * nothing on its own. Lightness is a separate axis: add .light or .dark.
+ * (During migration the old fused classes hl-N, flare-N, panel-N, bg-N still
+ * work; they will be retired once all decks are moved over.) */
+
+/* COLOUR (variable-only): one colour name carries a few shades:
+     --hue        the solid mid colour  (chips, panel borders, card fills)
+     --hue-bright the vivid fill        (highlights / flares)
+     --hue-pale   the soft tint         (panel and bg backgrounds)
+     --hue-deep   the dark variant      (.dark)
+     --on         text colour on a solid/mid fill
+   Components pick the shade that suits them; .light / .dark override it. */
+.reveal .blue   { --hue: #2b6cb0; --hue-bright: #76F7FF; --hue-pale: #eaf2fb; --hue-deep: #16314f; --on: #fff; }
+.reveal .green  { --hue: #217a52; --hue-bright: #00FFAF; --hue-pale: #e8f3ec; --hue-deep: #123f2b; --on: #fff; }
+.reveal .teal   { --hue: #2a8a86; --hue-bright: #76F7FF; --hue-pale: #e6f7f6; --hue-deep: #14403e; --on: #fff; }
+.reveal .grey   { --hue: #6b7280; --hue-bright: #cbd5e1; --hue-pale: #f4f6f9; --hue-deep: #3a3f44; --on: #fff; }
+.reveal .yellow { --hue: #e8b84b; --hue-bright: #F7ED73; --hue-pale: #fdf6e3; --hue-deep: #8a7d1a; --on: var(--ink); }
+.reveal .pink   { --hue: #d6336c; --hue-bright: #FF8FB8; --hue-pale: #fdeef3; --hue-deep: #a83a64; --on: #fff; }
+.reveal .cyan   { --hue: #0a9bc4; --hue-bright: #76F7FF; --hue-pale: #e6fdff; --hue-deep: #0a6f7a; --on: #fff; }
+.reveal .mint   { --hue: #0aa06a; --hue-bright: #00FFAF; --hue-pale: #e6fff6; --hue-deep: #0a6e4c; --on: #fff; }
+.reveal .navy   { --hue: #1F1F36; --hue-bright: #6DC4C8; --hue-pale: #e6e6ec; --hue-deep: #0e0e1c; --on: #fff; }
+.reveal .mag    { --hue: #DC378C; --hue-bright: #FF8FB8; --hue-pale: #fbe3ef; --hue-deep: #8a1f56; --on: #fff; }
+
+/* A colour class on its own (no component) tints the text with its hue, so
+   [x]{.blue} or ::: {.green} does something visible instead of nothing. Every
+   component below (.hl .flare .chip .panel .card) is defined later at equal
+   specificity, so source order lets the component keep control of its own
+   text colour when you combine them, e.g. .card .blue stays a blue box. */
+.reveal .blue, .reveal .green, .reveal .teal, .reveal .grey, .reveal .yellow,
+.reveal .pink, .reveal .cyan, .reveal .mint, .reveal .navy, .reveal .mag {
+  color: var(--hue);
+}
+
+/* SHADE: which version of the hue the component fills with. */
+.reveal .light { --fill: var(--hue-pale); --text: var(--ink); }
+.reveal .dark  { --fill: var(--hue-deep); --text: #fff; }
+
+/* ALIGN: text alignment dimension. */
+.reveal .left   { text-align: left; }
+.reveal .center { text-align: center; }
+.reveal .right  { text-align: right; }
+
+/* COMPONENT: static highlight. Same look as a settled flare, no animation. Use
+   for calm/content-heavy decks; use .flare when you want it to animate in. */
+.reveal .hl {
+  padding: 0.02em 0.22em;
+  border-radius: 5px;
+  font-weight: 700;
+  background: var(--fill, var(--hue-bright, var(--hue)));
   color: var(--ink);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
-.hl-blue   { background: var(--cm-blue-bright); }
-.hl-yellow { background: var(--cm-yellow); }
-.hl-pink   { background: var(--cm-pink); }
-.hl-green  { background: var(--cm-mint); }
 
-/* Background-only blocks: a pale fill and nothing else (no border, no padding).
-   Wrap a block with `::: {.bg-teal}` ... `:::`. For padded boxes with a left
-   border use the `.panel` family instead. Tints match the panel/stat palette so
-   dark text stays legible. */
-.bg-blue   { background: #eaf2fb; }
-.bg-green  { background: #e8f3ec; }
-.bg-teal   { background: #e6f7f6; }
-.bg-yellow { background: #fdf6e3; }
-.bg-pink   { background: #fdeef3; }
-.bg-grey   { background: var(--grey-bg); }
+/* COMPONENT: highlight (animated). It flares in and resolves to the colour, so
+   a settled flare looks like a plain highlight. Ink text keeps the words
+   readable through the transparent flare-in, so use light/medium hues. */
+.reveal .flare {
+  padding: 0.02em 0.22em;
+  border-radius: 5px;
+  font-weight: 700;
+  color: var(--ink);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  --flare-fill: var(--fill, var(--hue-bright, var(--hue)));
+}
+
+/* COMPONENT: box family reading the colour axis. Declared before the old
+   `.panel-*` rules so those still win for existing slides (same specificity,
+   later wins); the new `.panel .blue` form has no old rule to override. */
+.panel {
+  background: var(--fill, var(--hue-pale, transparent));
+  border-left: 4px solid var(--hue, transparent);
+  color: var(--text, var(--ink));
+}
+.panel > p:first-child strong:first-child,
+.panel > strong:first-child { color: var(--hue, inherit); }
+
+/* Flat tint: a pale fill, no border or padding. */
+.reveal .bg { background: var(--fill, var(--hue-pale, transparent)); padding: 0.5em 0.7em; }
+
+/* Chip: an inline pill filled with the full hue. */
+.reveal .chip {
+  display: inline-block;
+  padding: 0.12em 0.6em;
+  border-radius: 999px;
+  font-size: 0.62em;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  vertical-align: 0.18em;
+  background: var(--fill, var(--hue, #888));
+  color: var(--on, var(--ink));
+}
+
+/* Flare animation for the `.flare` component. It flares in: from nothing, up to
+   an intense glowing peak, then resolves to its colour fill (--flare-fill, set
+   by `.flare` from the colour axis). So a finished flare looks exactly like a
+   static `.hl` of the same colour. Order is a separate axis: add .cascade-2..5
+   to later flares on a line so they fire in turn. It fires on slide-present, or
+   when a containing fragment is revealed, so it is never spent while hidden.
+   Animations outrank normal author rules, so the keyframes win without
+   !important. */
+.reveal .slides section.present .flare {
+  animation: hlFlare 3.8s ease-out var(--flare-delay, 1.3s) both;
+}
+.reveal .slides section.present .fragment:not(.visible) .flare {
+  animation: none;
+}
+.reveal .slides section.present .fragment.visible .flare {
+  animation: hlFlare 3.8s ease-out var(--flare-delay, 0.5s) both;
+}
+.reveal .cascade-2 { --flare-delay: 2.7s; }
+.reveal .cascade-3 { --flare-delay: 4.1s; }
+.reveal .cascade-4 { --flare-delay: 5.5s; }
+.reveal .cascade-5 { --flare-delay: 6.9s; }
+@keyframes hlFlare {
+  0%   { background-color: transparent;                        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); filter: none; }
+  42%  { background-color: var(--flare-fill, var(--cm-yellow)); box-shadow: 0 0 20px 5px var(--flare-fill, var(--cm-yellow)); filter: brightness(1.18) saturate(1.5); }
+  100% { background-color: var(--flare-fill, var(--cm-yellow)); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); filter: none; }
+}
 
 /* Accent text */
 .accent {
@@ -185,10 +330,12 @@
   font-weight: 700;
 }
 
-/* Coloured panels */
+/* Panels: a padded, rounded box. Use `.panel` plus a colour (`.panel .teal`);
+   the colour axis (above) supplies the pale tint and the accent left border.
+   `.panel` alone is a plain padded box; `.panel .navy .dark` is a dark box. */
 .panel {
   border-radius: 6px;
-  padding: 0.7em 0.9em;
+  padding: 0.7em 1em 0.7em 1.3em;
   margin: 0.4em 0;
   font-size: 1em;
   line-height: 1.35;
@@ -197,226 +344,146 @@
 .panel ul, .panel ol { margin: 0.2em 0 0.2em 0.8em; font-size: 0.8em; }
 .panel li { font-size: 0.8em; margin: 0.1em 0; }
 
-.panel-blue  { background: #eaf2fb; border-left: 4px solid var(--blue); }
-.panel-blue  > p:first-child strong:first-child,
-.panel-blue  > strong:first-child { color: var(--blue); }
-
-.panel-green { background: #e8f3ec; border-left: 4px solid var(--green); }
-.panel-green > p:first-child strong:first-child,
-.panel-green > strong:first-child { color: var(--green); }
-
-.panel-teal  { background: #e6f7f6; border-left: 4px solid var(--teal); }
-.panel-teal  > p:first-child strong:first-child,
-.panel-teal  > strong:first-child { color: var(--teal-dark); }
-
-.panel-grey  { background: var(--grey-bg); border-left: 4px solid #888; }
-.panel-grey  > p:first-child strong:first-child,
-.panel-grey  > strong:first-child { color: #555; }
-
-/* Amber note */
-.note {
-  background: #fdf6e3;
-  border-left: 4px solid var(--amber);
-  border-radius: 0 4px 4px 0;
-  padding: 0.5em 0.8em;
-  margin: 0.5em 0;
-  font-size: 0.78em;
-  line-height: 1.35;
+/* Cards: a responsive grid of boxes that wrap and stretch to equal height. Two
+   ways to fill it:
+     ::: {.cards}                         a plain list, one card per item
+     - **Title** body text
+     - **Title** body text
+     :::
+     ::: {.cards}                         or explicit panels for richer cards
+     ::: {.panel .teal} ... :::
+     ::: {.card .blue} ... :::
+     :::
+   `display: contents` on a contained list promotes its items into the grid. */
+.reveal .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5em;
+  margin: 0.4em 0;
+  padding: 0.5em;           /* so a background on .cards frames the grid */
+  /* Cards size to their own content (correct padding, inline text stays inline).
+     A stretch here made short cards as tall as the tallest with content pinned
+     to the top and a gap below, which read as broken padding. */
+  align-items: start;
 }
-.note p { font-size: 1em; margin: 0.2em 0; }
+.reveal .cards > ul, .reveal .cards > ol { display: contents; }
+/* align-items: stretch already gives equal-height cards; no explicit height,
+   which would otherwise overflow when .cards sits in a height-limited box. */
+/* Reveal's theme gives list items and their paragraphs their own vertical
+   margin and line-height, so a bullet-card ended up a different height and
+   baseline from an explicit .card div in the same grid. Beat the theme (raised
+   specificity via .slides) and normalise the inner content so that, with
+   align-items: stretch, every card in a grid is identical. */
+.reveal .slides .cards > .panel, .reveal .slides .cards > [class*="panel-"],
+.reveal .slides .cards > .card, .reveal .slides .cards li { margin: 0; line-height: 1.3; }
+.reveal .slides .cards li > *, .reveal .slides .cards .card > * { margin: 0; line-height: 1.3; }
 
-/* Examples block (grey) */
-.examples {
-  background: var(--grey-bg);
-  border-radius: 5px;
+/* A single card: a plain box (no border) you can colour with the colour axis.
+   The quick list form (one card per `-`) gives uniform cards but cannot carry
+   per-item colours, so for individually coloured cards write explicit `.card`s:
+     ::: {.cards}
+     ::: {.card} plain grey :::
+     ::: {.card .blue} blue :::
+     ::: {.card .yellow .light} pale yellow :::
+     :::
+   With no colour it falls back to the default card grey. */
+/* One rule for both the explicit `.card` and the auto-card list items, so they
+   are identical in size. A list item can't take a colour class, so it falls back
+   to the default grey; an explicit `.card .blue` reads the colour axis. */
+.reveal .card,
+.reveal .cards li {
+  list-style: none;
+  background: var(--fill, var(--hue, var(--grey-bg)));
+  color: var(--text, var(--on, var(--ink)));
+  border-radius: 6px;
+  padding: 0.5em 0.7em;
+  line-height: 1.3;
+  font-size: 0.8em;
+}
+/* Collapse the wrapping <p> a markdown div-card gets, so a one-paragraph
+   .card div is the exact same height as a bare-text bullet-card li. Stacked
+   paragraphs still get space between them. */
+.reveal .card p { font-size: 1em; margin: 0; }
+.reveal .card p + p { margin-top: 0.4em; }
+/* A .cards nested inside a card or column has far less width, so the default
+   180px auto-fit floor collapses it to a single stacked column (cards appear
+   not to nest). Use a smaller floor when nested so sub-grids still form columns.
+   Placed before .cols-* so an explicit .cols-2/3/4 still wins. */
+.reveal .cards .cards { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
+
+/* Force a fixed column count instead of the responsive default. */
+.reveal .cards.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.reveal .cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.reveal .cards.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Nested columns. Quarto ships two competing column rules: a flex pair and an
+   inline-block 50% pair. The inline-block pair wins for a .columns inside a
+   .column, so nested columns stack instead of sitting side by side. Force flex
+   at every depth. flex-basis auto keeps any explicit width= set on a .column;
+   min-width:0 lets a column shrink so long content can't overflow the row. */
+.reveal .slides .columns { display: flex; gap: min(4vw, 1.5em); }
+.reveal .slides .columns > .column { display: block; flex: 1 1 auto; min-width: 0; }
+
+/* Freely placed block. Floats over the other content, holding whatever you put
+   in it, with no look of its own.
+     ::: {.place style="top:30%; left:54%; width:30%"}
+     anything here
+     :::
+   It is position:absolute, so the offsets are measured from the nearest
+   positioned ancestor. Keep it at the top level of a slide and that is the
+   slide itself (Reveal makes each section positioned). Nested inside another
+   positioned box (e.g. a deck's absolutely placed `.body`) it anchors to that
+   box instead, so put it outside such wrappers for whole-slide placement. */
+.reveal .place { position: absolute; z-index: 20; }
+
+/* Scale a block. Uniformly shrinks or grows everything inside it (text, boxes,
+   icons, images) and reflows. This is our one sizing dimension: use it to fit a
+   busy slide, enlarge a sparse one, or size an icon (instead of FontAwesome's
+   deprecated `.fa-2x` ... `.fa-10x`). Presets span small to large; for any other
+   amount set the variable, e.g. `::: {.scale style="--scale:8"}` (= old fa-8x).
+   The number is a percentage: .scale-50 = half, .scale-300 = triple. */
+.reveal .scale     { zoom: var(--scale, 1); }
+.reveal .scale-50  { zoom: 0.5; }
+.reveal .scale-75  { zoom: 0.75; }
+.reveal .scale-90  { zoom: 0.9; }
+.reveal .scale-110 { zoom: 1.1; }
+.reveal .scale-125 { zoom: 1.25; }
+.reveal .scale-150 { zoom: 1.5; }
+.reveal .scale-200 { zoom: 2; }
+.reveal .scale-300 { zoom: 3; }
+.reveal .scale-500 { zoom: 5; }
+
+/* Big-number callout: a large figure beside a short explanation, in a pale box.
+   Good for a headline statistic. Structure:
+     ::: {.bignum}
+     ::: {.fig}
+     90%
+     :::
+     ::: {.bn-body}
+     of explicit causal claims code cleanly as a single link.
+     :::
+     :::
+   Put a unit in a `<small>` inside .fig (e.g. `90<small>%</small>`). Per-deck
+   CSS can recolour with --bignum-box (the card) and --bignum-fig (the figure). */
+.reveal .bignum {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  background: var(--bignum-box, #e6f7f6);
+  border-radius: 10px;
   padding: 0.6em 0.9em;
   margin: 0.4em 0;
-  font-size: 0.8em;
 }
-.examples p { font-size: 1em; margin: 0.2em 0; }
-.examples > p:first-child strong { color: var(--teal-dark); display: block; margin-bottom: 0.3em; }
-
-/* Tile grid */
-.tiles ul,
-.tiles ol {
-  list-style: none;
-  padding: 0;
-  margin: 0.3em 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.4em;
-}
-.tiles li {
-  background: var(--grey-bg);
-  border-radius: 4px;
-  padding: 0.5em 0.7em;
-  font-size: 0.72em;
-  line-height: 1.3;
-  margin: 0;
-}
-.tiles li strong { display: block; color: var(--ink); margin-bottom: 0.1em; font-size: 1em; }
-
-/* Quote block */
-.quote {
-  background: #e6f7f6;
-  border-left: 4px solid var(--teal);
-  border-radius: 0 4px 4px 0;
-  padding: 0.5em 0.9em;
-  margin: 0.5em 0;
-  font-style: italic;
-  font-size: 0.78em;
-  line-height: 1.35;
-}
-.quote p { margin: 0.2em 0; font-size: 1em; }
-.quote em { font-style: normal; color: var(--green); font-weight: 700; font-size: 0.9em; }
-
-/* Takeaway boxes (dark) */
-.takeaway {
-  background: var(--bg);
-  color: var(--muted);
-  border-radius: 8px;
-  padding: 1em 0.9em;
-  font-size: 0.78em;
-  line-height: 1.4;
-  height: 100%;
-}
-.takeaway p { color: var(--muted); margin: 0.3em 0; font-size: 1em; }
-.takeaway > p:first-child strong {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.8em;
-  height: 1.8em;
-  border-radius: 50%;
-  background: var(--teal);
-  color: var(--bg);
-  font-size: 1em;
-  margin-bottom: 0.3em;
-}
-.takeaway > p:nth-child(2) strong { color: white; display: block; font-size: 1.1em; margin: 0.2em 0 0.3em; }
-
-/* Stat pills */
-.stat {
-  display: inline-block;
-  padding: 0.25em 0.5em;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 0.8em;
-  margin: 0.1em 0.1em;
-}
-.stat-blue  { background: #eaf2fb; color: var(--blue); }
-.stat-green { background: #e8f3ec; color: var(--green); }
-.stat-teal  { background: #e6f7f6; color: var(--teal-dark); }
-.stat strong { font-size: 1.3em; }
-
-/* Metric blocks (AI validation numbers) */
-.metric-row {
-  display: flex;
-  gap: 0.8em;
-  margin: 0.5em 0;
-}
-.metric-row .metric { flex: 1; }
-
-.metric {
-  background: #e6f7f6;
-  border-radius: 6px;
-  padding: 0.8em 0.6em;
-  text-align: center;
-}
-.metric p { margin: 0.1em 0; }
-.metric-num {
-  display: block;
-  font-size: 1.8em;
+.reveal .bignum .fig {
+  font-size: 2.6em;
   font-weight: 800;
-  color: var(--teal-dark);
+  color: var(--bignum-fig, var(--teal-dark));
   line-height: 1;
+  white-space: nowrap;
 }
-.metric-label {
-  display: block;
-  font-size: 0.55em;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--teal-dark);
-  margin-top: 0.3em;
-  line-height: 1.2;
-}
-
-/* Applications slide: card grid */
-.case-cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.35em;
-  margin: 0.25em 0 0.35em 0;
-}
-.case-card {
-  background: var(--grey-bg);
-  border-radius: 5px;
-  padding: 0.45em 0.55em;
-  border-left: 3px solid var(--teal-dark);
-  font-size: 0.58em;
-  line-height: 1.28;
-  text-align: left;
-}
-.case-card p { margin: 0; font-size: 1em; }
-.case-card strong {
-  display: block;
-  color: var(--ink);
-  font-size: 1.06em;
-  margin-bottom: 0.28em;
-  line-height: 1.2;
-}
-.case-card a {
-  color: var(--teal-dark);
-  font-weight: 700;
-  text-decoration: none;
-}
-.case-card a:hover {
-  text-decoration: underline;
-}
-
-/* QA grid: numbered list with teal circles */
-.qa-grid {
-  counter-reset: qa;
-}
-.reveal .qa-grid > ol {
-  list-style: none;
-  padding: 0;
-  margin: 0.4em 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 1fr;
-  gap: 0.5em;
-}
-.qa-grid > ol > li {
-  list-style: none;
-  background: #e6f7f6;
-  border-radius: 5px;
-  padding: 0.6em 0.7em;
-  font-size: 0.65em;
-  line-height: 1.3;
-  position: relative;
-  counter-increment: qa;
-  margin: 0;
-}
-.qa-grid > ol > li::marker {
-  content: none;
-}
-.qa-grid > ol > li::before {
-  content: counter(qa);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.6em;
-  height: 1.6em;
-  border-radius: 50%;
-  background: var(--teal);
-  color: var(--bg);
-  font-weight: 800;
-  font-size: 0.9em;
-  margin-bottom: 0.3em;
-}
-.qa-grid > ol > li strong { display: block; margin: 0.2em 0; color: var(--ink); font-size: 1.05em; }
+.reveal .bignum .fig small { font-size: 0.4em; font-weight: 700; }
+.reveal .bignum .bn-body p,
+.reveal .bignum p { font-size: 0.72em; margin: 0.15em 0; line-height: 1.35; }
 
 /* Resources slide content (dark background) */
 .resources-col {
@@ -497,10 +564,7 @@
   margin-top: 1em;
 }
 
-/* Inline callouts and captions */
-.arrow-blue  { color: var(--blue);  font-size: 0.75em; font-weight: 600; }
-.arrow-green { color: var(--green); font-size: 0.75em; font-weight: 600; }
-
+/* Small caption under an image or figure. */
 .caption {
   display: block;
   font-size: 0.6em;
@@ -508,21 +572,6 @@
   margin-top: 0.2em;
   line-height: 1.3;
 }
-
-.emph-blue  { color: var(--blue);  font-weight: 700; }
-.emph-green { color: var(--green); font-weight: 700; }
-
-.source-credit {
-  display: block;
-  text-align: center;
-  margin-top: 1em;
-  color: var(--teal-dark);
-  font-weight: 700;
-  font-size: 0.75em;
-}
-
-/* Center-aligned variant of any coloured panel */
-.panel-center { text-align: center; }
 
 /* Resources slide refs (non-link teal text) */
 .resources-col .ref { color: var(--teal); }

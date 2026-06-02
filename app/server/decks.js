@@ -241,23 +241,56 @@ export async function readDeckSource(repoRoot, deckId) {
   };
 }
 
+// In-memory, session-scoped version history per deck: every write snapshots the
+// content it is about to overwrite, so a bad edit (e.g. a truncating save) can
+// be undone. Cleared on server restart, which is fine for an in-session undo.
+const deckHistory = new Map(); // deckId -> [{ source, ts }] (most recent last)
+const HISTORY_LIMIT = 100;
+
+function snapshotDeck(deckId, source) {
+  if (typeof source !== "string") return;
+  const hist = deckHistory.get(deckId) || [];
+  if (hist.length && hist[hist.length - 1].source === source) return; // skip no-ops
+  hist.push({ source, ts: Date.now() });
+  while (hist.length > HISTORY_LIMIT) hist.shift();
+  deckHistory.set(deckId, hist);
+}
+
 export async function writeDeckSource(repoRoot, deckId, source, base) {
   const deck = await getDeck(repoRoot, deckId);
   const filePath = deckSourcePath(repoRoot, deck);
+  const current = await fs.readFile(filePath, "utf8").catch(() => null);
   // Optimistic concurrency: if the caller says what it last saw on disk
   // (`base`), refuse to write when the file has changed underneath it. This
   // stops a stale editor buffer (or another deck's content) from silently
   // overwriting the deck. The client reloads on a 409 and the user re-applies.
-  if (typeof base === "string") {
-    const current = await fs.readFile(filePath, "utf8").catch(() => null);
-    if (current !== null && current !== base) {
-      throw Object.assign(
-        new Error("This deck changed on disk since you opened it. Reload it before saving."),
-        { status: 409 }
-      );
-    }
+  if (typeof base === "string" && current !== null && current !== base) {
+    throw Object.assign(
+      new Error("This deck changed on disk since you opened it. Reload it before saving."),
+      { status: 409 }
+    );
   }
+  if (current !== null) snapshotDeck(deckId, current); // keep the version we overwrite
   await fs.writeFile(filePath, source, "utf8");
+  return readDeckSource(repoRoot, deckId);
+}
+
+// Restore the most recent snapshot that differs from what is on disk now.
+export async function undoDeckSource(repoRoot, deckId) {
+  const hist = deckHistory.get(deckId) || [];
+  const deck = await getDeck(repoRoot, deckId);
+  const filePath = deckSourcePath(repoRoot, deck);
+  const current = await fs.readFile(filePath, "utf8").catch(() => null);
+  let prev = null;
+  while (hist.length) {
+    const candidate = hist.pop();
+    if (candidate.source !== current) { prev = candidate; break; }
+  }
+  deckHistory.set(deckId, hist);
+  if (!prev) {
+    throw Object.assign(new Error("Nothing to undo in this session."), { status: 404 });
+  }
+  await fs.writeFile(filePath, prev.source, "utf8");
   return readDeckSource(repoRoot, deckId);
 }
 

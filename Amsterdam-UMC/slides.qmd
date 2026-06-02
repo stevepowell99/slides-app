@@ -18,6 +18,7 @@ format:
       - ../_shared/preview-bridge.html
     css:
       - ../_shared/styles.css
+      - ../_shared/legacy.css
       - ../fontawesome/css/all.min.css
 ---
 
@@ -80,7 +81,7 @@ The common move: messy reality into useful structure.
 
 :::: {.columns}
 ::: {.column width="50%"}
-::: {.panel .panel-blue}
+::: {.panel .blue}
 **Reading 1: a fact about the world**
 
 *If X goes up, Y goes up.*
@@ -88,11 +89,11 @@ The common move: messy reality into useful structure.
 A claim about the system itself. Backed by measurement, modelling, simulation.
 :::
 
-[→ System dynamics, CLDs, FCMs]{.arrow-blue}
+[→ System dynamics, CLDs, FCMs]{.accent}
 :::
 
 ::: {.column width="50%"}
-::: {.panel .panel-green}
+::: {.panel .green}
 **Reading 2: a claim with a source**
 
 *"This person said X influenced Y, in this context, in this quote."*
@@ -100,7 +101,7 @@ A claim about the system itself. Backed by measurement, modelling, simulation.
 A claim about somebody's account of the world. Backed by quoting them.
 :::
 
-[→ Causal Map]{.arrow-green}
+[→ Causal Map]{.accent}
 :::
 ::::
 
@@ -134,7 +135,7 @@ A CLD is usually a hypothesis about the system. This map shows the *distribution
 ::: {.column width="50%"}
 A factor is a short proposition, close to what someone said.
 
-::: {.examples}
+::: {.panel .grey}
 **Examples**
 
 "Not enough money in the household"
@@ -186,7 +187,7 @@ Bare links plus good labels let analysts:
 ::: {.column width="50%"}
 Hierarchical labels let a dense map zoom out without deleting detail.
 
-::: {.panel .panel-teal}
+::: {.panel .teal}
 **Convention**
 
 `General; specific`
@@ -229,13 +230,13 @@ The `~` marks the opposite pole. Combining opposites rewrites both poles to one 
 :::
 
 ::: {.column width="50%"}
-::: {.panel .panel-green}
+::: {.panel .green}
 **Why not just plus/minus links?**
 
 A link can be flipped at the cause end, the effect end, or both. Treating this as one average positive or negative strength loses information.
 :::
 
-::: {.panel .panel-blue}
+::: {.panel .blue}
 **Sentiment is different**
 
 Sentiment is link metadata, usually `-1`, `0`, `1`. It says whether the claim is positive, neutral or negative in context. It is not the same as an opposite-coded factor.
@@ -251,7 +252,7 @@ Opposites preserve meaning across labels. Sentiment marks the tone or valence of
 
 :::: {.columns}
 ::: {.column width="50%"}
-::: {.panel .panel-blue .panel-center}
+::: {.panel .blue .center}
 **Stakeholder cognitions**
 
 What people *think* causes what. The map as a record of distributed belief.
@@ -259,7 +260,7 @@ What people *think* causes what. The map as a record of distributed belief.
 :::
 
 ::: {.column width="50%"}
-::: {.panel .panel-teal .panel-center}
+::: {.panel .teal .center}
 **Facts about the world**
 
 What *really* influences what. The map as the start of an argument.
@@ -275,14 +276,14 @@ Causal mapping has often muddled these two functions. The important move is to k
 
 Moving from claims to conclusions is a sequence of checks. Only the last is required; most projects use several.
 
-::: {.qa-grid}
-1. **Managing the codebook**: zero codebook, fixed codebook or somewhere in between; revisit as coding proceeds.
-2. **Coding individual claims**: identify causal claims and keep them close to source wording.
-3. **Checking individual claims**: reject hallucinated, hypothetical, reversed or over-interpreted links.
-4. **Moving from claims to bundles**: group all X→Y claims; decide whether to create one assessed link.
-5. **From bundles to pathways**: check whether links form coherent paths, especially source-traced paths.
-6. **Judging value and relative contribution**: ask whether the pathway matters and how contribution compares with alternatives.
-7. **Holistic judgements, the whole thing**: does the account hang together well enough to use?
+::: {.cards .cols-3}
+- **1 · Managing the codebook** zero codebook, fixed codebook or somewhere in between; revisit as coding proceeds.
+- **2 · Coding individual claims** identify causal claims and keep them close to source wording.
+- **3 · Checking individual claims** reject hallucinated, hypothetical, reversed or over-interpreted links.
+- **4 · Moving from claims to bundles** group all X→Y claims; decide whether to create one assessed link.
+- **5 · From bundles to pathways** check whether links form coherent paths, especially source-traced paths.
+- **6 · Judging value and relative contribution** ask whether the pathway matters and how contribution compares with alternatives.
+- **7 · Holistic judgements, the whole thing** does the account hang together well enough to use?
 :::
 
 ## Moment 1: managing the codebook
@@ -394,11 +395,11 @@ The workflow:
 ::: {.column width="50%"}
 A→B plus B→C does *not* automatically mean A→C. Contexts may not line up.
 
-::: {.panel .panel-blue}
+::: {.panel .blue}
 **Path tracing**: keeps links lying on *some* path from A to C.
 :::
 
-::: {.panel .panel-green}
+::: {.panel .green}
 **Source tracing**: keeps only sources whose *own account* runs all the way from A to C.
 :::
 
@@ -448,7 +449,7 @@ The final judgement is about the whole account.
 - **Usefulness** &nbsp; Good enough for the decision?
 :::
 
-::: {.quote}
+::: {.panel .teal}
 Having looked across claims, bundles, pathways, gaps and rivals: is this worth standing behind?
 :::
 
@@ -456,7 +457,7 @@ A vignette can draft this whole-map judgement. You check it.
 :::
 
 ::: {.column width="60%"}
-::: {.panel .panel-green}
+::: {.panel .green}
 **Example vignette output**
 
 Based on the data, the quotes provided by individual sources largely represent coherent causal stories explaining the journey from increased knowledge to food consumption quantity.
@@ -480,11 +481,9 @@ One source links lessons from the organisation to increased output, then links t
 
 INTRAC was MEL partner for a 13-country civil-society programme. Outcome Harvesting gave rich data, but not the big picture.
 
-::: {.quote}
-Couldn't understand the big picture, for the whole programme but also for specific countries too.
-
-*- Alastair Spray, INTRAC*
-:::
+> Couldn't understand the big picture, for the whole programme but also for specific countries too.
+>
+> *- Alastair Spray, INTRAC*
 
 Zero-shot AI coding: no pre-set codebook. Outputs: one programme map, 13 country maps, filtered views by objective and time period.
 :::
@@ -528,7 +527,7 @@ The map you see is one view. Behind it sits a queryable database of links, sourc
 :::
 
 ::: {.column width="58%"}
-::: {.panel .panel-blue}
+::: {.panel .blue}
 **About factors**
 
 - level in coding hierarchy
@@ -536,7 +535,7 @@ The map you see is one view. Behind it sits a queryable database of links, sourc
 - upstream / downstream of a chosen factor
 :::
 
-::: {.panel .panel-green}
+::: {.panel .green}
 **About links**
 
 - tags, custom columns
@@ -544,7 +543,7 @@ The map you see is one view. Behind it sits a queryable database of links, sourc
 - assessed vs unassessed
 :::
 
-::: {.panel .panel-teal}
+::: {.panel .teal}
 **About sources**
 
 - role, region, programme arm
@@ -557,20 +556,20 @@ The map you see is one view. Behind it sits a queryable database of links, sourc
 
 :::: {.columns}
 ::: {.column width="50%"}
-::: {.panel .panel-blue}
+::: {.panel .blue}
 **Raw cognition maps**
 
 For policy design, behaviour change and stakeholder analysis: what do people think drives what?
 
-[The map is the answer.]{.emph-blue}
+[The map is the answer.]{.accent}
 :::
 
-::: {.panel .panel-green}
+::: {.panel .green}
 **Assessed maps**
 
 For evaluation and theory-of-change checks: which claims are vouched for, and with what behind them?
 
-[The map is the start of an argument.]{.emph-green}
+[The map is the start of an argument.]{.accent}
 :::
 :::
 
@@ -585,7 +584,7 @@ For evaluation and theory-of-change checks: which claims are vouched for, and wi
 
 :::: {.columns}
 ::: {.column width="33%"}
-::: {.panel .panel-blue}
+::: {.panel .blue}
 **System dynamics, CLDs, FCMs**
 
 - arrows = facts about the world
@@ -597,7 +596,7 @@ For evaluation and theory-of-change checks: which claims are vouched for, and wi
 :::
 
 ::: {.column width="33%"}
-::: {.panel .panel-green}
+::: {.panel .green}
 **Text-coded causal mapping**
 
 - arrows = claims with a source
@@ -609,7 +608,7 @@ For evaluation and theory-of-change checks: which claims are vouched for, and wi
 :::
 
 ::: {.column width="33%"}
-::: {.panel .panel-grey}
+::: {.panel .grey}
 **Also distinct from**
 
 **CAQDAS**: text tags, no map structure
@@ -621,7 +620,7 @@ For evaluation and theory-of-change checks: which claims are vouched for, and wi
 :::
 ::::
 
-[Comparison table adapted from Powell, Copestake and Remnant 2024]{.source-credit}
+[Comparison table adapted from Powell, Copestake and Remnant 2024]{.caption}
 
 ## The methods landscape in full
 

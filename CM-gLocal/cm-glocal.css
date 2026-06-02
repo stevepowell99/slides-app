@@ -178,17 +178,12 @@
 }
 .reveal .callout p, .reveal .callout li { color: var(--white); font-size: 22px; }
 
-/* Two highlight chips used inline in body text. */
-.reveal .chip-yes, .reveal .chip-no {
-  display: inline-block;
-  padding: 0.05em 0.5em;
-  border-radius: 6px;
-  font-size: 0.7em;
-  font-weight: 700;
-  vertical-align: middle;
-}
-.reveal .chip-yes { background: var(--cyan);    color: var(--white); }
-.reveal .chip-no  { background: var(--magenta); color: var(--white); }
+/* Chips are now `.chip .cyan` / `.chip .mag` (component + colour); the colour
+   overrides above give them the deck palette, so no recolour is needed here. */
+
+/* Big-number callout, deck palette: navy figure on a pale cyan card. */
+.reveal .bignum { --bignum-box: #eaf6fb; --bignum-fig: var(--navy); }
+
 
 /* ================================================================ *
  * SECTION divider (navy)                                           *
@@ -303,6 +298,84 @@
   z-index: 5;
 }
 .reveal .shot-cap b { font-weight: 700; }
+.reveal .shot-cap a { color: var(--cyan); }
+
+/* Red strike-out for "things we do not code" lists. */
+.reveal .strike-red {
+  text-decoration: line-through;
+  text-decoration-color: #d11;
+  text-decoration-thickness: 2px;
+}
+
+/* "You don't need a special app": three mock app windows, full width. */
+.reveal section.content .mashup {
+  position: absolute;
+  top: 23%;
+  left: var(--edge);
+  right: var(--edge);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+  z-index: 2;
+}
+.reveal .mashup .app {
+  border: 1px solid #c8c8c8;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.reveal .mashup .bar {
+  background: var(--navy);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px 10px;
+}
+.reveal .mashup .pane {
+  padding: 12px;
+  font-size: 17px;
+  line-height: 1.35;
+  min-height: 158px;
+  color: var(--ink);
+}
+.reveal .mashup .pane.code { font-style: italic; }
+.reveal .mashup mark { padding: 0 0.15em; border-radius: 3px; color: var(--ink); }
+.reveal .mashup mark.m1 { background: var(--cyan); }
+.reveal .mashup mark.m2 { background: var(--yellow); }
+.reveal .mashup mark.m3 { background: var(--magenta); color: var(--white); }
+.reveal .mashup table.ce { border-collapse: collapse; width: 100%; font-size: 16px; }
+.reveal .mashup table.ce th { background: var(--navy); color: var(--white); text-align: left; padding: 5px 8px; }
+.reveal .mashup table.ce td { border: 1px solid #ddd; padding: 5px 8px; }
+.reveal .mashup .mapsvg { width: 100%; height: 158px; }
+.reveal section.content .mashup-note {
+  position: absolute;
+  left: var(--edge);
+  right: var(--edge);
+  bottom: 9%;
+  font-size: 24px;
+  color: var(--ink);
+  z-index: 2;
+}
+
+/* ================================================================ *
+ * Colour palette: recolour the shared colour axis to the deck.      *
+ * Components read these (--hue etc.), so [text]{.flare .cyan},       *
+ * ::: {.panel .navy .dark}, [x]{.chip .mag} all use the deck palette.*
+ * ================================================================ */
+.reveal .cyan   { --hue: #00ADEE; --hue-bright: #00ADEE; --hue-pale: #d6f3fc; --hue-deep: #0a6f8c; --on: var(--ink); }
+.reveal .yellow { --hue: #FFE000; --hue-bright: #FFE000; --hue-pale: #fff7b0; --hue-deep: #8a7a00; --on: var(--ink); }
+.reveal .mag    { --hue: #DC378C; --hue-bright: #DC378C; --hue-pale: #f8d0e3; --hue-deep: #8a1f56; --on: var(--white); }
+.reveal .blue   { --hue: #1C79BE; --hue-bright: #1C79BE; --hue-pale: #d6e8f5; --hue-deep: #0f3f63; --on: var(--white); }
+.reveal .navy   { --hue: #0E3D5F; --hue-bright: #0E3D5F; --hue-pale: #d4e0e8; --hue-deep: #06222f; --on: var(--white); }
+
+/* The transitivity "No." verdict, styled big and magenta inline. */
+.reveal .verdict {
+  font-family: "BR Omny Bold", "BR Omny", "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.5em;
+  color: var(--magenta);
+}
 
 /* Images in content keep no decorative borders. */
 .reveal section img { border: 0; box-shadow: none; border-radius: 0; }

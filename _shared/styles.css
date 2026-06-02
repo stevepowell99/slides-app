@@ -13,6 +13,8 @@
  *     .card       plain card (use inside .cards)
  *     .cards      responsive grid of cards/panels (+ .cols-2/3/4)
  *     .bignum + .fig + .bn-body   one headline figure beside a note
+ *     .shot-cap   caption pinned to the bottom of a full-bleed image slide,
+ *                 on a mostly opaque dark fill (use instead of .caption there)
  *
  *   COLOUR (variable-only; one fixed hue each, shows nothing alone)
  *     .blue .cyan .teal .green .mint .yellow .pink .mag .navy .grey
@@ -564,7 +566,10 @@
   margin-top: 1em;
 }
 
-/* Small caption under an image or figure. */
+/* Small caption under an image or figure. Plain grey text, NO background, so
+   it is only legible against a plain slide. NOTE: do not use .caption to label
+   a full-bleed `background-image` slide; the grey text disappears into a busy
+   map. Use .shot-cap below, which carries a mostly opaque background. */
 .caption {
   display: block;
   font-size: 0.6em;
@@ -572,6 +577,25 @@
   margin-top: 0.2em;
   line-height: 1.3;
 }
+
+/* Caption pinned to the bottom of a full-bleed `background-image` slide. The
+   mostly opaque dark fill keeps it readable over any map or screenshot, which
+   .caption cannot do. Palette-neutral here; a deck may retint the background in
+   its own CSS (see CM-gLocal). */
+.reveal .shot-cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  background: rgba(31, 31, 54, 0.88);
+  color: #fff;
+  padding: 0.5em 1.2em;
+  font-size: 0.62em;
+  line-height: 1.3;
+  z-index: 5;
+}
+.reveal .shot-cap a { color: var(--cm-blue-bright); }
 
 /* Resources slide refs (non-link teal text) */
 .resources-col .ref { color: var(--teal); }

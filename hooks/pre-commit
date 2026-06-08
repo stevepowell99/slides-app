@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 # Keep the committed _site/ (which Netlify serves) in step with the slide
-# sources. If this commit touches a .qmd, _shared/, fontawesome/, or
-# build-site.ps1, rebuild _site/ and stage it into the same commit. Commits that
-# don't touch slide sources skip the build entirely. Bypass with:
+# sources. If this commit touches a .qmd, .pdf, _shared/, fontawesome/, or
+# build-site.ps1, rebuild _site/ and stage it into the same commit. The .pdf
+# case matters because the app's Build PDF button writes a fresh deck PDF that
+# build-site.ps1 copies into _site; without it, committing a regenerated PDF
+# would leave the published download link stale. Commits that don't touch slide
+# sources skip the build entirely. Bypass with:
 #   git commit --no-verify
 set -euo pipefail
 
@@ -18,7 +21,7 @@ cd "$root"
 
 staged="$(git diff --cached --name-only --diff-filter=ACMR)"
 
-if ! printf '%s\n' "$staged" | grep -Eq '(\.qmd$|^_shared/|^fontawesome/|^build-site\.ps1$)'; then
+if ! printf '%s\n' "$staged" | grep -Eq '(\.qmd$|\.pdf$|^_shared/|^fontawesome/|^build-site\.ps1$)'; then
   exit 0
 fi
 

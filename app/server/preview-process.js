@@ -39,7 +39,15 @@ export async function startPreview(repoRoot, deckId) {
 
   child.on("exit", (code) => {
     previews.delete(deckId);
-    if (code) console.error(`${tag} exited with code ${code}`);
+    if (code) {
+      console.error(`${tag} exited with code ${code}`);
+      // Quarto spawns Deno as the preview web server. When Quarto dies on a
+      // render error, Deno is reparented and outlives it, still holding the
+      // port and locking this deck's slides.html, so the next render collides.
+      // killTree can no longer reach it via the (dead) Quarto pid, so reap it
+      // by the port it is listening on.
+      killByPort(port);
+    }
   });
   child.on("error", (err) => {
     previews.delete(deckId);
@@ -60,9 +68,9 @@ export async function startPreview(repoRoot, deckId) {
     () => true,
     () => {
       stopPreview(deckId);
-      const detail = lastError.trim().split(/\r?\n/).slice(-5).join("\n");
+      const detail = extractError(lastError);
       throw Object.assign(
-        new Error(`Quarto preview did not start in time${detail ? `:\n${detail}` : ""}`),
+        new Error(`Quarto preview failed to render${detail ? `:\n${detail}` : ""}`),
         { status: 500 }
       );
     }
@@ -78,7 +86,40 @@ export function stopPreview(deckId) {
   const entry = previews.get(deckId);
   if (!entry) return;
   killTree(entry.process);
+  killByPort(entry.port); // reap the Deno preview server even if Quarto already exited
   previews.delete(deckId);
+}
+
+// Kill whatever is listening on a loopback port, tree and all. Used to reap the
+// Deno preview server when it has been reparented away from its dead Quarto
+// parent and killTree can no longer find it. Idempotent: a no-op if nothing
+// holds the port. Windows-only (Steve's one environment); the Unix branch of
+// killTree already signals the group.
+function killByPort(port) {
+  if (!port || process.platform !== "win32") return;
+  try {
+    const out = spawnSync("netstat", ["-ano", "-p", "TCP"], { encoding: "utf8" }).stdout || "";
+    const pids = new Set();
+    for (const line of out.split(/\r?\n/)) {
+      const m = line.match(/127\.0\.0\.1:(\d+)\s+\S+\s+LISTENING\s+(\d+)/);
+      if (m && Number(m[1]) === port) pids.add(m[2]);
+    }
+    for (const pid of pids) {
+      try { spawnSync("taskkill", ["/pid", pid, "/T", "/F"]); } catch { /* ignore */ }
+    }
+  } catch { /* ignore */ }
+}
+
+// Pull the real cause out of Quarto's stderr. A render failure buries the one
+// useful line under the echoed metadata block and a JS stack, so prefer lines
+// that name an error and drop `at ...` stack frames; fall back to a tail.
+function extractError(stderr) {
+  const lines = (stderr || "").split(/\r?\n/).map((l) => l.trimEnd());
+  const flagged = lines.filter(
+    (l) => /\berror\b|not found|denied|in use|cannot|failed|no such/i.test(l) && !/^\s*at\s/.test(l)
+  );
+  const picked = flagged.length ? flagged : lines.filter(Boolean).slice(-20);
+  return picked.slice(-12).join("\n").trim();
 }
 
 function killTree(child) {

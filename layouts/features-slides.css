@@ -1,0 +1,182 @@
+/* Causal Map features slideshow — companion to features-slides.qmd */
+
+/* Bigger type sitewide on this deck */
+.reveal {
+  font-size: 56px;
+}
+
+.reveal h1 {
+  font-size: 2em;
+}
+
+.reveal h2 {
+  font-size: 1.45em;
+}
+
+.reveal p,
+.reveal li {
+  font-size: 0.82em;
+  line-height: 1.35;
+}
+
+.reveal .columns {
+  gap: 1.4em;
+  align-items: center;
+}
+
+/* Title slide */
+.title-page .eyebrow {
+  font-size: 0.95em;
+}
+
+.title-page .headline {
+  font-size: 2em;
+}
+
+.title-page .subhead {
+  font-size: 1.05em;
+}
+
+.title-page .byline {
+  font-size: 0.78em;
+}
+
+.title-page .urls {
+  font-size: 0.62em;
+}
+
+/* Section divider slides */
+.section-slide {
+  color: white;
+}
+
+.section-slide h1 {
+  color: white;
+  border-bottom: none;
+  font-size: 2.4em;
+  text-align: center;
+  margin-top: 1.6em;
+}
+
+/* Feature slide layout */
+.feature-slide {
+  position: relative;
+}
+
+.feature-slide .section-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0.32em 0.75em;
+  font-size: 0.38em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--teal-dark);
+  border-radius: 999px;
+  line-height: 1.2;
+}
+
+.feature-slide .section-badge p {
+  margin: 0;
+  font-size: 1em;
+  color: #fff;
+}
+
+.feature-slide h2 {
+  margin-top: 1.55em;
+  margin-bottom: 0.5em;
+  font-size: 1.35em;
+  padding-right: 0.5em;
+}
+
+.feature-slide .column:first-child {
+  padding-top: 0.15em;
+}
+
+.feature-icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.2em;
+  height: 5.2em;
+  margin: 0.2em auto 0;
+  border-radius: 999px;
+  background: var(--bg);
+  color: white;
+  box-shadow: 0 0 0 0.32em #e6f7f6;
+}
+
+.feature-icon-circle p {
+  margin: 0;
+  line-height: 1;
+}
+
+.feature-icon-circle i {
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900 !important;
+  font-style: normal;
+  font-size: 2.55em;
+  line-height: 1;
+}
+
+.feature-body {
+  font-size: 0.88em;
+  line-height: 1.38;
+  margin-top: 0;
+}
+
+.feature-body p {
+  margin: 0.35em 0;
+  font-size: 1em;
+}
+
+.feature-slide h2 a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--teal);
+}
+
+.feature-slide h2 a:hover {
+  color: var(--teal-dark);
+}
+
+/* Callout slide */
+.callout-slide .feature-icon-circle {
+  background: var(--teal-dark);
+  box-shadow: 0 0 0 0.32em #d4f0ef;
+}
+
+.callout-slide h2 {
+  margin-top: 0;
+  font-size: 1.35em;
+}
+
+/* Closing slide */
+.resources-col {
+  font-size: 0.95em;
+}
+
+.thank-you {
+  font-size: 1.35em;
+}
+
+.contact {
+  font-size: 0.95em;
+}
+
+/* Highlights (from features.md) */
+.hl-yellow {
+  box-shadow: inset 0 -0.35em 0 0 rgba(247, 237, 115, 0.85);
+}
+
+.hl-green {
+  box-shadow: inset 0 -0.35em 0 0 rgba(0, 255, 175, 0.45);
+}
+
+.hl-pink {
+  box-shadow: inset 0 -0.35em 0 0 rgba(255, 143, 184, 0.55);
+}

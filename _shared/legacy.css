@@ -1,0 +1,118 @@
+/* Legacy slide styles, quarantined out of the core sheet.
+ * ============================================================================
+ * These classes predate the consolidated core vocabulary in styles.css. They
+ * are kept only so older decks keep rendering. DO NOT use them in new decks,
+ * and do not add to this file. Include it from a deck's `css:` list only if
+ * that deck still uses one of these classes.
+ *
+ * Core replacement for each:
+ *   .note      -> .panel .panel-yellow
+ *   .takeaway  -> .panel .panel-dark
+ *   .tiles     -> .cards
+ *   .stat      -> .bignum (one figure) or an inline highlight
+ *   .metric    -> .bignum (one figure) or .cards (several)
+ * ============================================================================ */
+
+/* Amber note */
+.note {
+  background: #fdf6e3;
+  border-left: 4px solid var(--amber);
+  border-radius: 0 4px 4px 0;
+  padding: 0.5em 0.8em;
+  margin: 0.5em 0;
+  font-size: 0.78em;
+  line-height: 1.35;
+}
+.note p { font-size: 1em; margin: 0.2em 0; }
+
+/* Tile grid */
+.tiles ul,
+.tiles ol {
+  list-style: none;
+  padding: 0;
+  margin: 0.3em 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4em;
+}
+.tiles li {
+  background: var(--grey-bg);
+  border-radius: 4px;
+  padding: 0.5em 0.7em;
+  font-size: 0.72em;
+  line-height: 1.3;
+  margin: 0;
+}
+.tiles li strong { display: block; color: var(--ink); margin-bottom: 0.1em; font-size: 1em; }
+
+/* Takeaway boxes (dark) */
+.takeaway {
+  background: var(--bg);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 1em 0.9em;
+  font-size: 0.78em;
+  line-height: 1.4;
+  height: 100%;
+}
+.takeaway p { color: var(--muted); margin: 0.3em 0; font-size: 1em; }
+.takeaway > p:first-child strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--bg);
+  font-size: 1em;
+  margin-bottom: 0.3em;
+}
+.takeaway > p:nth-child(2) strong { color: white; display: block; font-size: 1.1em; margin: 0.2em 0 0.3em; }
+
+/* Stat pills */
+.stat {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.8em;
+  margin: 0.1em 0.1em;
+}
+.stat-blue  { background: #eaf2fb; color: var(--blue); }
+.stat-green { background: #e8f3ec; color: var(--green); }
+.stat-teal  { background: #e6f7f6; color: var(--teal-dark); }
+.stat strong { font-size: 1.3em; }
+
+/* Metric blocks (AI validation numbers) */
+.metric-row {
+  display: flex;
+  gap: 0.8em;
+  margin: 0.5em 0;
+}
+.metric-row .metric { flex: 1; }
+
+.metric {
+  background: #e6f7f6;
+  border-radius: 6px;
+  padding: 0.8em 0.6em;
+  text-align: center;
+}
+.metric p { margin: 0.1em 0; }
+.metric-num {
+  display: block;
+  font-size: 1.8em;
+  font-weight: 800;
+  color: var(--teal-dark);
+  line-height: 1;
+}
+.metric-label {
+  display: block;
+  font-size: 0.55em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--teal-dark);
+  margin-top: 0.3em;
+  line-height: 1.2;
+}

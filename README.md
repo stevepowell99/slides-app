@@ -178,6 +178,59 @@ The breadcrumb shows the current `#` section's title in a corner. Decks with no 
 - **Highlights** (inline, on a span): `.flare` is an animated highlight (it flares in, then settles to its colour); `.hl` is the same look without the animation. Combine with a colour: `[important]{.flare .yellow}`, `[note]{.hl .blue}`.
 - **Panels** (a tinted box with an accent left border): `.panel` plus a colour, as in `::: {.panel .teal}`. `.panel` alone is a plain padded box.
 - **Cards**: `::: {.cards}` is a responsive grid; fill it with a plain list (one card per `-` item) or with explicit `::: {.card}` blocks you can colour individually (`::: {.card .blue}`). `.panel` blocks work too. Add `.cols-2/3/4` for a fixed column count.
+- **Nesting (nested layouts)**: panels, cards and columns nest freely, and composing them is the main way to turn a flat slide into a structured one. Reach for a nested card or column layout whenever content has structure (groups, steps, side-by-side comparisons) instead of settling for a bullet list; it reads far better on a slide. Keep it to two or three levels so the slide stays legible. You can put subcards inside a card, a `.panel` inside a column, or columns inside a column, and you can tint any container with `.bg` plus a colour to see the structure while you build. The **Layouts** demo deck (`layouts/`) is the worked reference, worth opening before you build anything non-trivial. Two fence rules:
+  - `.columns` take four colons (`::::`) and `.column` take three (`:::`); because the two alternate, nested column layouts pair up correctly. Equal-length fences for nested columns render wrong in Quarto.
+  - Other containers (`.cards`, `.card`, `.panel`, `.bg`) nest with three-colon `:::` fences; each closing `:::` closes the innermost open one.
+
+  ```markdown
+  :::: {.columns}
+  ::: {.column width="50%"}
+  left
+
+  :::: {.columns}
+  ::: {.column width="50%"}
+  inner left
+  :::
+  ::: {.column width="50%"}
+  inner right
+  :::
+  ::::
+  :::
+  ::: {.column width="50%"}
+  right
+  :::
+  ::::
+  ```
+
+  Cards nest with equal `:::` fences, for example a task card holding one numbered step-card each (leave off `.cols-N` on the inner grid so the step cards stack in the narrow column):
+
+  ```markdown
+  ::: {.cards .cols-3}
+  ::: {.card .grey}
+  **Collect**
+
+  ::: {.cards}
+  ::: {.card}
+  [1]{.chip} Start from the question
+  :::
+  ::: {.card}
+  [2]{.chip} Gather the data
+  :::
+  :::
+  :::
+  ::: {.card .teal}
+  **Code**
+
+  ::: {.cards}
+  ::: {.card}
+  [3]{.chip} Manage the codebook
+  :::
+  :::
+  :::
+  :::
+  ```
+
+  To restyle just these chips on one slide (say a white badge), give the slide heading a class such as `## The nine steps {.nine-steps}` and add a scoped raw-HTML `<style>` block setting `.reveal .nine-steps .chip{background:#fff;color:#1F1F36;}`, rather than editing the shared CSS.
 - **Tint**: `.bg` plus a colour is a flat background fill with no border or padding (`::: {.bg .grey}`).
 - **Chips** (inline pill): `.chip` plus a colour, as in `[yes]{.chip .mint}`.
 - **Big number**, a headline figure beside a note:

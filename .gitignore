@@ -11,6 +11,9 @@ app/.vite/
 /.quarto/
 **/*.quarto_ipynb
 
+# Local scratch
+_tmp/
+
 # Quarto rendered decks (regenerated from .qmd; keep _shared/preview-bridge.html)
 **/slides.html
 **/features-slides.html

@@ -1,0 +1,13 @@
+{
+  "name": "19c-slides",
+  "private": true,
+  "description": "Convenience scripts that forward to the app in ./app, so npm start works from the repo root.",
+  "scripts": {
+    "start": "npm --prefix app start",
+    "serve": "npm --prefix app run serve",
+    "build": "npm --prefix app run build",
+    "dev": "npm --prefix app run dev",
+    "test": "npm --prefix app test",
+    "install:app": "npm --prefix app install"
+  }
+}

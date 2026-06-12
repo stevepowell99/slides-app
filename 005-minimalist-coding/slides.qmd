@@ -1,0 +1,406 @@
+---
+public: true
+pagetitle: "Minimalist coding for causal mapping"
+format:
+  revealjs:
+    include-in-header:
+      - ../_shared/preview-bridge.html
+    css:
+      - ../_shared/styles.css
+      - ../_shared/legacy.css
+      - ../fontawesome/css/all.min.css
+      - minimalist.css
+    theme: default
+    slide-number: true
+    progress: true
+---
+
+# {.center .title-page background-color="#1F1F36"}
+
+::: {.section-icon}
+<i class="fa-solid fa-feather-pointed" aria-hidden="true"></i>
+:::
+
+::: {.headline}
+Minimalist coding for [causal mapping]{.teal}
+:::
+
+::: {.subhead}
+Code "X influenced Y", with a quote. Add nothing the speaker did not say.
+:::
+
+# The puzzle {.center background-color="#1F1F36"}
+
+::: {.section-icon}
+<i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+:::
+
+## You have a stack of texts full of causes
+
+::: {.lead}
+Interviews, diaries, reports. People keep telling you what changed and why.
+:::
+
+Every one of those "why" statements is a causal claim. Your job is to record them so you can count them, compare them and trace them later.
+
+::: {.fragment .panel .teal}
+The question is how much structure to impose when you write each claim down.
+:::
+
+## One sentence, two ways to code it
+
+Someone says: *"I was eating less and felt quite lethargic."*
+
+Someone says: *"I ate adequately and felt lively."*
+
+::: {.columns}
+::: {.column width="50%"}
+::: {.stance .light}
+::: {.stance-head}
+<i class="fa-solid fa-sliders" aria-hidden="true"></i> Variable-based
+:::
+Treat both ends as variables on a scale. Code it as
+
+[`amount eaten` &rarr; `energy level`]
+
+... a positive link: more eating, more energy.
+
+But 
+
+`I ate adequately and felt lively`
+
+... would be coded the *same way*. The two stories collapse into one.
+:::
+:::
+::: {.column width="50%"}
+::: {.stance .light}
+::: {.stance-head}
+<i class="fa-solid fa-feather-pointed" aria-hidden="true"></i> Minimalist
+:::
+Keep the speaker's own words as labels: 
+
+`eating less` &rarr; `felt lethargic`.
+
+The second story stays separate: 
+
+`eating adequately` &rarr; `feeling lively`. 
+
+Two claims, kept apart, because that is what was said.
+:::
+:::
+:::
+
+## The variable-based approach over-commits
+
+::: {.lead}
+To code a *scale* you have to invent machinery the speaker never supplied.
+:::
+
+::: {.tiles}
+- **A variable** Is "eating" continuous or yes/no? What is its opposite?
+- **A function** Linear? A threshold? Monotonic at all?
+- **A polarity** Does more of one mean more of the other?
+- **Extra facts** We also have to code that the person *did* eat that much, and *did* feel that way.
+:::
+
+::: {.fragment .note}
+This is ontologically over-determined: more apparatus than the claim needs. It forces the claims into a system, when we only set out to record what a person said.
+:::
+
+# The minimalist stance {.center background-color="#1F1F36"}
+
+::: {.section-icon}
+<i class="fa-solid fa-feather-pointed" aria-hidden="true"></i>
+:::
+
+## A coded link is "X influenced Y", with a quote
+
+Source Steve says:
+
+> I drank a lot and so I got super happy
+
+::: {.fragment .panel .teal}
+becomes `I drank a lot` &rarr; `I got super happy`, carrying the source ID and the verbatim quote. That is the whole act of coding: one cause label, one effect label, the quote, the source.
+:::
+
+## What a coded link actually claims
+
+::: {.panel .teal}
+A link means: *there is evidence that this source claims X influenced Y.*
+:::
+
+::: {.fragment}
+It does not mean X really influenced Y, and twenty people saying so is not proof. We are recording reported causal thinking, the cognitive surface, and we keep the question of what really happened for a later step. Crossing from claims to conclusions is your job.
+:::
+
+::: {.fragment .panel .teal}
+And it is *influence, not determination*: X made a difference to Y. The same effect can carry many such influences without contradiction.
+:::
+
+## What we deliberately do not encode
+
+::: {.no-encode}
+::: {.cell}
+<i class="fa-solid fa-plus-minus" aria-hidden="true"></i>
+[Polarity]{.term}
+[no +/- by default]{.gloss}
+:::
+::: {.cell}
+<i class="fa-solid fa-weight-hanging" aria-hidden="true"></i>
+[Strength]{.term}
+[how hard X pushed Y]{.gloss}
+:::
+::: {.cell}
+<i class="fa-solid fa-wave-square" aria-hidden="true"></i>
+[Functions]{.term}
+[linear, threshold]{.gloss}
+:::
+::: {.cell}
+<i class="fa-solid fa-code-branch" aria-hidden="true"></i>
+[Counterfactuals]{.term}
+[what if not X]{.gloss}
+:::
+::: {.cell}
+<i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i>
+[Causal packages]{.term}
+[X and W together]{.gloss}
+:::
+::: {.cell}
+<i class="fa-solid fa-eye-slash" aria-hidden="true"></i>
+[Hidden meaning]{.term}
+[what they "really" meant]{.gloss}
+:::
+:::
+
+::: {.fragment .accent}
+People rarely even imply any of these. So we do not invent them.
+:::
+
+::: {.fragment }
+If a project really needs them, they are added later, as a separate act of judgement, never baked into the raw coding.
+:::
+
+## The 90% rule
+
+::: {.bignum}
+::: {.fig}
+90%
+:::
+::: {.bn-body}
+of explicit causal claims code cleanly as a single undifferentiated link.
+
+The awkward 10%, such as enablers and packages, is hard to fit any framework. We handle it in only the write-up.
+:::
+:::
+
+::: {.fragment .note}
+The coding scheme should concentrate on coding the 90% well.
+:::
+
+## Stay close to the cognitive surface
+
+::: {.columns}
+::: {.column width="55%"}
+::: {.lead}
+We code what the source says explicitly about causes and effects in single sentences or paragraphs.
+:::
+
+We don't normally worry with theorising about implicit meanings by piecing together different parts of the text.
+
+::: {.fragment}
+Contradictions and nuances may come out when we view the map of all the individual claims.
+:::
+
+
+:::
+::: {.column width="45%" .fragment}
+::: {.panel .teal}
+This also keeps the task feasible at the scale of thousands of pages of text.
+:::
+:::
+:::
+
+# From claims to answers {.center background-color="#1F1F36"}
+
+::: {.section-icon}
+<i class="fa-solid fa-diagram-project" aria-hidden="true"></i>
+:::
+
+## Counts measure evidence, not effect size
+
+::: {.lead}
+The outputs can look like a quantitative model. They are not.
+:::
+
+::: {.metric-row}
+::: {.metric}
+[<i class="fa-solid fa-hashtag" aria-hidden="true"></i>]{.metric-num}
+[Citation count]{.metric-label}
+[how many coded mentions support a link: volume]{.metric-sub}
+:::
+::: {.metric}
+[<i class="fa-solid fa-users" aria-hidden="true"></i>]{.metric-num}
+[Source count]{.metric-label}
+[how many distinct people mention it: breadth]{.metric-sub}
+:::
+:::
+
+::: {.fragment .accent}
+Useful for prioritising and filtering. They do not tell you a cause is "stronger".
+:::
+
+## Defer judgement into bundles
+
+::: {.lead}
+We code every causal claim willy-nilly, even incompatible ones between the same two factors.
+:::
+
+A set of claims with the same X at one end and Y at the other is a **bundle**. The map shows one arrow; the database keeps every parallel claim behind it.
+
+::: {.fragment .panel .teal}
+Quality, relevance and agreement get weighed later, on the whole bundle, once you can see how many sources stand behind it.
+
+
+:::: {.columns}
+::: {.column width="50%"}
+
+![](../Amsterdam-UMC/img/bundle-unassessed.png){width="100%"}
+:::
+::: {.column width="50%"}
+![](../Amsterdam-UMC/img/bundle-assessed.png){width="100%"}
+
+:::
+::::
+
+
+:::
+
+## Let the labels do the work
+
+::: {.lead}
+There is no separate table of factors. A factor exists only by appearing in a claim.
+:::
+
+::: {.tiles}
+- **In vivo** Use the speaker's words, then consolidate the overlaps later.
+- **Tags in the label** `Mortality rate [Health]` groups by theme without adding a causal factor.
+- **Hierarchy with `;`** `Healthy behaviour; hand washing` keeps detail and a roll-up.
+- **Recode** Cluster or soft-match raw labels onto a tidy codebook.
+:::
+
+## Hierarchy gives you zoom for free
+
+A label written `General; specific` carries both levels at once.
+
+::: {.columns}
+::: {.column width="55%"}
+::: {.panel .grey}
+**Detailed**
+
+`New midwife training` &rarr; `Healthy behaviour; hand washing`
+
+**Zoom to level 1**
+
+`New midwife training` &rarr; `Healthy behaviour`
+:::
+:::
+::: {.column width="45%"}
+::: {.panel .teal}
+<i class="fa-solid fa-magnifying-glass-plus" aria-hidden="true"></i> Truncate at the `;` and the map gets readable, with no underlying coding changed.
+:::
+:::
+:::
+
+::: {.fragment .note}
+Only use `;` when the specific factor genuinely rolls up into the general one. For a plain theme, use a tag instead.
+:::
+
+## Analysis is a filter pipeline
+
+::: {.lead}
+An analysis is one links table passed through a sequence of simple transforms like these.
+:::
+
+::: {.pipe}
+[<i class="fa-solid fa-table" aria-hidden="true"></i> Links]{.chip .start}
+[›]{.sep}
+[<i class="fa-solid fa-filter" aria-hidden="true"></i> select sources]{.chip}
+[›]{.sep}
+[<i class="fa-solid fa-route" aria-hidden="true"></i> trace paths]{.chip}
+[›]{.sep}
+[<i class="fa-solid fa-magnifying-glass-plus" aria-hidden="true"></i> zoom labels]{.chip}
+[›]{.sep}
+[<i class="fa-solid fa-layer-group" aria-hidden="true"></i> bundle]{.chip}
+[›]{.sep}
+[<i class="fa-solid fa-diagram-project" aria-hidden="true"></i> map]{.chip .end}
+:::
+
+::: {.fragment .panel .teal}
+Filter the same dataset with different filters to get different maps. Each map is the result of one such chain of filters. Order usually matters.
+:::
+
+## The transitivity trap
+
+::: {.trap}
+::: {.who}
+::: {.role}
+<i class="fa-solid fa-person" aria-hidden="true"></i> A pig farmer
+:::
+the cash grant gave me *more cash*
+:::
+::: {.who}
+::: {.role}
+<i class="fa-solid fa-person-dress" aria-hidden="true"></i> A wheat farmer
+:::
+*more cash* let me buy *more seed*
+:::
+:::
+
+::: {.fragment .panel .teal}
+<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> So cash grants lead to more seed? No. Each step is true for one person only. Two stories stitched into one that nobody told.
+:::
+
+::: {.fragment .note}
+<i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Source tracing keeps only routes that run all the way through within a single source. Every surviving path is one complete story told by one person.
+:::
+
+# Where it runs out {.center background-color="#1F1F36"}
+
+::: {.section-icon}
+<i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>
+:::
+
+## The hard 10%
+
+::: {.tiles}
+- **<i class="fa-solid fa-toggle-on" aria-hidden="true"></i> Enablers** The phrase book let the holiday produce enjoyment. A claim about a claim.
+- **<i class="fa-solid fa-ban" aria-hidden="true"></i> Blockers** Forgetting it disabled the holiday's power to please.
+- **<i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i> Packages** You need an accelerant and a spark. Two links miss the conjunction.
+- **<i class="fa-solid fa-comment-dots" aria-hidden="true"></i> Idioms** "It went viral" packs a whole story into one factor. Code it as one.
+:::
+
+::: {.fragment .accent}
+We could add structure for these. We have not. The cost rarely repays.
+:::
+
+# So what {.center background-color="#1F1F36"}
+
+::: {.section-icon}
+<i class="fa-solid fa-feather-pointed" aria-hidden="true"></i>
+:::
+
+## Minimalist, or barefoot, coding is a stance
+
+::: {.lead}
+Code "X influenced Y, with provenance", and let the labels do most of the work.
+:::
+
+We give up the simulation-style affordances of richer traditions. In exchange we get an auditable evidence base that scales to thousands of sources, works with AI assistance and stays close to what people actually said.
+
+::: {.fragment .panel .teal}
+The hard cases still come up. We handle them in the prose rather than build them into the data structure.
+:::
+
+::: {.caption}
+Working paper: "Minimalist coding for causal mapping". App: app.causalmap.app
+:::
